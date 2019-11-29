@@ -1,8 +1,524 @@
 ---
+- id: snykio:nuget:microsoft.netcore.app:173690
+  title: Domain-Spoofing
+  description: |
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Domain-Spoofing. It
+    causes the meaning of a URI to change when International Domain Name
+    encoding is applied. An attacker who successfully exploited the
+    vulnerability could redirect a URI.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 2.1.0 < 2.1.8"
+  - ">= 2.2.0 < 2.2.2"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2019-0657
+  cwe:
+  - CWE-20
+  disclosed_date: 2019-02-12
+  created_date: 2019-02-14
+  last_modified_date: 2019-02-14
+  credit:
+  - Unknown
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1673891
+  - https://github.com/dotnet/announcements/issues/97
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-173690
+- id: snykio:nuget:microsoft.netcore.app:173754
+  title: Authentication Bypass by Spoofing
+  description: |
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Authentication
+    Bypass by Spoofing due to the way they parse URL\'s. An attacker could
+    use it to bypass security logic intended to ensure that a user-provided
+    URL belonged to a specific hostname or a subdomain of that hostname. To
+    exploit the vulnerability, an attacker must provide a URL string to an
+    application that attempts to verify that the URL belongs to a specific
+    hostname or to a subdomain of that hostname. The application must then
+    make an HTTP request to the attacker-provided URL either directly or by
+    sending a processed version of the attacker-provided URL to a web
+    browser.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 2.1.0 < 2.1.8"
+  - ">= 2.2.0 < 2.2.2"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2019-0657
+  cwe:
+  - CWE-290
+  disclosed_date: 2019-02-12
+  created_date: 2019-03-06
+  last_modified_date: 2019-03-06
+  credit:
+  - Jonathan Birch of Microsoft Corporation
+  references:
+  - https://github.com/dotnet/announcements/issues/97
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-0657
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-173754
+- id: snykio:nuget:microsoft.netcore.app:173778
+  title: Denial Of Service (DoS)
+  description: |+
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Denial Of Service
+    (DoS) due to improperly handling parsing certificate data. An attacker
+    who successfully exploited this vulnerability could cause a denial of
+    service against a .NET Core web application.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - "< 1.0.8"
+  - ">= 1.1.0 < 1.1.5"
+  - ">= 2.0.0 < 2.0.3"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2017-11770
+  cwe:
+  - CWE-400
+  disclosed_date: 2017-11-14
+  created_date: 2019-03-13
+  last_modified_date: 2019-03-13
+  credit:
+  - Bachraty Gergely
+  references:
+  - https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0.3.md
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-11770
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-173778
+- id: snykio:nuget:microsoft.netcore.app:173977
+  title: Denial of Service (DoS)
+  description: |+
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) due to improperly handling web requests in Microsoft Common Object
+    Runtime Library.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 1.0.0 < 2.0.0"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2017-8585
+  cwe:
+  - CWE-400
+  disclosed_date: 2017-07-11
+  created_date: 2017-07-11
+  last_modified_date: 2017-07-11
+  credit:
+  - David Fernandez of Sidertia Solutions
+  references:
+  - https://github.com/dotnet/announcements/issues/34
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2017-8585
+  - https://www.sidertia.com/Home/Community/Blog/2017/07/14/Microsoft-fixes-the-CVE-2017-8585-security-vulnerability-discovered-by-Sidertia-Team
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-173977
+- id: snykio:nuget:microsoft.netcore.app:173978
+  title: Denial of Service (DoS)
+  description: |+
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). A hash collision may occur due to improperly handle of specially
+    crafted requests.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 1.0.0 < 2.0.6"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2018-0875
+  cwe:
+  - CWE-400
+  disclosed_date: 2018-03-13
+  created_date: 2018-03-13
+  last_modified_date: 2018-03-13
+  credit:
+  - Ben Adams of Illyriad Games
+  references:
+  - https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0.6.md
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-0875
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-173978
+- id: snykio:nuget:microsoft.netcore.app:174376
+  title: Denial of Service (DoS)
+  description: |+
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model..
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) when specially crafted requests are submitted. This is because of
+    the way .NET applications process XML documents. This CVE is different
+    from `CVE-2018-0765`.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 1.0.0 < 1.0.9"
+  - ">= 1.1.0 < 1.1.6"
+  - ">= 2.0.0 < 2.0.5"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2018-0764
+  cwe:
+  - CWE-400
+  disclosed_date: 2018-01-09
+  created_date: 2019-04-18
+  last_modified_date: 2019-04-18
+  credit:
+  - Unknown
+  references:
+  - https://github.com/dotnet/core/blob/master/release-notes/2.0/2.0.5.md
+  - https://github.com/dotnet/corefx/issues/26237
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-0764
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-174376
+- id: snykio:nuget:microsoft.netcore.app:174569
+  title: Denial of Service (DoS)
+  description: |+
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) due to improperly handling of web requests. An attacker who
+    successfully exploited this vulnerability could cause a denial of
+    service against an ASP.NET Core web application.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - "< 2.0.0"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2018-0808
+  cwe:
+  - CWE-400
+  disclosed_date: 2018-03-13
+  created_date: 2019-05-02
+  last_modified_date: 2019-05-02
+  credit:
+  - Andrei Gorlov
+  references:
+  - https://github.com/aspnet/Announcements/issues/294
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-0808
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-174569
+- id: snykio:nuget:microsoft.netcore.app:174571
+  title: Cross-site Request Forgery (CSRF)
+  description: |
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Cross-site Request
+    Forgery (CSRF) when the web application is created using vulnerable
+    project templates.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 2.0.0 < 2.1.4"
+  severity: medium
+  package_manager: nuget
+  cve:
+  - CVE-2018-0785
+  cwe:
+  - CWE-352
+  disclosed_date: 2018-01-09
+  created_date: 2019-05-02
+  last_modified_date: 2019-05-02
+  credit:
+  - Kevin Chalet
+  references:
+  - https://github.com/aspnet/Announcements/issues/284
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-0785
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-174571
+- id: snykio:nuget:microsoft.netcore.app:174572
+  title: Privilege Escalation
+  description: |
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Privilege
+    Escalation. When using vulnerable project templates, it fails to
+    properly sanitize web requests. An attacker who successfully exploited
+    this vulnerability could perform content injection attacks and run
+    script in the security context of the logged-on user.
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 2.0.0 < 2.1.4"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2018-0784
+  cwe:
+  - CWE-269
+  disclosed_date: 2018-01-09
+  created_date: 2019-05-02
+  last_modified_date: 2019-05-02
+  credit:
+  - Kevin Chalet
+  references:
+  - https://github.com/aspnet/Announcements/issues/285
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2018-0784
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-174572
+- id: snykio:nuget:microsoft.netcore.app:174710
+  title: Denial of Service (DoS)
+  description: |+
+    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    the default .NET Core application model.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS).
+
+
+
+    [1]: https://www.nuget.org/packages/Microsoft.NETCore.App
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 2.1.0 < 2.2.5"
+  severity: high
+  package_manager: nuget
+  cve:
+  - CVE-2019-0982
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-05-14
+  created_date: 2019-05-15
+  last_modified_date: 2019-05-15
+  credit:
+  - Unknown
+  references:
+  - https://github.com/dotnet/core/blob/master/release-notes/2.2/2.2.5/2.2.5.md
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-0982
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-174710
+- id: snykio:nuget:microsoft.netcore.app:451559
+  title: Open Redirect
+  description: |+
+    `microsoft.netcore.app` is a None
+
+    Affected versions of this package are vulnerable to Open Redirect. A
+    spoofing vulnerability exists that could lead to an redirection. An
+    attacker who successfully exploits this vulnerability could redirect a
+    targeted user to a malicious website.
+
+  affected_package: microsoft.netcore.app
+  vulnerable_versions:
+  - ">= 2.1.0 < 2.1.12"
+  - ">= 2.2.0 < 2.2.6"
+  severity: medium
+  package_manager: nuget
+  cve:
+  - CVE-2019-1075
+  cwe:
+  - CWE-601
+  disclosed_date: 2019-07-09
+  created_date: 2019-07-10
+  last_modified_date: 2019-07-10
+  credit:
+  - Datalust
+  references:
+  - https://github.com/aspnet/Announcements/issues/373
+  - https://github.com/aspnet/AspNetCore/commit/b9c8f3491937c5c756cfc244d1da5a956faca19e
+  - https://portal.msrc.microsoft.com/en-US/security-guidance/advisory/CVE-2019-1075
+  source_url: https://snyk.io/vuln/SNYK-DOTNET-MICROSOFTNETCOREAPP-451559
 - id: snykio:nuget:microsoft.netcore.app:72895
   title: Denial of Service (DoS)
   description: |
-    [Microsoft.NETCore.App][1] is a set of .NET API\'s that are included in
+    [Microsoft.NETCore.App][1] is set of .NET API\'s that are included in
     the default .NET Core application model.
 
     Affected versions of this package are vulnerable to Denial of Service

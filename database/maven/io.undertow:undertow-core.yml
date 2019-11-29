@@ -26,6 +26,41 @@
   - https://issues.jboss.org/browse/UNDERTOW-338
   - https://issues.jboss.org/browse/WFLY-4020
   source_url: https://ossindex.net/resource/package/7085151455/vulnerabilities
+- id: snykio:maven:io.undertow:undertow-core:174583
+  title: Information Exposure
+  description: |
+    [io.undertow:undertow-core][1] is a Java web server based on
+    non-blocking IO.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. If all headers were not written out in the first `write()`
+    call then the code that handles flushing the buffer would always write
+    out the full contents of the `writevBuffer` buffer, which might contain
+    data from previous requests.
+
+
+
+    [1]: https://mvnrepository.com/artifact/io.undertow/undertow-core
+  affected_package: io.undertow:undertow-core
+  vulnerable_versions:
+  - "< 1.4.27.Final"
+  - ">= 2.0.0.Final < 2.0.15.Final"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2018-14642
+  cwe:
+  - CWE-200
+  disclosed_date: 2018-09-18
+  created_date: 2019-05-06
+  last_modified_date: 2019-05-06
+  credit:
+  - Pedro Sampaio
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2018-14642
+  - https://github.com/undertow-io/undertow/commit/c46b7b49c5a561731c84a76ee52244369af1af8a
+  - https://issues.jboss.org/browse/UNDERTOW-1430
+  source_url: https://snyk.io/vuln/SNYK-JAVA-IOUNDERTOW-174583
 - id: snykio:maven:io.undertow:undertow-core:30101
   title: Directory Traversal
   description: |
@@ -87,9 +122,9 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
-  - ">= 1.0 < 1.0.17.Final"
-  - ">= 1.1 < 1.1.0.CR5"
-  - ">= 1.2-alpha < 1.2.0.Beta3"
+  - ">= 1.0.0.Final < 1.0.17.Final"
+  - ">= 1.1.0.Beta1 < 1.1.0.CR5"
+  - ">= 1.2.0.Beta1 < 1.2.0.Beta3"
   severity: medium
   package_manager: maven
   cve:
@@ -120,8 +155,8 @@
     [1]: https://github.com/undertow-io/undertow
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
-  - ">= 1 < 1.3.5"
-  - ">= 2 < 2.0.1"
+  - ">= 1.0.0.Final < 1.3.5.Final"
+  - ">= 2.0.0.Final < 2.0.1.Final"
   severity: medium
   package_manager: maven
   cve:
@@ -175,8 +210,8 @@
 
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
-  - ">= 1.3 <= 1.3.25.Final"
-  - ">= 1.4 <= 1.4.3.Final"
+  - ">= 1.3.0.Final <= 1.3.25.Final"
+  - ">= 1.4.0.Final <= 1.4.3.Final"
   - ">= 2-alpha <= 2.0.0.Alpha1"
   severity: medium
   package_manager: maven
@@ -211,9 +246,9 @@
     [1]: https://github.com/undertow-io/undertow
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
-  - ">= 1.3.0 < 1.3.31.Final"
-  - ">= 1.4.0 < 1.4.17.Final"
-  - ">= 2.0.0-a < 2.0.0.Alpha2"
+  - ">= 1.3.0.Final < 1.3.31.Final"
+  - ">= 1.4.0.Final < 1.4.17.Final"
+  - ">= 2.0.0.Alpha1 < 2.0.0.Beta1"
   severity: medium
   package_manager: maven
   cve:
@@ -250,9 +285,9 @@
     [2]: https://snyk.io/vuln/SNYK-JAVA-IOUNDERTOW-31632
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
-  - ">= 1.3.0 < 1.3.31.Final"
-  - ">= 1.4.0 < 1.4.17.Final"
-  - ">= 2.0.0-a < 2.0.0.Alpha2"
+  - ">= 1.3.0.Final < 1.3.31.Final"
+  - ">= 1.4.0.Final < 1.4.17.Final"
+  - ">= 2.0.0.Alpha1 < 2.0.0.Beta1"
   severity: medium
   package_manager: maven
   cve:
@@ -277,64 +312,16 @@
     non-blocking IO.
 
     Affected versions of this package are vulnerable to Directory Traversal.
-    It does not use the ALLOW\_ENCODED\_SLASH option, allowing the slash
+    It does not use the `ALLOW_ENCODED_SLASH` option, allowing the slash
     characters encoded in the url. This may lead to path traversal and
     information disclosure of arbitrary local files.
 
 
 
-    [1]: http://undertow.io/
-    \nA Directory Traversal attack (also known as path traversal) aims to
-    access files and directories that are stored outside the intended
-    folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
-    its variations, or by using absolute file paths, it may be possible to
-    access arbitrary files and directories stored on file system, including
-    application source code, configuration, and other critical system files.
-
-    Directory Traversal vulnerabilities can be generally divided into two
-    types:
-
-    * **Information Disclosure**\: Allows the attacker to gain information
-      about the folder structure or read the contents of sensitive files on
-      the system.
-
-    `st` is a module for serving static files on web pages, and contains a
-    [vulnerability of this type][1]. In our example, we will serve files
-    from the `public` route.
-
-    If an attacker requests the following URL from our server, it will in
-    turn leak the sensitive private key of the root user.
-
-        curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa
-
-    **Note** `%2e` is the URL encoded version of `.` (dot).
-
-    * **Writing arbitrary files**\: Allows the attacker to create or replace
-      existing files. This type of vulnerability is also known as
-      `Zip-Slip`.
-
-    One way to achieve this is by using a malicious `zip` archive that holds
-    path traversal filenames. When each filename in the zip archive gets
-    concatenated to the target extraction folder, without validation, the
-    final path ends up outside of the target folder. If an executable or a
-    configuration file is overwritten with a file containing malicious code,
-    the problem can turn into an arbitrary code execution issue quite
-    easily.
-
-    The following is an example of a `zip` archive with one benign file and
-    one malicious file. Extracting the malicious file will result in
-    traversing out of the target folder, ending up in `/root/.ssh/`
-    overwriting the `authorized_keys` file:
-
-        2018-04-15 22:04:29 .....           19           19  good.txt
-        2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys
-
-
-
-    [1]: https://snyk.io/vuln/npm:st:20140206
+    [1]: https://mvnrepository.com/artifact/io.undertow/undertow-core
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
-  - ">= 0"
+  - ">= 0 < 2.0.0.Beta1"
   severity: high
   package_manager: maven
   cve:
@@ -348,6 +335,7 @@
   - Unknown
   references:
   - https://bugzilla.redhat.com/show_bug.cgi?id=1534343
+  - https://github.com/undertow-io/undertow/commit/1bc0c275aadf5835abfbd3835d5d78095c2f1cf5#diff-c920dff866caa79031d4ee50dd76f173L458
   - https://nvd.nist.gov/vuln/detail/CVE-2018-1048
   source_url: https://snyk.io/vuln/SNYK-JAVA-IOUNDERTOW-32074
 - id: snykio:maven:io.undertow:undertow-core:32142
@@ -368,8 +356,8 @@
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
   - "< 1.4.18.SP1"
-  - ">= 1.4.20 < 1.4.24.Final"
-  - ">= 2 < 2.0.2.Final"
+  - ">= 1.4.20.Final < 1.4.24.Final"
+  - ">= 2.0.0.Final < 2.0.2.Final"
   severity: medium
   package_manager: maven
   cve:
@@ -404,8 +392,8 @@
     [2]: https://snyk.io/vuln/SNYK-JAVA-IOUNDERTOW-30102
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
-  - "< 1.4.25"
-  - ">= 2.0.0 < 2.0.5"
+  - "< 1.4.25.Final"
+  - ">= 2.0.0.Final < 2.0.5.Final"
   severity: medium
   package_manager: maven
   cve:
@@ -479,6 +467,70 @@
   - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2017-2670
   - https://github.com/undertow-io/undertow/commit/9bfe9fbbb595d51157b61693f072895f7dbadd1d
   source_url: https://snyk.io/vuln/SNYK-JAVA-IOUNDERTOW-32442
+- id: snykio:maven:io.undertow:undertow-core:451626
+  title: Information Exposure
+  description: |
+    [io.undertow:undertow-core][1] is a Java web server based on
+    non-blocking IO.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. Confidential information such as HTTP Authentication for
+    `HttpServerExchange` object at ERROR level are logged in plain text
+    using `UndertowLogger.REQUEST_LOGGER.undertowRequestFailed(t, exchange)`
+    by `Connectors.executeRootHandler:402`.
+
+
+
+    [1]: https://mvnrepository.com/artifact/io.undertow/undertow-core
+  affected_package: io.undertow:undertow-core
+  vulnerable_versions:
+  - "< 2.0.20.Final"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2019-3888
+  cwe:
+  - CWE-200
+  disclosed_date: 2019-06-12
+  created_date: 2019-07-17
+  last_modified_date: 2019-07-17
+  credit:
+  - Unknown
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-3888
+  - https://github.com/undertow-io/undertow/commit/9bf05b765e222dd106fee9b46314061b18b7275e
+  source_url: https://snyk.io/vuln/SNYK-JAVA-IOUNDERTOW-451626
+- id: snykio:maven:io.undertow:undertow-core:471684
+  title: Information Exposure
+  description: |
+    [io.undertow:undertow-core][1] is a Java web server based on
+    non-blocking IO.
+
+    Affected versions of this package are vulnerable to Information Exposure
+    via the DEBUG log for `io.undertow.request.security`. If enabled, an
+    attacker could abuse this flaw to obtain the user’s credentials from the
+    log files.
+
+
+
+    [1]: https://mvnrepository.com/artifact/io.undertow/undertow-core
+  affected_package: io.undertow:undertow-core
+  vulnerable_versions:
+  - "< 2.0.21.Final"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2019-10212
+  cwe:
+  - CWE-200
+  disclosed_date: 2019-10-02
+  created_date: 2019-10-03
+  last_modified_date: 2019-10-03
+  credit:
+  - Unknown
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-10212
+  source_url: https://snyk.io/vuln/SNYK-JAVA-IOUNDERTOW-471684
 - id: snykio:maven:io.undertow:undertow-core:72304
   title: File Handler Leak
   description: |
@@ -495,7 +547,7 @@
     [1]: https://github.com/undertow-io/undertow
   affected_package: io.undertow:undertow-core
   vulnerable_versions:
-  - "< 2.0.5"
+  - "< 2.0.5.Final"
   severity: medium
   package_manager: maven
   cve:

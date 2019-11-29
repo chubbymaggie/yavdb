@@ -2,13 +2,13 @@
 - id: snykio:maven:com.itextpdf:itextpdf:32005
   title: XML External Entity (XXE) Injection
   description: |+
-    [`com.itextpdf:itextpdf`][1] is a software developer toolkit that allows
+    [com.itextpdf:itextpdf][1] is a software developer toolkit that allows
     users to integrate PDF functionalities within their applications,
     processes or products.
 
     Affected versions of this package are vulnerable to XML External Entity
-    (XXE) Injection attacks. The XML parsers in iText before 5.5.12 and 7.x
-    before 7.0.3 do not disable external entities, which might allow remote
+    (XXE) Injection. The XML parsers in iText before 5.5.12 and 7.x before
+    7.0.3 do not disable external entities, which might allow remote
     attackers to conduct XML external entity (XXE) attacks via a crafted
     PDF.
 
@@ -33,6 +33,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -45,6 +46,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -53,7 +55,6 @@
   affected_package: com.itextpdf:itextpdf
   vulnerable_versions:
   - "< 5.5.12"
-  - ">= 7 < 7.0.3"
   severity: high
   package_manager: maven
   cve:
@@ -66,7 +67,7 @@
   credit:
   - Unknown
   references:
-  - http://www.securityfocus.com/archive/1/archive/1/541483/100/0/threaded
+  - https://github.com/itext/itext7/commit/930a1c81f8ea4952df540f041befbfa2d6757838
   - https://github.com/itext/itextpdf/commit/ad38371c396ac5ffbfb28056809e8ffaa5a18ccd
   - https://nvd.nist.gov/vuln/detail/CVE-2017-9096
   source_url: https://snyk.io/vuln/SNYK-JAVA-COMITEXTPDF-32005

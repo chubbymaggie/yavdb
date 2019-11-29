@@ -1,4 +1,209 @@
 ---
+- id: snykio:pypi:notebook:173774
+  title: Cross-site Inclusion
+  description: |
+    [notebook][1] is a web application that allows you to create and share
+    documents that contain live code, equations, visualizations, and
+    explanatory text.
+
+    Affected versions of this package are vulnerable to Cross-site
+    Inclusion. This is due to the package allowing inclusion of resources on
+    malicious pages when visited by users who are authenticated via a
+    Jupyter server.
+
+
+
+    [1]: https://pypi.org/project/notebook/
+  affected_package: notebook
+  vulnerable_versions:
+  - "< 5.7.6"
+  severity: medium
+  package_manager: pypi
+  cve:
+  - CVE-2019-9644
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-03-12
+  created_date: 2019-03-12
+  last_modified_date: 2019-03-12
+  credit:
+  - Unknown
+  references:
+  - https://github.com/jupyter/notebook/commit/bfaa61385729ed4fb453863053f9a79141f01119
+  - https://github.com/jupyter/notebook/compare/f3f00df...05aa4b2
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-NOTEBOOK-173774
+- id: snykio:pypi:notebook:174029
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [notebook][1] is a web application that allows you to create and share
+    documents that contain live code, equations, visualizations, and
+    explanatory text.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). It allows crafted links to the login page, which will redirect to
+    a malicious site after successful login. Servers running on a `base_url`
+    prefix are not affected.
+
+
+
+    [1]: https://pypi.org/project/notebook/
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: notebook
+  vulnerable_versions:
+  - "< 5.7.7"
+  severity: medium
+  package_manager: pypi
+  cve:
+  - CVE-2019-10255
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-03-28
+  created_date: 2019-03-28
+  last_modified_date: 2019-03-28
+  credit:
+  - Min RK
+  references:
+  - https://blog.jupyter.org/open-redirect-vulnerability-in-jupyter-jupyterhub-adf43583f1e4
+  - https://github.com/jupyter/notebook/commit/08c4c898182edbe97aadef1815cce50448f975cb
+  - https://github.com/jupyter/notebook/commit/70fe9f0ddb3023162ece21fbb77d5564306b913b
+  - https://github.com/jupyter/notebook/commit/d65328d4841892b412aef9015165db1eb029a8ed
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-NOTEBOOK-174029
+- id: snykio:pypi:notebook:174114
+  title: Open Redirect
+  description: |
+    [notebook][1] is a web application that allows you to create and share
+    documents that contain live code, equations, visualizations, and
+    explanatory text.
+
+    Affected versions of this package are vulnerable to Open Redirect via an
+    empty `netloc` path. This issue exists because of an incomplete fix for
+    [CVE-2019-10255][2].
+
+
+
+    [1]: https://pypi.org/project/notebook/
+    [2]: https://snyk.io/vuln/SNYK-PYTHON-NOTEBOOK-174029
+  affected_package: notebook
+  vulnerable_versions:
+  - "< 5.7.8"
+  severity: medium
+  package_manager: pypi
+  cve:
+  - CVE-2019-10856
+  cwe:
+  - CWE-601
+  disclosed_date: 2019-04-04
+  created_date: 2019-04-05
+  last_modified_date: 2019-04-05
+  credit:
+  - Ronak Odhaviya
+  references:
+  - https://blog.jupyter.org/open-redirect-vulnerability-in-jupyter-jupyterhub-adf43583f1e4
+  - https://github.com/jupyter/notebook/compare/16cf97c...b8e30ea
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-NOTEBOOK-174114
+- id: snykio:pypi:notebook:174526
+  title: Remote Code Execution
+  description: |
+    [notebook][1] is a web application that allows you to create and share
+    documents that contain live code, equations, visualizations, and
+    explanatory text.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution. A maliciously forged notebook file can bypass sanitization to
+    execute JavaScript in the notebook context. Specifically, invalid HTML
+    is \'fixed\' by jQuery after sanitization, making it dangerous.
+
+
+
+    [1]: https://pypi.org/project/notebook/
+  affected_package: notebook
+  vulnerable_versions:
+  - "< 5.4.1"
+  severity: high
+  package_manager: pypi
+  cve:
+  - CVE-2018-8768
+  cwe:
+  - CWE-94
+  disclosed_date: 2018-03-19
+  created_date: 2019-04-25
+  last_modified_date: 2019-04-25
+  credit:
+  - Jonathan Kamens
+  references:
+  - http://openwall.com/lists/oss-security/2018/03/15/2
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-NOTEBOOK-174526
 - id: snykio:pypi:notebook:40406
   title: Arbitrary Code Execution
   description: |
@@ -79,33 +284,77 @@
 
 
     [1]: https://pypi.org/project/notebook/
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: notebook
   vulnerable_versions:
@@ -139,33 +388,77 @@
 
 
     [1]: https://pypi.org/project/notebook/
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: notebook
   vulnerable_versions:

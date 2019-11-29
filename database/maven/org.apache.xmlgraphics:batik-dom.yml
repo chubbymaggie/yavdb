@@ -61,14 +61,19 @@
 - id: snykio:maven:org.apache.xmlgraphics:batik-dom:31031
   title: XML External Entity (XXE) Injection
   description: |+
-    [`org.apache.xmlgraphics:batik-dom`][1] XML external entity (XXE)
-    vulnerability in the SVG to (1) PNG and (2) JPG conversion classes in
-    Apache Batik 1.x before 1.8 allows remote attackers to read arbitrary
-    files or cause a denial of service via a crafted SVG file.
+    [org.apache.xmlgraphics:batik-dom][1] is a Java-based toolkit for
+    applications or applets that want to use images in the Scalable Vector
+    Graphics (SVG) format for various purposes, such as display, generation
+    or manipulation.
+
+    Affected versions of this package are vulnerable to XML External Entity
+    (XXE) Injection in the SVG to (1) PNG and (2) JPG conversion classes in
+    Apache Batik allowing remote attackers to read arbitrary files or cause
+    a denial of service via a crafted SVG file.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22batik-dom%22
+    [1]: https://xmlgraphics.apache.org/batik/
     \nXXE Injection is a type of attack against an application that parses XML
     input. XML is a markup language that defines a set of rules for encoding
     documents in a format that is both human-readable and machine-readable.
@@ -87,6 +92,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -99,6 +105,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -119,16 +126,22 @@
   credit:
   - Unknown
   references:
+  - https://github.com/apache/batik/commit/1e12686194370b22420da705d71af66161affa33
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-0250
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHEXMLGRAPHICS-31031
 - id: snykio:maven:org.apache.xmlgraphics:batik-dom:31392
   title: XML External Entity (XXE) Injection
   description: |+
-    [`org.apache.xmlgraphics:batik-dom`][1] In Apache Batik before 1.9,
-    files lying on the filesystem of the server which uses batik can be
-    revealed to arbitrary users who send maliciously formed SVG files. The
-    file types that can be shown depend on the user context in which the
-    exploitable application is running. If the user is root a full
+    [org.apache.xmlgraphics:batik-dom][1] is a Java-based toolkit for
+    applications or applets that want to use images in the Scalable Vector
+    Graphics (SVG) format for various purposes, such as display, generation
+    or manipulation.
+
+    Affected versions of this package are vulnerable to XML External Entity
+    (XXE) Injection. Files lying on the filesystem of the server which uses
+    batik can be revealed to arbitrary users who send maliciously formed SVG
+    files. The file types that can be shown depend on the user context in
+    which the exploitable application is running. If the user is root a full
     compromise of the server - including confidential or sensitive files -
     would be possible. XXE can also be used to attack the availability of
     the server via denial of service as the references within a xml document
@@ -136,7 +149,7 @@
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22batik-dom%22
+    [1]: https://xmlgraphics.apache.org/batik/
     \nXXE Injection is a type of attack against an application that parses XML
     input. XML is a markup language that defines a set of rules for encoding
     documents in a format that is both human-readable and machine-readable.
@@ -155,6 +168,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -167,6 +181,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -187,17 +202,20 @@
   credit:
   - Unknown
   references:
+  - https://github.com/apache/batik/commit/6ab669f073c23a443d78a7a08aea2fd4de10da8c
+  - https://github.com/apache/batik/commit/998cabf7af08852e8305f60b5e4c0b6721c47667
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-5662
   - https://xmlgraphics.apache.org/security.html
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHEXMLGRAPHICS-31392
 - id: snykio:maven:org.apache.xmlgraphics:batik-dom:32304
   title: Information Exposure
   description: |
-    [batik][1] is a Java-based toolkit for applications or applets that want
-    to use images in the Scalable Vector Graphics (SVG) format for various
-    purposes, such as display, generation or manipulation.
+    [org.apache.xmlgraphics:batik-dom][1] is a Java-based toolkit for
+    applications or applets that want to use images in the Scalable Vector
+    Graphics (SVG) format for various purposes, such as display, generation
+    or manipulation.
 
-    Affected versions of this project are vulnerable to Information Exposure
+    Affected versions of this package are vulnerable to Information Exposure
     during deserialization. When deserializing a subclass of
     `AbstractDocument`, the class takes a string from the inputStream as the
     class name which then use it to call the `no-arg` constructor of the
@@ -223,5 +241,6 @@
   references:
   - http://seclists.org/oss-sec/2018/q2/135
   - https://access.redhat.com/security/cve/cve-2018-8013
+  - https://github.com/apache/batik/commit/f91125b26a6ca2b7a1195f1842360bed03629839
   - https://xmlgraphics.apache.org/security.html
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHEXMLGRAPHICS-32304

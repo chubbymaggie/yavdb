@@ -152,7 +152,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22jruby%22
   affected_package: org.jruby:jruby
   vulnerable_versions:
-  - ">= 1.7.2"
+  - ">= 1.7.1 < 1.7.3"
   severity: high
   package_manager: maven
   cve:
@@ -197,6 +197,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -209,6 +210,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -216,7 +218,7 @@
 
   affected_package: org.jruby:jruby
   vulnerable_versions:
-  - ">= 1.7.2"
+  - ">= 1.7.1 < 1.7.3"
   severity: medium
   package_manager: maven
   cve:
@@ -234,10 +236,13 @@
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGJRUBY-30133
 - id: snykio:maven:org.jruby:jruby:30134
   title: XML External Entities (XXE)
-  description: |
-    [`org.jruby:jruby`][1] The ActiveSupport::XmlMini\_JDOM backend in
-    lib/active\_support/xml\_mini/jdom.rb in the Active Support component in
-    Ruby on Rails 3.0.x and 3.1.x before 3.1.12 and 3.2.x before 3.2.13,
+  description: |+
+    [org.jruby:jruby][1] is a high performance, stable, fully threaded Java
+    implementation of the Ruby programming language.
+
+    Affected versions of this package are vulnerable to XML External
+    Entities (XXE) The `ActiveSupport::XmlMini_JDOM` backend in
+    `lib/active_support/xml_mini/jdom.rb` in the Active Support component;
     when JRuby is used, does not properly restrict the capabilities of the
     XML parser, which allows remote attackers to read arbitrary files or
     cause a denial of service (resource consumption) via vectors involving
@@ -246,11 +251,48 @@
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22jruby%22
+    [1]: https://www.jruby.org
+    \nXXE Injection is a type of attack against an application that parses XML
+    input. XML is a markup language that defines a set of rules for encoding
+    documents in a format that is both human-readable and machine-readable.
+    By default, many XML processors allow specification of an external
+    entity, a URI that is dereferenced and evaluated during XML processing.
+    When an XML document is being parsed, the parser can make a request and
+    include the content at the specified URI inside of the XML document.
+
+    Attacks can include disclosing local files, which may contain sensitive
+    data such as passwords or private user data, using file: schemes or
+    relative paths in the system identifier.
+
+    For example, below is a sample XML document, containing an XML element-
+    username.
+
+        <?xml version="1.0" encoding="ISO-8859-1"?>
+           <username>John</username>
+        </xml>
+    {: .language-xml}
+
+    An external XML entity - `xxe`, is defined using a system identifier and
+    present within a DOCTYPE header. These entities can access local or
+    remote content. For example the below code contains an external XML
+    entity that would fetch the content of `/etc/passwd` and display it to
+    the user rendered by `username`.
+
+        <?xml version="1.0" encoding="ISO-8859-1"?>
+        <!DOCTYPE foo [
+           <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
+           <username>&xxe;</username>
+        </xml>
+    {: .language-xml}
+
+    Other XXE Injection attacks can access local resources that may not stop
+    returning data, possibly impacting application availability and leading
+    to Denial of Service.
+
   affected_package: org.jruby:jruby
   vulnerable_versions:
-  - "<= 3.1.11"
-  - ">= 3.2 <= 3.2.12"
+  - ">= 3.1.0 < 3.1.12"
+  - ">= 3.2.0 < 3.2.13"
   severity: medium
   package_manager: maven
   cve:
@@ -280,7 +322,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22jruby%22
   affected_package: org.jruby:jruby
   vulnerable_versions:
-  - "<= 1.7.4"
+  - ">= 0 < 1.7.4"
   severity: medium
   package_manager: maven
   cve:
@@ -298,41 +340,89 @@
 - id: snykio:maven:org.jruby:jruby:31215
   title: Cross-site Scripting (XSS)
   description: |+
-    [`org.jruby:jruby`][1] The regular expression engine in JRuby before
-    1.4.1, when $KCODE is set to \'u\', does not properly handle characters
-    immediately after a UTF-8 character, which allows remote attackers to
-    conduct cross-site scripting (XSS) attacks via a crafted string.
+    [org.jruby:jruby][1] is a high performance, stable, fully threaded Java
+    implementation of the Ruby programming language.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). The regular expression engine in JRuby before 1.4.1, when $KCODE
+    is set to \'u\', does not properly handle characters immediately after a
+    UTF-8 character, which allows remote attackers to conduct cross-site
+    scripting (XSS) attacks via a crafted string.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22jruby%22
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    [1]: https://www.jruby.org
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: org.jruby:jruby
   vulnerable_versions:
@@ -349,8 +439,69 @@
   credit:
   - Unknown
   references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=750306
+  - https://github.com/jruby/jruby/commit/773581164056535ed8dffe3ade826f04633bfd55
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-1330
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGJRUBY-31215
+- id: snykio:maven:org.jruby:jruby:472854
+  title: Denial of Service (DoS)
+  description: |+
+    [org.jruby:jruby][1] is a high performance, stable, fully threaded Java
+    implementation of the Ruby programming language.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). It computes hash values without restricting the ability to
+    trigger hash collisions predictably, which allows context-dependent
+    attackers to cause a denial of service (CPU consumption) via crafted
+    input to an application that maintains a hash table.
+
+
+
+    [1]: https://www.jruby.org
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.jruby:jruby
+  vulnerable_versions:
+  - "< 1.6.5.1"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2011-4838
+  cwe:
+  - CWE-189
+  disclosed_date: 2019-10-10
+  created_date: 2019-10-10
+  last_modified_date: 2019-10-10
+  credit:
+  - Unknown
+  references:
+  - http://jruby.org/2011/12/27/jruby-1-6-5-1.html
+  - https://github.com/jruby/jruby/commit/c1c9f95ed29cb93806fbc90e9eaabb9c406581e5
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGJRUBY-472854
 - id: victims:maven:org.jruby:jruby:2013-0269
   title: 'rubygem-json: Denial of Service and SQL Injection'
   affected_package: org.jruby:jruby

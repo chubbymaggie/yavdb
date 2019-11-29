@@ -1,0 +1,33 @@
+---
+- id: snykio:npm:cryptr:173731
+  title: Insufficient Entropy
+  description: |
+    [cryptr][1] is a simple `aes-256-ctr` encrypt and decrypt module for
+    node.js.
+
+    Affected versions of this package are vulnerable to Insufficient
+    Entropy. If the cleartext contents of encrypted strings are known, it is
+    possible to alter the content of the encrypted string without knowledge
+    of the key. An attacker could modify encrypted messages in transit
+    without detection.
+
+
+
+    [1]: https://github.com/MauriceButler/cryptr
+  affected_package: cryptr
+  vulnerable_versions:
+  - "<6.0.0"
+  severity: medium
+  package_manager: npm
+  cwe:
+  - CWE-331
+  disclosed_date: 2019-02-05
+  created_date: 2019-02-26
+  last_modified_date: 2019-02-26
+  credit:
+  - duskwuff
+  references:
+  - https://github.com/MauriceButler/cryptr/commit/ce2d1fa7b9e965c5f6fa6f5b7b667ccc1df894ec
+  - https://github.com/MauriceButler/cryptr/issues/11
+  - https://github.com/MauriceButler/cryptr/pull/16
+  source_url: https://snyk.io/vuln/SNYK-JS-CRYPTR-173731

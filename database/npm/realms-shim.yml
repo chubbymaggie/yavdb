@@ -1,0 +1,127 @@
+---
+- id: npmjs:npm:realms-shim:1180
+  title: Sandbox Breakout
+  description: Versions of `realms-shim` prior to 1.2.0 are vulnerable to a Sandbox
+    Breakout. The package's core evaluator, which must switch between "unsafe mode"
+    and "safe mode" for each call, could be left in "unsafe mode" if an attacker is
+    able to force a RangeError in a specific timeframe. This would allow the attacker
+    to escape the sandbox and run arbitrary code.
+  affected_package: realms-shim
+  vulnerable_versions:
+  - "<1.2.0"
+  severity: high
+  package_manager: npm
+  cwe: CWE-265
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Unknown
+  references: https://npmjs.com/advisories/1180
+  source_url: https://npmjs.com/advisories/1180
+- id: npmjs:npm:realms-shim:1181
+  title: Sandbox Breakout
+  description: Versions of `realms-shim` prior to 1.2.0 are vulnerable to a Sandbox
+    Breakout. The package has an uncaught exception that may allow an attacker to
+    break out of the sandbox by catching the exception and using the caught Exception
+    object.
+  affected_package: realms-shim
+  vulnerable_versions:
+  - "<1.2.0"
+  severity: high
+  package_manager: npm
+  cwe: CWE-265
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Unknown
+  references: https://npmjs.com/advisories/1181
+  source_url: https://npmjs.com/advisories/1181
+- id: npmjs:npm:realms-shim:1190
+  title: Sandbox Breakout
+  description: Versions of `realms-shim` prior to 1.2.0 are vulnerable to a Sandbox
+    Breakout. The package's confined evaluator depended upon correct behavior of the
+    spread operator `a = [...b, ...c]`, which could be modified by the confined code.
+    This may allow an attacker to escape the sandbox and run arbitrary code.
+  affected_package: realms-shim
+  vulnerable_versions:
+  - "<1.2.0"
+  severity: high
+  package_manager: npm
+  cwe: CWE-265
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Unknown
+  references: https://npmjs.com/advisories/1190
+  source_url: https://npmjs.com/advisories/1190
+- id: npmjs:npm:realms-shim:1191
+  title: Sandbox Breakout
+  description: Versions of `realms-shim` prior to 1.2.0 are vulnerable to a Sandbox
+    Breakout. `Reflect.construct` can be used on the sandboxed Function constructor
+    to reach the prototypes of the primal Realm, which may allow an attacker to escape
+    the sandbox and execute arbitrary code.
+  affected_package: realms-shim
+  vulnerable_versions:
+  - "<1.2.0"
+  severity: high
+  package_manager: npm
+  cwe: CWE-265
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Unknown
+  references: https://npmjs.com/advisories/1191
+  source_url: https://npmjs.com/advisories/1191
+- id: npmjs:npm:realms-shim:1218
+  title: Sandbox Breakout
+  description: Versions of `realms-shim` prior to 1.2.1 are vulnerable to a Sandbox
+    Breakout. The Realms evaluation function has an option to apply Babel-like transformations
+    to the source code before it reaches the evaluator. One portion of this transform
+    pipeline exposed a primal-Realm object to the rewriting function. Confined code
+    which used the evaluator itself could provide a malicious rewriter function that
+    captured this object, and use it to breach the sandbox.
+  affected_package: realms-shim
+  vulnerable_versions:
+  - "<1.2.1"
+  severity: high
+  package_manager: npm
+  cwe: CWE-265
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Unknown
+  references: https://npmjs.com/advisories/1218
+  source_url: https://npmjs.com/advisories/1218
+- id: snykio:npm:realms-shim:471680
+  title: Sandbox Breakout
+  description: "[realms-shim][1] is a shim implementation of the Realm API Proposal.\n\nAffected
+    versions of this package are vulnerable to \\{\\{\naffectedlibrary.vulnerability.title
+    }}, which would allow the attacker\nto run arbitrary code.\n\nThe vulnerable paths:\n\n1)
+    `Reflect.construct` can be used on the sandboxed Function constructor\nto reach
+    the prototypes of the primal Realm.  \n2) The package\\'s confined evaluator depended
+    upon correct behavior of\nthe spread operator `a = [...b, ...c]`, which could
+    be modified by the\nconfined code.  \n3) The package has an uncaught exception
+    that may allow an attacker to\nbreak out of the sandbox by catching the exception
+    and using the caught\nException object.  \n4) The package\\'s core evaluator,
+    which must switch between \\\"unsafe\nmode\\\" and \\\"safe mode\\\" for each
+    call, could be left in \\\"unsafe mode\\\"\nif an attacker is able to force a
+    RangeError in a specific timeframe.\n\n\n\n[1]: https://www.npmjs.com/package/realms-shim\n"
+  affected_package: realms-shim
+  vulnerable_versions:
+  - "<1.2.0"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-265
+  disclosed_date: 2019-10-02
+  created_date: 2019-10-03
+  last_modified_date: 2019-10-03
+  credit:
+  - Unknown
+  references:
+  - https://github.com/Agoric/realms-shim/security/advisories/GHSA-6jg8-7333-554w
+  - https://www.npmjs.com/advisories/1180
+  - https://www.npmjs.com/advisories/1181
+  - https://www.npmjs.com/advisories/1190
+  - https://www.npmjs.com/advisories/1191
+  source_url: https://snyk.io/vuln/SNYK-JS-REALMSSHIM-471680

@@ -1,9 +1,27 @@
 ---
+- id: npmjs:npm:http-live-simulator:1189
+  title: Denial of Service
+  description: Versions of `http-live-simulator` prior to 1.0.8 are vulnerable to
+    Denial of Service. The package fails to catch an exception that causes the Node
+    process to crash, effectively shutting down the server. This allows an attacker
+    to send an HTTP request that crashes the server.
+  affected_package: http-live-simulator
+  vulnerable_versions:
+  - "<1.0.8"
+  severity: medium
+  package_manager: npm
+  cwe: CWE-248
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: 3la2kb
+  references: https://npmjs.com/advisories/1189
+  source_url: https://npmjs.com/advisories/1189
 - id: npmjs:npm:http-live-simulator:772
   title: Path Traversal
   description: 'Versions of `http-live-simulator` prior to 1.0.7 are vulnerable to
     Path Traversal.  Due to insufficient input sanitization, attackers can access
-    server files by using relative. For example: `curl --path-as-is http://localhost:8080//../../../../etc/passwd`.'
+    server files by using relative paths. For example: `curl --path-as-is http://localhost:8080//../../../../etc/passwd`.'
   affected_package: http-live-simulator
   vulnerable_versions:
   - "<=1.0.6"
@@ -18,6 +36,59 @@
   credit: 3la2kb
   references: https://npmjs.com/advisories/772
   source_url: https://npmjs.com/advisories/772
+- id: npmjs:npm:http-live-simulator:799
+  title: Path Traversal
+  description: 'Versions of `http-live-simulator` prior to 1.0.6 are vulnerable to
+    Path Traversal.  Due to insufficient input sanitization, attackers can access
+    server files by using relative paths. '
+  affected_package: http-live-simulator
+  vulnerable_versions:
+  - "<=1.0.5"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-5423
+  cwe: CWE-22
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Liran Tal
+  references: https://npmjs.com/advisories/799
+  source_url: https://npmjs.com/advisories/799
+- id: snykio:npm:http-live-simulator:469235
+  title: Denial of Service (DoS)
+  description: |
+    [http-live-simulator][1] is a simple http file server for local
+    development written in Node.JS.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). It is possible to crash a server using the package due to the way
+    URL parsing is handled when invalid directory paths are given.
+
+    ### PoC by 3la2kb   {#poc-by-3la2kb}
+
+        curl --path-as-is http://localhost:8080/../?a
+
+
+
+    [1]: https://www.npmjs.com/package/http-live-simulator
+  affected_package: http-live-simulator
+  vulnerable_versions:
+  - ">=1.0.7 <1.0.8"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-09-27
+  created_date: 2019-09-27
+  last_modified_date: 2019-09-27
+  credit:
+  - 3la2kb
+  references:
+  - https://github.com/prahladyeri/http-live-simulator/commit/f9f13b5bfc4f95eeeb33c850f58425e65a71aa5a
+  - https://github.com/prahladyeri/http-live-simulator/issues/3
+  - https://hackerone.com/reports/627376
+  source_url: https://snyk.io/vuln/SNYK-JS-HTTPLIVESIMULATOR-469235
 - id: snykio:npm:http-live-simulator:72456
   title: Directory Traversal
   description: |
@@ -84,6 +155,8 @@
   - "<1.0.6"
   severity: high
   package_manager: npm
+  cve:
+  - CVE-2019-5423
   cwe:
   - CWE-22
   disclosed_date: 2018-06-21
@@ -94,6 +167,7 @@
   references:
   - https://github.com/prahladyeri/http-live-simulator/commit/8e85a1be562248d0d616c0e5092a3d71bbf5fe5f
   - https://hackerone.com/reports/384939
+  - https://www.npmjs.com/advisories/799
   source_url: https://snyk.io/vuln/SNYK-JS-HTTPLIVESIMULATOR-72456
 - id: snykio:npm:http-live-simulator:73554
   title: Directory Traversal
@@ -175,4 +249,5 @@
   - 3la2kb
   references:
   - https://hackerone.com/reports/411405
+  - https://www.npmjs.com/advisories/772
   source_url: https://snyk.io/vuln/SNYK-JS-HTTPLIVESIMULATOR-73554

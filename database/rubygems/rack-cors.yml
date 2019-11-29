@@ -26,6 +26,26 @@
   - https://github.com/cyu/rack-cors/issues/86
   - https://github.com/rubysec/ruby-advisory-db
   source_url: https://github.com/cyu/rack-cors/issues/86
+- id: rubyadvisory:rubygems:rack-cors:CVE-2019-18978
+  title: rack-cors directory traversal via path
+  description: |
+    An issue was discovered in the rack-cors (aka Rack CORS Middleware) gem
+    before 1.0.4 for Ruby. It allows ../ directory traversal to access private resources
+    because resource matching does not ensure that pathnames are in a canonical format.
+  affected_package: rack-cors
+  patched_versions:
+  - ">= 1.0.4"
+  package_manager: rubygems
+  cve:
+  - CVE-2019-18978
+  disclosed_date: 2019-11-15
+  created_date: 2019-11-15
+  last_modified_date: 2019-11-15
+  credit:
+  - Rubysec
+  references:
+  - https://github.com/rubysec/ruby-advisory-db
+  source_url: https://github.com/cyu/rack-cors/commit/e4d4fc362a4315808927011cbe5afcfe5486f17d
 - id: snykio:rubygems:rack-cors:22040
   title: Regular Expression Denial of Service (ReDoS)
   description: "[rack-cors][1] is a Middleware that will make Rack-based apps CORS\ncompatible.\n\nAffected
@@ -40,7 +60,7 @@
     of Service (ReDoS) is a type of Denial of\nService attack. Regular expressions
     are incredibly powerful, but they\naren\\'t very intuitive and can ultimately
     end up making it easy for\nattackers to take your site down.\n\nLet’s take the
-    following regular expression as an example:\n\n    regex = /A(B|C+)+D/\n\nThis
+    following regular expression as an example:\n\n    regex = /A(B|C+)+D/\n{: .language-js}\n\nThis
     regular expression accomplishes the following:\n\n* `A` The string must start
     with the letter \\'A\\'\n* `(B|C+)+` The string must then follow the letter A
     with either the\n  letter \\'B\\' or some number of occurrences of the letter
@@ -51,30 +71,30 @@
     it doesn\\'t take very long for a regex engine to find a\nmatch:\n\n    $ time
     node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCD\")'\n    0.04s user
     0.01s system 95% cpu 0.052 total\n    \n    $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCX\")'\n
-    \   1.79s user 0.02s system 99% cpu 1.812 total\n\nThe entire process of testing
-    it against a 30 characters long string\ntakes around ~52ms. But when given an
-    invalid string, it takes nearly\ntwo seconds to complete the test, over ten times
-    as long as it took to\ntest a valid string. The dramatic difference is due to
-    the way regular\nexpressions get evaluated.\n\nMost Regex engines will work very
-    similarly (with minor differences).\nThe engine will match the first possible
-    way to accept the current\ncharacter and proceed to the next one. If it then fails
-    to match the\nnext one, it will backtrack and see if there was another way to
-    digest\nthe previous character. If it goes too far down the rabbit hole only to\nfind
-    out the string doesn’t match in the end, and if many characters\nhave multiple
-    valid regex paths, the number of backtracking steps can\nbecome very large, resulting
-    in what is known as *catastrophic\nbacktracking*.\n\nLet\\'s look at how our expression
-    runs into this problem, using a\nshorter string: \\\"ACCCX\\\". While it seems
-    fairly straightforward, there\nare still four different ways that the engine could
-    match those three\nC\\'s:\n\n1.  CCC\n2.  CC+C\n3.  C+CC\n4.  C+C+C.\n\nThe engine
-    has to try each of those combinations to see if any of them\npotentially match
-    against the expression. When you combine that with the\nother steps the engine
-    must take, we can use [RegEx 101 debugger][2] to\nsee the engine has to take a
-    total of 38 steps before it can determine\nthe string doesn\\'t match.\n\nFrom
-    there, the number of steps the engine must use to validate a string\njust continues
-    to grow.\n\n| String | Number of C\\'s | Number of steps |\n|----------\n| ACCCX
-    | 3 | 38 |\n| ACCCCX | 4 | 71 |\n| ACCCCCX | 5 | 136 |\n| ACCCCCCCCCCCCCCX | 14
-    | 65,553 |\n\nBy the time the string includes 14 C\\'s, the engine has to take
-    over\n65,000 steps just to see if the string is valid. These extreme\nsituations
+    \   1.79s user 0.02s system 99% cpu 1.812 total\n{: .language-bash}\n\nThe entire
+    process of testing it against a 30 characters long string\ntakes around ~52ms.
+    But when given an invalid string, it takes nearly\ntwo seconds to complete the
+    test, over ten times as long as it took to\ntest a valid string. The dramatic
+    difference is due to the way regular\nexpressions get evaluated.\n\nMost Regex
+    engines will work very similarly (with minor differences).\nThe engine will match
+    the first possible way to accept the current\ncharacter and proceed to the next
+    one. If it then fails to match the\nnext one, it will backtrack and see if there
+    was another way to digest\nthe previous character. If it goes too far down the
+    rabbit hole only to\nfind out the string doesn’t match in the end, and if many
+    characters\nhave multiple valid regex paths, the number of backtracking steps
+    can\nbecome very large, resulting in what is known as *catastrophic\nbacktracking*.\n\nLet\\'s
+    look at how our expression runs into this problem, using a\nshorter string: \\\"ACCCX\\\".
+    While it seems fairly straightforward, there\nare still four different ways that
+    the engine could match those three\nC\\'s:\n\n1.  CCC\n2.  CC+C\n3.  C+CC\n4.
+    \ C+C+C.\n\nThe engine has to try each of those combinations to see if any of
+    them\npotentially match against the expression. When you combine that with the\nother
+    steps the engine must take, we can use [RegEx 101 debugger][2] to\nsee the engine
+    has to take a total of 38 steps before it can determine\nthe string doesn\\'t
+    match.\n\nFrom there, the number of steps the engine must use to validate a string\njust
+    continues to grow.\n\n| String | Number of C\\'s | Number of steps |\n|----------\n|
+    ACCCX | 3 | 38 |\n| ACCCCX | 4 | 71 |\n| ACCCCCX | 5 | 136 |\n| ACCCCCCCCCCCCCCX
+    | 14 | 65,553 |\n\nBy the time the string includes 14 C\\'s, the engine has to
+    take over\n65,000 steps just to see if the string is valid. These extreme\nsituations
     can cause them to work very slowly (exponentially related to\ninput size, as shown
     above), allowing an attacker to exploit this and\ncan cause the service to excessively
     consume CPU, resulting in a Denial\nof Service.\n\n\n\n[1]: https://rubygems.org/gems/rack-cors\n[2]:
@@ -97,3 +117,83 @@
   - https://github.com/cyu/rack-cors/commit/3f51048cf2bb893d58bde3dfa499220210d785d00
   - https://github.com/cyu/rack-cors/issues/86
   source_url: https://snyk.io/vuln/SNYK-RUBY-RACKCORS-22040
+- id: snykio:rubygems:rack-cors:534477
+  title: Directory Traversal
+  description: |
+    [rack-cors][1] is a Rack Middleware for handling Cross-Origin Resource
+    Sharing (CORS), which makes cross-origin AJAX possible.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+    It allows `../` directory traversal to access private resources because
+    resource matching does not ensure that pathnames are in a canonical
+    format.
+
+
+
+    [1]: https://github.com/cyu/rack-cors
+    \nA Directory Traversal attack (also known as path traversal) aims to
+    access files and directories that are stored outside the intended
+    folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
+    its variations, or by using absolute file paths, it may be possible to
+    access arbitrary files and directories stored on file system, including
+    application source code, configuration, and other critical system files.
+
+    Directory Traversal vulnerabilities can be generally divided into two
+    types:
+
+    * **Information Disclosure**\: Allows the attacker to gain information
+      about the folder structure or read the contents of sensitive files on
+      the system.
+
+    `st` is a module for serving static files on web pages, and contains a
+    [vulnerability of this type][1]. In our example, we will serve files
+    from the `public` route.
+
+    If an attacker requests the following URL from our server, it will in
+    turn leak the sensitive private key of the root user.
+
+        curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa
+
+    **Note** `%2e` is the URL encoded version of `.` (dot).
+
+    * **Writing arbitrary files**\: Allows the attacker to create or replace
+      existing files. This type of vulnerability is also known as
+      `Zip-Slip`.
+
+    One way to achieve this is by using a malicious `zip` archive that holds
+    path traversal filenames. When each filename in the zip archive gets
+    concatenated to the target extraction folder, without validation, the
+    final path ends up outside of the target folder. If an executable or a
+    configuration file is overwritten with a file containing malicious code,
+    the problem can turn into an arbitrary code execution issue quite
+    easily.
+
+    The following is an example of a `zip` archive with one benign file and
+    one malicious file. Extracting the malicious file will result in
+    traversing out of the target folder, ending up in `/root/.ssh/`
+    overwriting the `authorized_keys` file:
+
+        2018-04-15 22:04:29 .....           19           19  good.txt
+        2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys
+
+
+
+    [1]: https://snyk.io/vuln/npm:st:20140206
+  affected_package: rack-cors
+  vulnerable_versions:
+  - "<1.0.4"
+  severity: high
+  package_manager: rubygems
+  cve:
+  - CVE-2019-18978
+  cwe:
+  - CWE-23
+  disclosed_date: 2019-11-14
+  created_date: 2019-11-14
+  last_modified_date: 2019-11-14
+  credit:
+  - Unknown
+  references:
+  - https://github.com/cyu/rack-cors/commit/e4d4fc362a4315808927011cbe5afcfe5486f17d
+  - https://github.com/cyu/rack-cors/compare/v1.0.3...v1.0.4
+  source_url: https://snyk.io/vuln/SNYK-RUBY-RACKCORS-534477

@@ -31,7 +31,7 @@
 
 
     [1]: https://github.com/malicious-packages/cemetry/tree/master/commander-js
-    [2]: https://www.npmjs.com/package/commander]
+    [2]: https://www.npmjs.com/package/commander%5D
   affected_package: commander-js
   vulnerable_versions:
   - "*"
@@ -43,7 +43,7 @@
   created_date: 2019-01-09
   last_modified_date: 2019-01-09
   credit:
-  - Unknown
+  - Vladimir Tikhonov
   references:
   - https://github.com/malicious-packages/cemetry/tree/master/commander-js
   source_url: https://snyk.io/vuln/SNYK-JS-COMMANDERJS-73506

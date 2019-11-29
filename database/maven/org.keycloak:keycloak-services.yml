@@ -37,8 +37,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22keycloak-services%22
   affected_package: org.keycloak:keycloak-services
   vulnerable_versions:
-  - "<= 1.0-final"
-  - ">= 1.0.1 <= 1.0.1.Final"
+  - "< 1.0.2.Final"
   severity: low
   package_manager: maven
   cve:
@@ -151,33 +150,77 @@
 
 
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22keycloak-services%22
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: org.keycloak:keycloak-services
   vulnerable_versions:
@@ -300,6 +343,182 @@
   - https://issues.jboss.org/browse/KEYCLOAK-765?_sscc=t
   - https://nvd.nist.gov/vuln/detail/CVE-2014-3709
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGKEYCLOAK-31586
+- id: snykio:maven:org.keycloak:keycloak-services:449843
+  title: Man-in-the-Middle (MitM)
+  description: |
+    [org.keycloak:keycloak-services][1] is an open source identity and
+    access management solution for modern applications and services.
+
+    Affected versions of this package are vulnerable to Man-in-the-Middle
+    (MitM). The `X.509` authenticator supports the verification of client
+    certificates through the CRL, where the CRL list can be obtained from
+    the URL provided in the certificate itself (CDP) or through the
+    separately configured path. The CRL are often available over the network
+    through unsecured protocols (`http` or `ldap`) and hence the caller
+    should verify the signature and possibly the certification path.
+    Keycloak currently doesn\'t validate signatures on CRL, which can result
+    in a possibility of various attacks like man-in-the-middle.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.keycloak/keycloak-services
+  affected_package: org.keycloak:keycloak-services
+  vulnerable_versions:
+  - "< 6.0.0"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2019-3875
+  cwe:
+  - CWE-300
+  disclosed_date: 2019-06-12
+  created_date: 2019-06-12
+  last_modified_date: 2019-06-12
+  credit:
+  - Marek Posolda
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-3875
+  - https://github.com/keycloak/keycloak/commit/a48698caa32933458916980ab05256f56099a337
+  - https://issues.jboss.org/browse/KEYCLOAK-6056
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGKEYCLOAK-449843
+- id: snykio:maven:org.keycloak:keycloak-services:461005
+  title: Access Control Bypass
+  description: |
+    [org.keycloak:keycloak-services][1] is a open source identity and access
+    management solution for modern applications and services.
+
+    Affected versions of this package are vulnerable to Access Control
+    Bypass. The SAML broker used within keycloak did not verify missing
+    message signatures. As such, it is possible for an attacker to modify
+    the SAML Response and remove the <Signature> section and impersonate
+    another user to gain unauthorized access. This is due to the SAML
+    message is still accepted by the package after being tampered
+    with.</Signature>
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.keycloak/keycloak-services
+  affected_package: org.keycloak:keycloak-services
+  vulnerable_versions:
+  - "< 7.0.0"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2019-10201
+  cwe:
+  - CWE-285
+  disclosed_date: 2019-07-10
+  created_date: 2019-08-14
+  last_modified_date: 2019-08-14
+  credit:
+  - Marian Rehak
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-10201
+  - https://github.com/keycloak/keycloak/commit/ba9f73aaff22eb34c7dec16f4b76d36d855d569b
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGKEYCLOAK-461005
+- id: snykio:maven:org.keycloak:keycloak-services:461006
+  title: Cross-site Request Forgery (CSRF)
+  description: |
+    [org.keycloak:keycloak-services][1] is a open source identity and access
+    management solution for modern applications and services.
+
+    Affected versions of this package are vulnerable to Cross-site Request
+    Forgery (CSRF). It was found that Keycloak\'s account console did not
+    perform adequate header checks in some requests. As such, an attacker
+    could use this flaw to trick an authenticated user into performing
+    operations via a forged request from an untrusted domain.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.keycloak/keycloak-services
+  affected_package: org.keycloak:keycloak-services
+  vulnerable_versions:
+  - "< 7.0.0"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2019-10199
+  cwe:
+  - CWE-352
+  disclosed_date: 2019-07-11
+  created_date: 2019-08-14
+  last_modified_date: 2019-08-14
+  credit:
+  - Laura Pardo
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-10199
+  - https://github.com/keycloak/keycloak/commit/dbaba6f1b8c043da4a37c906dc0d1700956a0869
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGKEYCLOAK-461006
+- id: snykio:maven:org.keycloak:keycloak-services:466326
+  title: Access Restriction Bypass
+  description: |
+    [org.keycloak:keycloak-services][1] is an open source identity and
+    access management solution for modern applications and services.
+
+    Affected versions of this package are vulnerable to Access Restriction
+    Bypass. It did not correctly check permissions when handling service
+    account user deletion requests sent to the rest server. An attacker with
+    service account authentication could use this flaw to bypass normal
+    permissions and delete users in a separate realm.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.keycloak/keycloak-services
+  affected_package: org.keycloak:keycloak-services
+  vulnerable_versions:
+  - "< 2.4.0.Final"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2016-8629
+  cwe:
+  - CWE-284
+  disclosed_date: 2016-10-28
+  created_date: 2018-03-15
+  last_modified_date: 2018-03-15
+  credit:
+  - Unknown
+  references:
+  - https://access.redhat.com/errata/RHSA-2017:0876
+  - https://github.com/keycloak/keycloak/commit/a78cfa4b2ca979a1981fb371cfdf2c7212f7b6e2
+  - https://nvd.nist.gov/vuln/detail/CVE-2016-8629
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGKEYCLOAK-466326
+- id: snykio:maven:org.keycloak:keycloak-services:472868
+  title: Information Exposure
+  description: |
+    [org.keycloak:keycloak-services][1] is an open source identity and
+    access management solution for modern applications and services.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. Keycloak allows the end user token (access or id token JWT) to
+    be used as the session cookie for browser sessions for OIDC. As a result
+    an attacker with access to service provider backend could hijack user\'s
+    browser session.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.keycloak/keycloak-services
+  affected_package: org.keycloak:keycloak-services
+  vulnerable_versions:
+  - "< 6.0.1"
+  severity: low
+  package_manager: maven
+  cve:
+  - CVE-2019-3868
+  cwe:
+  - CWE-200
+  disclosed_date: 2019-10-10
+  created_date: 2019-10-10
+  last_modified_date: 2019-10-10
+  credit:
+  - Caranzo Gideon
+  - Muzamil Muein
+  - Siddiqui Najam
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2019-3868
+  - https://github.com/keycloak/keycloak/commit/65326ce16af0901824ebd5635b1f6e9acbea1e66
+  - https://lists.jboss.org/pipermail/keycloak-user/2019-May/018172.html
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGKEYCLOAK-472868
 - id: snykio:maven:org.keycloak:keycloak-services:72619
   title: Open Redirect
   description: |
@@ -316,7 +535,7 @@
     [1]: https://github.com/keycloak/keycloak
   affected_package: org.keycloak:keycloak-services
   vulnerable_versions:
-  - "< 4.5.0"
+  - "< 4.5.0.Final"
   severity: medium
   package_manager: maven
   cve:
@@ -330,7 +549,7 @@
   - Unknown
   references:
   - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2018-14658
-  - https://github.com/keycloak/keycloak/commit/a957e118e6efb35fe7ef3a62acd66341a6523cb7#diff-06c49f05afed242e78d9a65acac073fb
+  - https://github.com/keycloak/keycloak/commit/a957e118e6efb35fe7ef3a62acd66341a6523cb7%23diff-06c49f05afed242e78d9a65acac073fb
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGKEYCLOAK-72619
 - id: snykio:maven:org.keycloak:keycloak-services:72652
   title: Replay attack
@@ -347,7 +566,7 @@
     [1]: https://github.com/keycloak/keycloak
   affected_package: org.keycloak:keycloak-services
   vulnerable_versions:
-  - "< 4.6.0"
+  - "< 4.6.0.Final"
   severity: medium
   package_manager: maven
   cve:

@@ -61,6 +61,37 @@
   references:
   - https://symfony.com/cve-2015-4050
   source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/http-kernel/CVE-2015-4050.yaml
+- id: friendsofphp:packagist:symfony/http-kernel:CVE-2019-18887
+  title: 'CVE-2019-18887: Use constant time comparison in UriSigner'
+  affected_package: symfony/http-kernel
+  vulnerable_versions:
+  - ">=2.2.0 <2.3.0"
+  - ">=2.3.0 <2.4.0"
+  - ">=2.4.0 <2.5.0"
+  - ">=2.5.0 <2.6.0"
+  - ">=2.6.0 <2.7.0"
+  - ">=2.7.0 <2.8.0"
+  - ">=2.8.0 <2.8.52"
+  - ">=3.0.0 <3.1.0"
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.35"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.2.0"
+  - ">=4.2.0 <4.2.12"
+  - ">=4.3.0 <4.3.8"
+  package_manager: packagist
+  cve:
+  - CVE-2019-18887
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-13
+  last_modified_date: 2019-11-13
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-18887
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/http-kernel/CVE-2019-18887.yaml
 - id: ossindex:packagist:symfony/http-kernel:8399183311
   title: Direct access of ESI URLs behind a trusted proxy
   description: Direct access of ESI URLs behind a trusted proxy
@@ -123,6 +154,125 @@
   - http://symfony.com/blog/cve-2015-4050-esi-unauthorized-access
   - https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/http-kernel/CVE-2015-4050.yaml
   source_url: https://ossindex.net/resource/package/8397628722/vulnerabilities
+- id: snykio:packagist:symfony/http-kernel:485844
+  title: Information Exposure Through Timing Discrepancy
+  description: |
+    [symfony/http-kernel][1] is a Symfony component that provides a
+    structured process for converting a Request into a Response.
+
+    Affected versions of this package are vulnerable to Information Exposure
+    Through Timing Discrepancy. When checking the signature of an URI (an
+    ESI fragment URL for instance), the `URISigner` did not used a constant
+    time string comparison function, resulting in a potential remote timing
+    attack vulnerability.
+
+
+
+    [1]: https://packagist.org/packages/symfony/http-kernel
+  affected_package: symfony/http-kernel
+  vulnerable_versions:
+  - ">=2.8.0  <2.8.52"
+  - ">=3.4.0  <3.4.35"
+  - ">=4.2.0  <4.2.12"
+  - ">=4.3.0  <4.3.8"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-18887
+  cwe:
+  - CWE-208
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-13
+  last_modified_date: 2019-11-13
+  credit:
+  - Felix Sokoliuk
+  references:
+  - https://symfony.com/cve-2019-18887
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYHTTPKERNEL-485844
+- id: snykio:packagist:symfony/http-kernel:534504
+  title: Race Condition
+  description: |
+    [symfony/http-kernel][1] is a Symfony component that provides a
+    structured process for converting a Request into a Response.
+
+    Affected versions of this package are vulnerable to Race Condition in
+    `UriSigner`. When checking the signature of an URI, the URISigner did
+    not used a constant time string comparison function, resulting in a
+    potential remote timing attack vulnerability.
+
+
+
+    [1]: https://packagist.org/packages/symfony/http-kernel
+  affected_package: symfony/http-kernel
+  vulnerable_versions:
+  - ">=2.2.0  <2.3.0"
+  - ">=2.3.0  <2.4.0"
+  - ">=2.4.0  <2.5.0"
+  - ">=2.5.0  <2.6.0"
+  - ">=2.6.0  <2.7.0"
+  - ">=2.7.0  <2.8.0"
+  - ">=2.8.0  <2.8.52"
+  - ">=3.0.0  <3.1.0"
+  - ">=3.1.0  <3.2.0"
+  - ">=3.2.0  <3.3.0"
+  - ">=3.3.0  <3.4.0"
+  - ">=3.4.0  <3.4.35"
+  - ">=4.0.0  <4.1.0"
+  - ">=4.1.0  <4.2.0"
+  - ">=4.2.0  <4.2.12"
+  - ">=4.3.0  <4.3.8"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-18887
+  cwe:
+  - CWE-362
+  disclosed_date: 2019-11-15
+  created_date: 2019-11-15
+  last_modified_date: 2019-11-15
+  credit:
+  - Unknown
+  references:
+  - https://github.com/symfony/symfony/commit/010213408e61620eb21ba5e5ef3bfba14a4ff689
+  - https://symfony.com/cve-2019-18887
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYHTTPKERNEL-534504
+- id: snykio:packagist:symfony/http-kernel:535377
+  title: Timing Attack
+  description: |
+    [symfony/http-kernel][1] is a Symfony component that provides a
+    structured process for converting a Request into a Response.
+
+    Affected versions of this package are vulnerable to Timing Attack. When
+    checking the signature of an URI (an ESI fragment URL for instance), the
+    URISigner does not use a constant time string comparison function,
+    resulting in a potential remote timing attack vulnerability.
+
+
+
+    [1]: https://packagist.org/packages/symfony/http-kernel
+  affected_package: symfony/http-kernel
+  vulnerable_versions:
+  - ">=2.8.0  <2.8.52"
+  - ">=3.4.0  <3.4.35"
+  - ">=4.2.0  <4.2.12"
+  - ">=4.3.0  <4.3.8"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-18887
+  cwe:
+  - CWE-362
+  disclosed_date: 2019-11-21
+  created_date: 2019-11-22
+  last_modified_date: 2019-11-22
+  credit:
+  - Unknown
+  references:
+  - https://github.com/symfony/symfony/commit/cccefe6a7f12e776df0665aeb77fe9294c285fbb
+  - https://github.com/symfony/symfony/releases/tag/v4.3.8
+  - https://symfony.com/blog/cve-2019-18887-use-constant-time-comparison-in-urisigner
+  - https://symfony.com/blog/symfony-4-3-8-released
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYHTTPKERNEL-535377
 - id: snykio:packagist:symfony/http-kernel:70181
   title: Information Exposure
   description: |
@@ -141,7 +291,7 @@
     [1]: https://packagist.org/packages/symfony/http-kernel
   affected_package: symfony/http-kernel
   vulnerable_versions:
-  - ">=2  <2.1.0"
+  - ">=2.0.0  <2.1.0"
   - ">=2.1.0  <2.2.0"
   - ">=2.2.0  <2.3.0"
   - ">=2.3.0  <2.3.19"
@@ -178,7 +328,7 @@
     [1]: https://packagist.org/packages/symfony/http-kernel
   affected_package: symfony/http-kernel
   vulnerable_versions:
-  - ">=2  <2.1.0"
+  - ">=2.0.0  <2.1.0"
   - ">=2.1.0  <2.2.0"
   - ">=2.2.0  <2.3.0"
   - ">=2.3.0  <2.3.27"

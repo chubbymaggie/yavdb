@@ -1,0 +1,50 @@
+---
+- id: npmjs:npm:typeorm:800
+  title: SQL Injection
+  description: Versions of `typeorm` before 0.1.15 are vulnerable to SQL Injection.
+    Field names are not properly validated allowing attackers to inject SQL statements
+    and execute arbitrary SQL queries.
+  affected_package: typeorm
+  vulnerable_versions:
+  - "<0.1.15"
+  severity: high
+  package_manager: npm
+  cwe: CWE-89
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: chalker
+  references: https://npmjs.com/advisories/800
+  source_url: https://npmjs.com/advisories/800
+- id: snykio:npm:typeorm:174123
+  title: SQL Injection
+  description: |
+    [typeorm][1] is an ORM that can run in NodeJS, Browser, Cordova,
+    PhoneGap, Ionic, React Native, NativeScript, Expo, and Electron
+    platforms and can be used with TypeScript and JavaScript (ES5, ES6, ES7,
+    ES8).
+
+    Affected versions of this package are vulnerable to SQL Injection. Field
+    names are not properly validated allowing attackers to inject SQL
+    statements and execute arbitrary SQL queries.
+
+
+
+    [1]: https://www.npmjs.com/package/typeorm
+  affected_package: typeorm
+  vulnerable_versions:
+  - "<0.1.15"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-89
+  disclosed_date: 2019-04-04
+  created_date: 2019-04-07
+  last_modified_date: 2019-04-07
+  credit:
+  - chalker
+  references:
+  - https://github.com/typeorm/typeorm/commit/d46c8b0e6c0db56bb5976a4917e9f67a43715111
+  - https://hackerone.com/reports/319458
+  - https://www.npmjs.com/advisories/800
+  source_url: https://snyk.io/vuln/SNYK-JS-TYPEORM-174123

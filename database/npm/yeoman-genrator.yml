@@ -1,0 +1,90 @@
+---
+- id: npmjs:npm:yeoman-genrator:1198
+  title: Malicious Package
+  description: Version 2.0.2 of `yoeman-generator` contains malicious code as a preinstall
+    script. The package is malware designed to take advantage of users making a mistake
+    when typing the name of a module to install. When installed, the package downloads
+    a file from a remote server, executes it and opens a backdoor.
+  affected_package: yeoman-genrator
+  vulnerable_versions:
+  - ">=0.0.0"
+  severity: high
+  package_manager: npm
+  cwe: CWE-506
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: npm security
+  references: https://npmjs.com/advisories/1198
+  source_url: https://npmjs.com/advisories/1198
+- id: npmjs:npm:yeoman-genrator:912
+  title: Malicious Package
+  description: Version 3.1.1 of `yeoman-genrator` contains malicious code as a preinstall
+    script. The package is malware designed to take advantage of users making a mistake
+    when typing the name of a module to install. When installed, the package downloads
+    a file from a remote server, executes it and opens a backdoor.
+  affected_package: yeoman-genrator
+  vulnerable_versions:
+  - ">=0"
+  severity: high
+  package_manager: npm
+  cwe: CWE-506
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: npm security
+  references: https://npmjs.com/advisories/912
+  source_url: https://npmjs.com/advisories/912
+- id: snykio:npm:yeoman-genrator:174895
+  title: Malicious Package
+  description: |
+    [yeoman-genrator][1] is a malicious package.
+
+    It contains malicious code as a preinstall script. The package downloads
+    a file from a remote server, executes it and opens a backdoor.
+
+
+
+    [1]: https://libraries.io/npm/yeoman-genrator
+  affected_package: yeoman-genrator
+  vulnerable_versions:
+  - "=1.0.0"
+  - "=3.1.1"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-506
+  disclosed_date: 2019-05-31
+  created_date: 2019-06-02
+  last_modified_date: 2019-06-02
+  credit:
+  - NPM Security Team
+  references:
+  - https://www.npmjs.com/advisories/912
+  source_url: https://snyk.io/vuln/SNYK-JS-YEOMANGENRATOR-174895
+- id: snykio:npm:yeoman-genrator:471678
+  title: Malicious Package
+  description: |
+    [yeoman-genrator][1] is a malicious package.
+
+    When installed, the package downloads a file from a remote server,
+    executes it and opens a backdoor.
+
+
+
+    [1]: https://libraries.io/npm/yeoman-genrator
+  affected_package: yeoman-genrator
+  vulnerable_versions:
+  - "=2.0.2"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-506
+  disclosed_date: 2019-10-02
+  created_date: 2019-10-03
+  last_modified_date: 2019-10-03
+  credit:
+  - npm security
+  references:
+  - https://www.npmjs.com/advisories/1198
+  source_url: https://snyk.io/vuln/SNYK-JS-YEOMANGENRATOR-471678

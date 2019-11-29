@@ -13,7 +13,7 @@
     - How the module was invoked (test, require, pre-install)
   affected_package: botbait
   vulnerable_versions:
-  - "<=99.999.99999"
+  - ">=0.0.0"
   severity: low
   package_manager: npm
   cve:
@@ -51,6 +51,7 @@
             "postinstall": "bash -c 'curl \"http://*****.piwikpro.com/piwik.php?idsite=3&rec=1&action_name=$HOSTNAME\"'"
           }
         }
+    {: .language-json}
 
     The list of packages and their scripts are:
 

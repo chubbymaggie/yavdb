@@ -179,8 +179,8 @@
     [4]: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30160
   affected_package: org.springframework:spring-webmvc
   vulnerable_versions:
-  - ">= 3.2 <= 3.2.7.RELEASE"
-  - ">= 4.0 <= 4.0.1.RELEASE"
+  - ">= 3.0.0.RELEASE < 3.2.8.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.0.2.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -191,58 +191,105 @@
   created_date: 2016-12-25
   last_modified_date: 2016-12-25
   credit:
-  - Unknown
+  - Spase Markovski
   references:
   - http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0054
   - http://www.pivotal.io/security/cve-2014-0054
-  - https://github.com/spring-projects/spring-framework/commit/edba32b3093703d5e9ed42b5b8ec23ecc1998398#diff-1f3f1d5cdab9ac92d1ca5ec7def8f131
-  - https://github.com/spring-projects/spring-framework/commit/fb0683c066e74e9667d6cd8c5fa01f674c68c3be#diff-1f3f1d5cdab9ac92d1ca5ec7def8f131
+  - https://github.com/spring-projects/spring-framework/commit/edba32b3093703d5e9ed42b5b8ec23ecc1998398%23diff-1f3f1d5cdab9ac92d1ca5ec7def8f131
+  - https://github.com/spring-projects/spring-framework/commit/fb0683c066e74e9667d6cd8c5fa01f674c68c3be%23diff-1f3f1d5cdab9ac92d1ca5ec7def8f131
   - https://jira.spring.io/browse/SPR-11376
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30166
 - id: snykio:maven:org.springframework:spring-webmvc:30167
   title: Cross-site Scripting (XSS)
   description: |+
-    [`org.springframework:spring-webmvc`][1] Affected versions of this
-    package are vulnerable to Cross-site Scripting (XSS) attacks. The
-    `web/servlet/tags/form/FormTag.java` method allows remote attackers to
-    inject arbitrary web script or HTML via the requested URI in a default
-    action.
+    [org.springframework:spring-webmvc][1] is a package that provides
+    Model-View-Controller (MVC) architecture and ready components that can
+    be used to develop flexible and loosely coupled web applications.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). The `web/servlet/tags/form/FormTag.java` method allows remote
+    attackers to inject arbitrary web script or HTML via the requested URI
+    in a default action.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-webmvc%22
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    [1]: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: org.springframework:spring-webmvc
   vulnerable_versions:
-  - ">= 3 <= 3.2.7.RELEASE"
-  - ">= 4 <= 4.0.1.RELEASE"
+  - ">= 3.0.0.RELEASE < 3.2.8.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.0.2.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -257,6 +304,8 @@
   references:
   - http://www.gopivotal.com/security/cve-2014-1904
   - https://bugzilla.redhat.com/CVE-2014-1904
+  - https://github.com/spring-projects/spring-framework/commit/741b4b229ae032bd17175b46f98673ce0bd2d485
+  - https://github.com/spring-projects/spring-framework/commit/75e08695a04980dbceae6789364717e9d8764d58#diff-5c29d6685335045274d9908c5cd45e45
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30167
 - id: snykio:maven:org.springframework:spring-webmvc:30168
   title: Directory Traversal
@@ -340,15 +389,17 @@
 - id: snykio:maven:org.springframework:spring-webmvc:30169
   title: Directory Traversal
   description: |
-    [`org.springframework:spring-webmvc`][1] Directory traversal
-    vulnerability in Pivotal Spring Framework 3.0.4 through 3.2.x before
-    3.2.12, 4.0.x before 4.0.8, and 4.1.x before 4.1.2 allows remote
-    attackers to read arbitrary files via unspecified vectors, related to
-    static resource handling.
+    [org.springframework:spring-webmvc][1] is a package that provides
+    Model-View-Controller (MVC) architecture and ready components that can
+    be used to develop flexible and loosely coupled web applications.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+    Allows remote attackers to read arbitrary files via unspecified vectors,
+    related to static resource handling.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-webmvc%22
+    [1]: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
     \nA Directory Traversal attack (also known as path traversal) aims to
     access files and directories that are stored outside the intended
     folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
@@ -399,16 +450,16 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: org.springframework:spring-webmvc
   vulnerable_versions:
-  - ">= 3.2 <= 3.2.11.RELEASE"
-  - ">= 4.0 <= 4.0.7.RELEASE"
-  - ">= 4.1 <= 4.1.1.RELEASE"
+  - ">= 3.2.0.RELEASE < 3.2.12.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.0.8.RELEASE"
+  - ">= 4.1.0.RELEASE < 4.1.2.RELEASE"
   severity: medium
   package_manager: maven
   cve:
   - CVE-2014-3625
   cwe:
   - CWE-22
-  disclosed_date: 2016-12-25
+  disclosed_date: 2014-11-11
   created_date: 2016-12-25
   last_modified_date: 2016-12-25
   credit:
@@ -416,51 +467,64 @@
   references:
   - http://www.pivotal.io/security/cve-2014-3625
   - https://bugzilla.redhat.com/CVE-2014-3625
+  - https://github.com/spring-projects/spring-framework/commit/3f68cd633f03370d33c2603a6496e81273782601
+  - https://github.com/spring-projects/spring-framework/commit/9beae9ae4226c45cd428035dae81214439324676
+  - https://github.com/spring-projects/spring-framework/commit/9cef8e3001ddd61c734281a7556efd84b6cc2755
   - https://jira.spring.io/browse/SPR-12354
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30169
 - id: snykio:maven:org.springframework:spring-webmvc:30170
   title: Reflected File Download
   description: |
-    [`org.springframework:spring-webmvc`][1] Spring Framework is vulnerable
-    to Reflected File Download (RFD) attacks via a crafted URL with a batch
-    script extension, resulting in the response being downloaded rather than
-    rendered.
+    [org.springframework:spring-webmvc][1] package that provides
+    Model-View-Controller (MVC) architecture and ready components that can
+    be used to develop flexible and loosely coupled web applications.
+
+    Affected versions of this package are vulnerable to Reflected File
+    Download via a crafted URL with a batch script extension, resulting in
+    the response being downloaded rather than rendered.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-webmvc%22
+    [1]: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
   affected_package: org.springframework:spring-webmvc
   vulnerable_versions:
-  - ">= 3.2 <= 3.2.14.RELEASE"
-  - ">= 4.0 <= 4.0.9.RELEASE"
-  - ">= 4.1 <= 4.1.7.RELEASE"
-  - ">= 4.2 <= 4.2.1.RELEASE"
+  - ">= 3.2.0.RELEASE < 3.2.15.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.1.8.RELEASE"
+  - ">= 4.2.0.RELEASE < 4.2.2.RELEASE"
   severity: high
   package_manager: maven
   cve:
   - CVE-2015-5211
   cwe:
   - CWE-494
-  disclosed_date: 2016-12-25
+  disclosed_date: 2015-10-15
   created_date: 2016-12-25
   last_modified_date: 2016-12-25
   credit:
   - Alvaro Muñoz
   references:
   - http://pivotal.io/security/cve-2015-5211
+  - https://access.redhat.com/security/cve/cve-2015-5211
+  - https://github.com/spring-projects/spring-framework/commit/03f547eb9868f48f44d59b56067d4ac4740672c3
+  - https://github.com/spring-projects/spring-framework/commit/2bd1daa75ee0b8ec33608ca6ab065ef3e1815543
+  - https://github.com/spring-projects/spring-framework/commit/a95c3d820dbc4c3ae752f1b3ee22ee860b162402
+  - https://github.com/spring-projects/spring-framework/issues/18124
   - https://www.trustwave.com/Resources/SpiderLabs-Blog/Reflected-File-Download---A-New-Web-Attack-Vector/
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30170
 - id: snykio:maven:org.springframework:spring-webmvc:31332
   title: Directory Traversal
   description: |
-    [`org.springframework:spring-webmvc`][1] An issue was discovered in
-    Pivotal Spring Framework before 3.2.18, 4.2.x before 4.2.9, and 4.3.x
-    before 4.3.5. Paths provided to the `ResourceServlet` were not properly
-    sanitized and as a result exposed to directory traversal attacks.
+    [org.springframework:spring-webmvc][1] is a package that provides
+    Model-View-Controller (MVC) architecture and ready components that can
+    be used to develop flexible and loosely coupled web applications.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+    Paths provided to the `ResourceServlet` were not properly sanitized and
+    as a result exposed to directory traversal attacks.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-webmvc%22
+    [1]: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
     \nA Directory Traversal attack (also known as path traversal) aims to
     access files and directories that are stored outside the intended
     folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
@@ -511,8 +575,7 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: org.springframework:spring-webmvc
   vulnerable_versions:
-  - ">= 1.2.1 <= 3.1.4.RELEASE"
-  - ">= 3.2.0.RELEASE < 3.2.18.RELEASE"
+  - ">= 1.2.1 < 3.2.18.RELEASE"
   - ">= 4.2.0.RELEASE < 4.2.9.RELEASE"
   - ">= 4.3.0.RELEASE < 4.3.5.RELEASE"
   severity: high
@@ -521,7 +584,7 @@
   - CVE-2016-9878
   cwe:
   - CWE-22
-  disclosed_date: 2016-12-28
+  disclosed_date: 2016-12-21
   created_date: 2016-12-28
   last_modified_date: 2016-12-28
   credit:
@@ -532,7 +595,6 @@
   - https://github.com/spring-projects/spring-framework/commit/e2d6e709c3c65a4951eb096843ee75d5200cfcad
   - https://jira.spring.io/browse/SPR-14946
   - https://pivotal.io/security/cve-2016-9878
-  - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-9878
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-31332
 - id: snykio:maven:org.springframework:spring-webmvc:31512
   title: Cross-site Scripting (XSS)
@@ -545,37 +607,81 @@
 
 
     [1]: https://springframework.org
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: org.springframework:spring-webmvc
   vulnerable_versions:
-  - "< 3.0.6"
+  - "< 3.0.6.RELEASE"
   severity: medium
   package_manager: maven
   cwe:
@@ -626,29 +732,21 @@
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-31690
 - id: snykio:maven:org.springframework:spring-webmvc:32199
   title: Multipart Content Pollution
-  description: |
-    [org.springframework:spring-webmvc][1] Spring provides everything you
-    need beyond the Java language to create enterprise applications in a
-    wide range of scenarios and architectures.
+  description: |+
+    It provides client-side support for multipart requests. When the server
+    application (server A) receives input from a remote client, and then
+    uses that input to make a multipart request to another server (server
+    B), it can be exposed to an attack, where an extra multipart is inserted
+    in the content of the request from server A, causing server B to use the
+    wrong value for a part it expects. This could to lead privilege
+    escalation, for example, if the part content represents a username or
+    user roles.
 
-    Affected versions of this package are vulnerable to Multipart Content
-    Pollution. It provides client-side support for multipart requests. When
-    the server application (server A) receives input from a remote client,
-    and then uses that input to make a multipart request to another server
-    (server B), it can be exposed to an attack, where an extra multipart is
-    inserted in the content of the request from server A, causing server B
-    to use the wrong value for a part it expects. This could to lead
-    privilege escalation, for example, if the part content represents a
-    username or user roles.
-
-
-
-    [1]: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
   affected_package: org.springframework:spring-webmvc
   vulnerable_versions:
-  - "< 4.3.14"
-  - ">= 5.0.0 < 5.0.5"
-  severity: high
+  - ">= 4.3.0.RELEASE < 4.3.14.RELEASE"
+  - ">= 5.0.0.RELEASE < 5.0.5.RELEASE"
+  severity: medium
   package_manager: maven
   cve:
   - CVE-2018-1272
@@ -660,6 +758,8 @@
   credit:
   - Unknown
   references:
+  - https://github.com/spring-projects/spring-framework/commit/ab2410c754b67902f002bfcc0c3895bd7772d39
+  - https://github.com/spring-projects/spring-framework/commit/e02ff3a0da50744b0980d5d665fd242eedea767
   - https://nvd.nist.gov/vuln/detail/CVE-2018-1272
   - https://pivotal.io/security/cve-2018-1272
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-32199
@@ -729,8 +829,8 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: org.springframework:spring-webmvc
   vulnerable_versions:
-  - "< 4.3.15"
-  - ">= 5.0.0 < 5.0.5"
+  - "< 4.3.15.RELEASE"
+  - ">= 5.0.0.RELEASE < 5.0.5.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -746,6 +846,137 @@
   - https://nvd.nist.gov/vuln/detail/CVE-2018-1271
   - https://pivotal.io/security/cve-2018-1271
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-32202
+- id: snykio:maven:org.springframework:spring-webmvc:460108
+  title: Directory Traversal
+  description: |
+    [org.springframework:spring-webmvc][1] is a package that provides
+    Model-View-Controller (MVC) architecture and ready components that can
+    be used to develop flexible and loosely coupled web applications.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+    \n[`org.springframework:spring`][1] An issue was discovered in Pivotal
+    Spring Framework before 3.2.18, 4.2.x before 4.2.9, and 4.3.x before
+    4.3.5. Paths provided to the `ResourceServlet` were not properly
+    sanitized and as a result exposed to directory traversal attacks.
+
+
+
+    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-webmvc%22
+    \nA Directory Traversal attack (also known as path traversal) aims to
+    access files and directories that are stored outside the intended
+    folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
+    its variations, or by using absolute file paths, it may be possible to
+    access arbitrary files and directories stored on file system, including
+    application source code, configuration, and other critical system files.
+
+    Directory Traversal vulnerabilities can be generally divided into two
+    types:
+
+    * **Information Disclosure**\: Allows the attacker to gain information
+      about the folder structure or read the contents of sensitive files on
+      the system.
+
+    `st` is a module for serving static files on web pages, and contains a
+    [vulnerability of this type][1]. In our example, we will serve files
+    from the `public` route.
+
+    If an attacker requests the following URL from our server, it will in
+    turn leak the sensitive private key of the root user.
+
+        curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa
+
+    **Note** `%2e` is the URL encoded version of `.` (dot).
+
+    * **Writing arbitrary files**\: Allows the attacker to create or replace
+      existing files. This type of vulnerability is also known as
+      `Zip-Slip`.
+
+    One way to achieve this is by using a malicious `zip` archive that holds
+    path traversal filenames. When each filename in the zip archive gets
+    concatenated to the target extraction folder, without validation, the
+    final path ends up outside of the target folder. If an executable or a
+    configuration file is overwritten with a file containing malicious code,
+    the problem can turn into an arbitrary code execution issue quite
+    easily.
+
+    The following is an example of a `zip` archive with one benign file and
+    one malicious file. Extracting the malicious file will result in
+    traversing out of the target folder, ending up in `/root/.ssh/`
+    overwriting the `authorized_keys` file:
+
+        2018-04-15 22:04:29 .....           19           19  good.txt
+        2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys
+
+
+
+    [1]: https://snyk.io/vuln/npm:st:20140206
+  affected_package: org.springframework:spring-webmvc
+  vulnerable_versions:
+  - ">= 1.2.1 < 3.2.18.RELEASE"
+  - ">= 4.2.0.RELEASE < 4.2.9.RELEASE"
+  - ">= 4.3.0.RELEASE < 4.3.5.RELEASE"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2016-9878
+  cwe:
+  - CWE-22
+  disclosed_date: 2016-12-28
+  created_date: 2016-12-28
+  last_modified_date: 2016-12-28
+  credit:
+  - Shumpei Asahara
+  - Yuji Ito
+  references:
+  - https://github.com/spring-projects/spring-framework/commit/43bf008fbcd0d7945e2fcd5e30039bc4d74c7a98
+  - https://github.com/spring-projects/spring-framework/commit/a7dc48534ea501525f11369d369178a60c2f47d0
+  - https://github.com/spring-projects/spring-framework/commit/e2d6e709c3c65a4951eb096843ee75d5200cfcad
+  - https://pivotal.io/security/cve-2016-9878
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-460108
+- id: snykio:maven:org.springframework:spring-webmvc:467268
+  title: Information Exposure
+  description: |
+    [org.springframework:spring-webmvc][1] is a package that provides
+    Model-View-Controller (MVC) architecture and ready components that can
+    be used to develop flexible and loosely coupled web applications.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. It allows web applications to enable cross-domain requests via
+    JSONP (JSON with Padding) through `AbstractJsonpResponseBodyAdvice` for
+    REST controllers, and `MappingJackson2JsonView` for browser requests.
+    When `MappingJackson2JsonView` is configured in an application, JSONP
+    support is automatically ready to use through the `jsonp` and `callback`
+    JSONP parameters, enabling cross-domain requests. Allowing cross-domain
+    requests from untrusted origins may expose user information to 3rd party
+    browser scripts.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.springframework/spring-webmvc
+  affected_package: org.springframework:spring-webmvc
+  vulnerable_versions:
+  - ">= 4.3.0.RELEASE < 4.3.18.RELEASE"
+  - ">= 5.0.0.RELEASE < 5.0.7.RELEASE"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2018-11040
+  cwe:
+  - CWE-200
+  disclosed_date: 2018-06-08
+  created_date: 2016-12-25
+  last_modified_date: 2016-12-25
+  credit:
+  - Mariusz Luciow
+  references:
+  - https://github.com/spring-projects/spring-framework/commit/b80c13b722bb207ddf43f53a007ee3ddc1dd2e26
+  - https://github.com/spring-projects/spring-framework/issues/21338
+  - https://pivotal.io/security/cve-2018-11040
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-467268
 - id: victims:maven:org.springframework:spring-webmvc:2014-0054
   title: 'Spring MVC: XML External Entities'
   description: 'Spring MVC''s Jaxb2RootElementHttpMessageConverter also processed

@@ -19,6 +19,67 @@
   credit: zbarbuto
   references: https://npmjs.com/advisories/771
   source_url: https://npmjs.com/advisories/771
+- id: npmjs:npm:loopback:915
+  title: Sensitive Data Exposure
+  description: Versions of `loopback` prior to 3.26.0 (3.x) and 2.42.0 (2.x) are vulnerable
+    to Sensitive Data Exposure. Invalid API requests to the login endpoint may return
+    information about the first user in the database. This can be used alongside other
+    attacks for credential theft.
+  affected_package: loopback
+  vulnerable_versions:
+  - "<=2.41.0"
+  - ">=3.0.0 <=3.25.0"
+  severity: low
+  package_manager: npm
+  cwe: CWE-532
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: gabjauf
+  references: https://npmjs.com/advisories/915
+  source_url: https://npmjs.com/advisories/915
+- id: snykio:npm:loopback:174846
+  title: SQL Injection
+  description: |
+    [loopback][1] is a highly-extensible, open-source Node.js framework that
+    enables you to create dynamic end-to-end REST APIs, access data from
+    several databases, incorporate model relationships and access controls
+    for complex APIs, and more.
+
+    Affected versions of this package are vulnerable to SQL Injection. It is
+    possible to send queries using the username and email fields in the
+    `/Users/login` path, allowing sensitive user information to be
+    compromised.
+
+    e.g.
+
+        {
+            "email": {"regexp": "^a" },
+            "password": "anything you want"
+        }
+
+
+
+    [1]: https://www.npmjs.com/package/loopback
+  affected_package: loopback
+  vulnerable_versions:
+  - "<2.42.0"
+  - ">=3.0.0 <3.26.0"
+  severity: medium
+  package_manager: npm
+  cwe:
+  - CWE-89
+  disclosed_date: 2019-05-13
+  created_date: 2019-05-30
+  last_modified_date: 2019-05-30
+  credit:
+  - gabjauf
+  references:
+  - https://github.com/strongloop/loopback/commit/58a0e6c8e95c346442a055510bc14e36207e7d85
+  - https://github.com/strongloop/loopback/issues/4195
+  - https://github.com/strongloop/loopback/pull/4208
+  - https://loopback.io/doc/en/sec/Security-advisory-06-17-2019.html
+  source_url: https://snyk.io/vuln/SNYK-JS-LOOPBACK-174846
 - id: snykio:npm:loopback:20171027
   title: Authentication Bypass
   description: |

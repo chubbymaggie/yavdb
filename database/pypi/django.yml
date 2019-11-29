@@ -1,4 +1,151 @@
 ---
+- id: snykio:pypi:django:173679
+  title: Uncontrolled Memory Consumption
+  description: |
+    [django][1] is a high-level Python Web framework that encourages rapid
+    development and clean, pragmatic design.
+
+    Affected versions of this package are vulnerable to Uncontrolled Memory
+    Consumption. If `django.utils.numberformat.format()` that is used by
+    `contrib.admin` as well as the the `floatformat`, `filesizeformat`, and
+    `intcomma` templates filters - received a Decimal with a large number of
+    digits or a large exponent, it could lead to significant memory usage
+    due to a call to `{:f}'.format()`.
+
+
+
+    [1]: https://pypi.org/project/Django/
+  affected_package: django
+  vulnerable_versions:
+  - ">= 1.11.0 < 1.11.19"
+  - ">= 2.0.0 < 2.0.11"
+  - ">= 2.1.0 < 2.1.6"
+  severity: medium
+  package_manager: pypi
+  cve:
+  - CVE-2019-6975
+  cwe:
+  - CWE-789
+  disclosed_date: 2019-02-11
+  created_date: 2019-02-11
+  last_modified_date: 2019-02-11
+  credit:
+  - Carlton Gibson
+  references:
+  - https://github.com/django/django/commit/40cd19055773705301c3428ed5e08a036d2091f3
+  - https://groups.google.com/forum/#!topic/django-announce/WTwEAprR0IQ
+  - https://www.djangoproject.com/weblog/2019/feb/11/security-releases/
+  - https://www.openwall.com/lists/oss-security/2019/02/11/1
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-DJANGO-173679
+- id: snykio:pypi:django:174885
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [django][1] is a high-level Python Web framework that encourages rapid
+    development and clean, pragmatic design.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). The clickable Current URL value displayed by the
+    `AdminURLFieldWidget` displays the provided value without validating it
+    as a safe URL. Thus, an unvalidated value stored in the database, or a
+    value provided as a URL query parameter payload, could result in an
+    clickable JavaScript link.
+
+
+
+    [1]: https://pypi.org/project/Django/
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: django
+  vulnerable_versions:
+  - ">= 1.11.0 < 1.11.21"
+  - ">= 2.1.0 < 2.1.9"
+  - ">= 2.2.0 < 2.2.2"
+  severity: low
+  package_manager: pypi
+  cve:
+  - CVE-2019-12308
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-06-03
+  created_date: 2019-06-03
+  last_modified_date: 2019-06-03
+  credit:
+  - Unknown
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1715915
+  - https://docs.djangoproject.com/en/dev/releases/security/
+  - https://github.com/django/django/commit/afddabf8428ddc89a332f7a78d0d21eaf2b5a673
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-DJANGO-174885
 - id: snykio:pypi:django:40025
   title: Arbitrary Code Execution
   description: |
@@ -19,7 +166,7 @@
   - "< 1.4.11"
   - ">= 1.5 < 1.5.6"
   - ">= 1.6 < 1.6.3"
-  - ">= 1.7 < 1.7b2"
+  - ">= 1.7 < 1.7.1"
   severity: medium
   package_manager: pypi
   cve:
@@ -55,7 +202,7 @@
   - "< 1.4.11"
   - ">= 1.5 < 1.5.6"
   - ">= 1.6 < 1.6.3"
-  - ">= 1.7 < 1.7b2"
+  - ">= 1.7 < 1.7.1"
   severity: medium
   package_manager: pypi
   cve:
@@ -92,7 +239,7 @@
   - "< 1.4.11"
   - ">= 1.5 < 1.5.6"
   - ">= 1.6 < 1.6.3"
-  - ">= 1.7 < 1.7b2"
+  - ">= 1.7 < 1.7.1"
   severity: high
   package_manager: pypi
   cve:
@@ -122,33 +269,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -317,33 +508,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -713,33 +948,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -1105,6 +1384,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -1117,6 +1397,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -1153,33 +1434,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -1215,33 +1540,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -1699,33 +2068,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -1881,33 +2294,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -2004,33 +2461,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -2455,33 +2956,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -2557,38 +3102,82 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
   - "< 1.8.14"
-  - ">= 1.9 < 1.9.8"
+  - ">= 1.9.0 < 1.9.8"
   severity: medium
   package_manager: pypi
   cve:
@@ -2804,33 +3393,77 @@
 
 
     [1]: https://pypi.python.org/pypi/django
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: django
   vulnerable_versions:
@@ -2868,40 +3501,40 @@
     of Denial of\nService attack. Regular expressions are incredibly powerful, but
     they\naren\\'t very intuitive and can ultimately end up making it easy for\nattackers
     to take your site down.\n\nLet’s take the following regular expression as an example:\n\n
-    \   regex = /A(B|C+)+D/\n\nThis regular expression accomplishes the following:\n\n*
-    `A` The string must start with the letter \\'A\\'\n* `(B|C+)+` The string must
-    then follow the letter A with either the\n  letter \\'B\\' or some number of occurrences
-    of the letter \\'C\\' (the\n  `+` matches one or more times). The `+` at the end
-    of this section\n  states that we can look for one or more matches of this section.\n*
-    `D` Finally, we ensure this section of the string ends with a \\'D\\'\n\nThe expression
-    would match inputs such as `ABBD`, `ABCCCCD`, `ABCBCCCD`\nand `ACCCCCD`\n\nIt
-    most cases, it doesn\\'t take very long for a regex engine to find a\nmatch:\n\n
-    \   $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCD\")'\n    0.04s
-    user 0.01s system 95% cpu 0.052 total\n    \n    $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCX\")'\n
-    \   1.79s user 0.02s system 99% cpu 1.812 total\n\nThe entire process of testing
-    it against a 30 characters long string\ntakes around ~52ms. But when given an
-    invalid string, it takes nearly\ntwo seconds to complete the test, over ten times
-    as long as it took to\ntest a valid string. The dramatic difference is due to
-    the way regular\nexpressions get evaluated.\n\nMost Regex engines will work very
-    similarly (with minor differences).\nThe engine will match the first possible
-    way to accept the current\ncharacter and proceed to the next one. If it then fails
-    to match the\nnext one, it will backtrack and see if there was another way to
-    digest\nthe previous character. If it goes too far down the rabbit hole only to\nfind
-    out the string doesn’t match in the end, and if many characters\nhave multiple
-    valid regex paths, the number of backtracking steps can\nbecome very large, resulting
-    in what is known as *catastrophic\nbacktracking*.\n\nLet\\'s look at how our expression
-    runs into this problem, using a\nshorter string: \\\"ACCCX\\\". While it seems
-    fairly straightforward, there\nare still four different ways that the engine could
-    match those three\nC\\'s:\n\n1.  CCC\n2.  CC+C\n3.  C+CC\n4.  C+C+C.\n\nThe engine
-    has to try each of those combinations to see if any of them\npotentially match
-    against the expression. When you combine that with the\nother steps the engine
-    must take, we can use [RegEx 101 debugger][1] to\nsee the engine has to take a
-    total of 38 steps before it can determine\nthe string doesn\\'t match.\n\nFrom
-    there, the number of steps the engine must use to validate a string\njust continues
-    to grow.\n\n| String | Number of C\\'s | Number of steps |\n|----------\n| ACCCX
-    | 3 | 38 |\n| ACCCCX | 4 | 71 |\n| ACCCCCX | 5 | 136 |\n| ACCCCCCCCCCCCCCX | 14
-    | 65,553 |\n\nBy the time the string includes 14 C\\'s, the engine has to take
-    over\n65,000 steps just to see if the string is valid. These extreme\nsituations
+    \   regex = /A(B|C+)+D/\n{: .language-js}\n\nThis regular expression accomplishes
+    the following:\n\n* `A` The string must start with the letter \\'A\\'\n* `(B|C+)+`
+    The string must then follow the letter A with either the\n  letter \\'B\\' or
+    some number of occurrences of the letter \\'C\\' (the\n  `+` matches one or more
+    times). The `+` at the end of this section\n  states that we can look for one
+    or more matches of this section.\n* `D` Finally, we ensure this section of the
+    string ends with a \\'D\\'\n\nThe expression would match inputs such as `ABBD`,
+    `ABCCCCD`, `ABCBCCCD`\nand `ACCCCCD`\n\nIt most cases, it doesn\\'t take very
+    long for a regex engine to find a\nmatch:\n\n    $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCD\")'\n
+    \   0.04s user 0.01s system 95% cpu 0.052 total\n    \n    $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCX\")'\n
+    \   1.79s user 0.02s system 99% cpu 1.812 total\n{: .language-bash}\n\nThe entire
+    process of testing it against a 30 characters long string\ntakes around ~52ms.
+    But when given an invalid string, it takes nearly\ntwo seconds to complete the
+    test, over ten times as long as it took to\ntest a valid string. The dramatic
+    difference is due to the way regular\nexpressions get evaluated.\n\nMost Regex
+    engines will work very similarly (with minor differences).\nThe engine will match
+    the first possible way to accept the current\ncharacter and proceed to the next
+    one. If it then fails to match the\nnext one, it will backtrack and see if there
+    was another way to digest\nthe previous character. If it goes too far down the
+    rabbit hole only to\nfind out the string doesn’t match in the end, and if many
+    characters\nhave multiple valid regex paths, the number of backtracking steps
+    can\nbecome very large, resulting in what is known as *catastrophic\nbacktracking*.\n\nLet\\'s
+    look at how our expression runs into this problem, using a\nshorter string: \\\"ACCCX\\\".
+    While it seems fairly straightforward, there\nare still four different ways that
+    the engine could match those three\nC\\'s:\n\n1.  CCC\n2.  CC+C\n3.  C+CC\n4.
+    \ C+C+C.\n\nThe engine has to try each of those combinations to see if any of
+    them\npotentially match against the expression. When you combine that with the\nother
+    steps the engine must take, we can use [RegEx 101 debugger][1] to\nsee the engine
+    has to take a total of 38 steps before it can determine\nthe string doesn\\'t
+    match.\n\nFrom there, the number of steps the engine must use to validate a string\njust
+    continues to grow.\n\n| String | Number of C\\'s | Number of steps |\n|----------\n|
+    ACCCX | 3 | 38 |\n| ACCCCX | 4 | 71 |\n| ACCCCCX | 5 | 136 |\n| ACCCCCCCCCCCCCCX
+    | 14 | 65,553 |\n\nBy the time the string includes 14 C\\'s, the engine has to
+    take over\n65,000 steps just to see if the string is valid. These extreme\nsituations
     can cause them to work very slowly (exponentially related to\ninput size, as shown
     above), allowing an attacker to exploit this and\ncan cause the service to excessively
     consume CPU, resulting in a Denial\nof Service.\n\n\n\n[1]: https://regex101.com/debugger\n"
@@ -2943,7 +3576,7 @@
     of Service (ReDoS) is a type of Denial of\nService attack. Regular expressions
     are incredibly powerful, but they\naren\\'t very intuitive and can ultimately
     end up making it easy for\nattackers to take your site down.\n\nLet’s take the
-    following regular expression as an example:\n\n    regex = /A(B|C+)+D/\n\nThis
+    following regular expression as an example:\n\n    regex = /A(B|C+)+D/\n{: .language-js}\n\nThis
     regular expression accomplishes the following:\n\n* `A` The string must start
     with the letter \\'A\\'\n* `(B|C+)+` The string must then follow the letter A
     with either the\n  letter \\'B\\' or some number of occurrences of the letter
@@ -2954,30 +3587,30 @@
     it doesn\\'t take very long for a regex engine to find a\nmatch:\n\n    $ time
     node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCD\")'\n    0.04s user
     0.01s system 95% cpu 0.052 total\n    \n    $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCX\")'\n
-    \   1.79s user 0.02s system 99% cpu 1.812 total\n\nThe entire process of testing
-    it against a 30 characters long string\ntakes around ~52ms. But when given an
-    invalid string, it takes nearly\ntwo seconds to complete the test, over ten times
-    as long as it took to\ntest a valid string. The dramatic difference is due to
-    the way regular\nexpressions get evaluated.\n\nMost Regex engines will work very
-    similarly (with minor differences).\nThe engine will match the first possible
-    way to accept the current\ncharacter and proceed to the next one. If it then fails
-    to match the\nnext one, it will backtrack and see if there was another way to
-    digest\nthe previous character. If it goes too far down the rabbit hole only to\nfind
-    out the string doesn’t match in the end, and if many characters\nhave multiple
-    valid regex paths, the number of backtracking steps can\nbecome very large, resulting
-    in what is known as *catastrophic\nbacktracking*.\n\nLet\\'s look at how our expression
-    runs into this problem, using a\nshorter string: \\\"ACCCX\\\". While it seems
-    fairly straightforward, there\nare still four different ways that the engine could
-    match those three\nC\\'s:\n\n1.  CCC\n2.  CC+C\n3.  C+CC\n4.  C+C+C.\n\nThe engine
-    has to try each of those combinations to see if any of them\npotentially match
-    against the expression. When you combine that with the\nother steps the engine
-    must take, we can use [RegEx 101 debugger][1] to\nsee the engine has to take a
-    total of 38 steps before it can determine\nthe string doesn\\'t match.\n\nFrom
-    there, the number of steps the engine must use to validate a string\njust continues
-    to grow.\n\n| String | Number of C\\'s | Number of steps |\n|----------\n| ACCCX
-    | 3 | 38 |\n| ACCCCX | 4 | 71 |\n| ACCCCCX | 5 | 136 |\n| ACCCCCCCCCCCCCCX | 14
-    | 65,553 |\n\nBy the time the string includes 14 C\\'s, the engine has to take
-    over\n65,000 steps just to see if the string is valid. These extreme\nsituations
+    \   1.79s user 0.02s system 99% cpu 1.812 total\n{: .language-bash}\n\nThe entire
+    process of testing it against a 30 characters long string\ntakes around ~52ms.
+    But when given an invalid string, it takes nearly\ntwo seconds to complete the
+    test, over ten times as long as it took to\ntest a valid string. The dramatic
+    difference is due to the way regular\nexpressions get evaluated.\n\nMost Regex
+    engines will work very similarly (with minor differences).\nThe engine will match
+    the first possible way to accept the current\ncharacter and proceed to the next
+    one. If it then fails to match the\nnext one, it will backtrack and see if there
+    was another way to digest\nthe previous character. If it goes too far down the
+    rabbit hole only to\nfind out the string doesn’t match in the end, and if many
+    characters\nhave multiple valid regex paths, the number of backtracking steps
+    can\nbecome very large, resulting in what is known as *catastrophic\nbacktracking*.\n\nLet\\'s
+    look at how our expression runs into this problem, using a\nshorter string: \\\"ACCCX\\\".
+    While it seems fairly straightforward, there\nare still four different ways that
+    the engine could match those three\nC\\'s:\n\n1.  CCC\n2.  CC+C\n3.  C+CC\n4.
+    \ C+C+C.\n\nThe engine has to try each of those combinations to see if any of
+    them\npotentially match against the expression. When you combine that with the\nother
+    steps the engine must take, we can use [RegEx 101 debugger][1] to\nsee the engine
+    has to take a total of 38 steps before it can determine\nthe string doesn\\'t
+    match.\n\nFrom there, the number of steps the engine must use to validate a string\njust
+    continues to grow.\n\n| String | Number of C\\'s | Number of steps |\n|----------\n|
+    ACCCX | 3 | 38 |\n| ACCCCX | 4 | 71 |\n| ACCCCCX | 5 | 136 |\n| ACCCCCCCCCCCCCCX
+    | 14 | 65,553 |\n\nBy the time the string includes 14 C\\'s, the engine has to
+    take over\n65,000 steps just to see if the string is valid. These extreme\nsituations
     can cause them to work very slowly (exponentially related to\ninput size, as shown
     above), allowing an attacker to exploit this and\ncan cause the service to excessively
     consume CPU, resulting in a Denial\nof Service.\n\n\n\n[1]: https://regex101.com/debugger\n"
@@ -3108,41 +3741,41 @@
     expression Denial of Service (ReDoS) is a type of Denial of\nService attack. Regular
     expressions are incredibly powerful, but they\naren\\'t very intuitive and can
     ultimately end up making it easy for\nattackers to take your site down.\n\nLet’s
-    take the following regular expression as an example:\n\n    regex = /A(B|C+)+D/\n\nThis
-    regular expression accomplishes the following:\n\n* `A` The string must start
-    with the letter \\'A\\'\n* `(B|C+)+` The string must then follow the letter A
-    with either the\n  letter \\'B\\' or some number of occurrences of the letter
-    \\'C\\' (the\n  `+` matches one or more times). The `+` at the end of this section\n
-    \ states that we can look for one or more matches of this section.\n* `D` Finally,
-    we ensure this section of the string ends with a \\'D\\'\n\nThe expression would
-    match inputs such as `ABBD`, `ABCCCCD`, `ABCBCCCD`\nand `ACCCCCD`\n\nIt most cases,
-    it doesn\\'t take very long for a regex engine to find a\nmatch:\n\n    $ time
-    node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCD\")'\n    0.04s user
-    0.01s system 95% cpu 0.052 total\n    \n    $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCX\")'\n
-    \   1.79s user 0.02s system 99% cpu 1.812 total\n\nThe entire process of testing
-    it against a 30 characters long string\ntakes around ~52ms. But when given an
-    invalid string, it takes nearly\ntwo seconds to complete the test, over ten times
-    as long as it took to\ntest a valid string. The dramatic difference is due to
-    the way regular\nexpressions get evaluated.\n\nMost Regex engines will work very
-    similarly (with minor differences).\nThe engine will match the first possible
-    way to accept the current\ncharacter and proceed to the next one. If it then fails
-    to match the\nnext one, it will backtrack and see if there was another way to
-    digest\nthe previous character. If it goes too far down the rabbit hole only to\nfind
-    out the string doesn’t match in the end, and if many characters\nhave multiple
-    valid regex paths, the number of backtracking steps can\nbecome very large, resulting
-    in what is known as *catastrophic\nbacktracking*.\n\nLet\\'s look at how our expression
-    runs into this problem, using a\nshorter string: \\\"ACCCX\\\". While it seems
-    fairly straightforward, there\nare still four different ways that the engine could
-    match those three\nC\\'s:\n\n1.  CCC\n2.  CC+C\n3.  C+CC\n4.  C+C+C.\n\nThe engine
-    has to try each of those combinations to see if any of them\npotentially match
-    against the expression. When you combine that with the\nother steps the engine
-    must take, we can use [RegEx 101 debugger][1] to\nsee the engine has to take a
-    total of 38 steps before it can determine\nthe string doesn\\'t match.\n\nFrom
-    there, the number of steps the engine must use to validate a string\njust continues
-    to grow.\n\n| String | Number of C\\'s | Number of steps |\n|----------\n| ACCCX
-    | 3 | 38 |\n| ACCCCX | 4 | 71 |\n| ACCCCCX | 5 | 136 |\n| ACCCCCCCCCCCCCCX | 14
-    | 65,553 |\n\nBy the time the string includes 14 C\\'s, the engine has to take
-    over\n65,000 steps just to see if the string is valid. These extreme\nsituations
+    take the following regular expression as an example:\n\n    regex = /A(B|C+)+D/\n{:
+    .language-js}\n\nThis regular expression accomplishes the following:\n\n* `A`
+    The string must start with the letter \\'A\\'\n* `(B|C+)+` The string must then
+    follow the letter A with either the\n  letter \\'B\\' or some number of occurrences
+    of the letter \\'C\\' (the\n  `+` matches one or more times). The `+` at the end
+    of this section\n  states that we can look for one or more matches of this section.\n*
+    `D` Finally, we ensure this section of the string ends with a \\'D\\'\n\nThe expression
+    would match inputs such as `ABBD`, `ABCCCCD`, `ABCBCCCD`\nand `ACCCCCD`\n\nIt
+    most cases, it doesn\\'t take very long for a regex engine to find a\nmatch:\n\n
+    \   $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCD\")'\n    0.04s
+    user 0.01s system 95% cpu 0.052 total\n    \n    $ time node -e '/A(B|C+)+D/.test(\"ACCCCCCCCCCCCCCCCCCCCCCCCCCCCX\")'\n
+    \   1.79s user 0.02s system 99% cpu 1.812 total\n{: .language-bash}\n\nThe entire
+    process of testing it against a 30 characters long string\ntakes around ~52ms.
+    But when given an invalid string, it takes nearly\ntwo seconds to complete the
+    test, over ten times as long as it took to\ntest a valid string. The dramatic
+    difference is due to the way regular\nexpressions get evaluated.\n\nMost Regex
+    engines will work very similarly (with minor differences).\nThe engine will match
+    the first possible way to accept the current\ncharacter and proceed to the next
+    one. If it then fails to match the\nnext one, it will backtrack and see if there
+    was another way to digest\nthe previous character. If it goes too far down the
+    rabbit hole only to\nfind out the string doesn’t match in the end, and if many
+    characters\nhave multiple valid regex paths, the number of backtracking steps
+    can\nbecome very large, resulting in what is known as *catastrophic\nbacktracking*.\n\nLet\\'s
+    look at how our expression runs into this problem, using a\nshorter string: \\\"ACCCX\\\".
+    While it seems fairly straightforward, there\nare still four different ways that
+    the engine could match those three\nC\\'s:\n\n1.  CCC\n2.  CC+C\n3.  C+CC\n4.
+    \ C+C+C.\n\nThe engine has to try each of those combinations to see if any of
+    them\npotentially match against the expression. When you combine that with the\nother
+    steps the engine must take, we can use [RegEx 101 debugger][1] to\nsee the engine
+    has to take a total of 38 steps before it can determine\nthe string doesn\\'t
+    match.\n\nFrom there, the number of steps the engine must use to validate a string\njust
+    continues to grow.\n\n| String | Number of C\\'s | Number of steps |\n|----------\n|
+    ACCCX | 3 | 38 |\n| ACCCCX | 4 | 71 |\n| ACCCCCX | 5 | 136 |\n| ACCCCCCCCCCCCCCX
+    | 14 | 65,553 |\n\nBy the time the string includes 14 C\\'s, the engine has to
+    take over\n65,000 steps just to see if the string is valid. These extreme\nsituations
     can cause them to work very slowly (exponentially related to\ninput size, as shown
     above), allowing an attacker to exploit this and\ncan cause the service to excessively
     consume CPU, resulting in a Denial\nof Service.\n\n\n\n[1]: https://regex101.com/debugger\n"
@@ -3203,6 +3836,266 @@
   - https://github.com/django/django/commit/c4e5ff7fdb5fce447675e90291fd33fddd052b3c
   - https://www.djangoproject.com/weblog/2018/aug/01/security-releases/
   source_url: https://snyk.io/vuln/SNYK-PYTHON-DJANGO-42178
+- id: snykio:pypi:django:451300
+  title: Man-in-the-Middle (MitM)
+  description: |
+    [django][1] is a high-level Python Web framework that encourages rapid
+    development and clean, pragmatic design.
+
+    Affected versions of this package are vulnerable to Man-in-the-Middle
+    (MitM). An HTTP request is not redirected to HTTPS when the
+    `SECURE_PROXY_SSL_HEADER` and `SECURE_SSL_REDIRECT` settings are used,
+    and the proxy connects to Django via HTTPS. As such,
+    `django.http.HttpRequest.scheme` has incorrect behavior when a client
+    uses HTTP. This entails incorrect results for `is_secure()`, and
+    `build_absolute_uri()`, and that HTTP requests would not be redirected
+    to HTTPS in accordance with `SECURE_SSL_REDIRECT`.
+
+
+
+    [1]: https://pypi.org/project/Django/
+  affected_package: django
+  vulnerable_versions:
+  - ">= 1.11.0 < 1.11.22"
+  - ">= 2.1.0 < 2.1.10"
+  - ">= 2.2.0 < 2.2.3"
+  severity: high
+  package_manager: pypi
+  cve:
+  - CVE-2019-12781
+  cwe:
+  - CWE-300
+  disclosed_date: 2019-07-01
+  created_date: 2019-07-01
+  last_modified_date: 2019-07-01
+  credit:
+  - Gavin Wahl
+  references:
+  - https://docs.djangoproject.com/en/dev/releases/security/
+  - https://github.com/django/django/commit/54d0f5e62f54c29a12dd96f44bacd810cbe03ac8
+  - https://groups.google.com/forum/#!topic/django-announce/Is4kLY9ZcZQ
+  - https://www.djangoproject.com/weblog/2019/jul/01/security-releases/
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-DJANGO-451300
+- id: snykio:pypi:django:456540
+  title: Denial of Service (Memory Exhaustion)
+  description: |+
+    [django][1] is a high-level Python Web framework that encourages rapid
+    development and clean, pragmatic design.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (Memory Exhaustion). If passed certain inputs,
+    `django.utils.encoding.uri_to_iri` could lead to significant memory
+    usage due to a recursion when repercent-encoding invalid UTF-8 octet
+    sequences.
+
+
+
+    [1]: https://pypi.org/project/Django/
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: django
+  vulnerable_versions:
+  - ">= 1.11 < 1.11.23"
+  - ">= 2.1 < 2.1.11"
+  - ">= 2.2 < 2.2.4"
+  severity: medium
+  package_manager: pypi
+  cve:
+  - CVE-2019-14235
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-04
+  last_modified_date: 2019-08-04
+  credit:
+  - Guido Vranken
+  - Sage M. Abdullah
+  references:
+  - https://www.djangoproject.com/weblog/2019/aug/01/security-releases/
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-DJANGO-456540
+- id: snykio:pypi:django:456541
+  title: Denial of Service (DoS)
+  description: |+
+    [django][1] is a high-level Python Web framework that encourages rapid
+    development and clean, pragmatic design.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). Due to the behaviour of the underlying HTMLParser,
+    `django.utils.html.strip_tags` would be extremely slow to evaluate
+    certain inputs containing large sequences of nested incomplete HTML
+    entities.
+
+
+
+    [1]: https://pypi.org/project/Django/
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: django
+  vulnerable_versions:
+  - ">= 1.11 < 1.11.23"
+  - ">= 2.1 < 2.1.11"
+  - ">= 2.2 < 2.2.4"
+  severity: medium
+  package_manager: pypi
+  cve:
+  - CVE-2019-14233
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-04
+  last_modified_date: 2019-08-04
+  credit:
+  - Guido Vranken
+  - Sage M. Abdullah
+  references:
+  - https://www.djangoproject.com/weblog/2019/aug/01/security-releases/
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-DJANGO-456541
+- id: snykio:pypi:django:456542
+  title: Denial of Service (DoS)
+  description: |+
+    [django][1] is a high-level Python Web framework that encourages rapid
+    development and clean, pragmatic design.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). If `django.utils.text.Truncator`\'s `chars()` and `words()`
+    methods were passed the `html=True` argument, they were extremely slow
+    to evaluate certain inputs due to a catastrophic backtracking
+    vulnerability in a regular expression. The `chars()` and `words()`
+    methods are used to implement the `truncatechars_html` and
+    `truncatewords_html` template filters, which were thus vulnerable.
+
+
+
+    [1]: https://pypi.org/project/Django/
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: django
+  vulnerable_versions:
+  - ">= 1.11 < 1.11.23"
+  - ">= 2.1 < 2.1.11"
+  - ">= 2.2 < 2.2.4"
+  severity: medium
+  package_manager: pypi
+  cve:
+  - CVE-2019-14232
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-04
+  last_modified_date: 2019-08-04
+  credit:
+  - Guido Vranken
+  - Sage M. Abdullah
+  references:
+  - https://www.djangoproject.com/weblog/2019/aug/01/security-releases/
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-DJANGO-456542
+- id: snykio:pypi:django:456566
+  title: SQL Injection
+  description: |
+    [django][1] is a high-level Python Web framework that encourages rapid
+    development and clean, pragmatic design.
+
+    Affected versions of this package are vulnerable to SQL Injection. Key
+    and index lookups for `django.contrib.postgres.fields.JSONField` and key
+    lookups for `django.contrib.postgres.fields.HStoreField` were subject to
+    SQL injection, using a suitably crafted dictionary, with dictionary
+    expansion, as the `**kwargs` passed to `QuerySet.filter()`.
+
+
+
+    [1]: https://pypi.org/project/Django/
+  affected_package: django
+  vulnerable_versions:
+  - ">= 1.11 < 1.11.23"
+  - ">= 2.1 < 2.1.11"
+  - ">= 2.2 < 2.2.4"
+  severity: medium
+  package_manager: pypi
+  cve:
+  - CVE-2019-14234
+  cwe:
+  - CWE-20
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-04
+  last_modified_date: 2019-08-04
+  credit:
+  - Guido Vranken
+  - Sage M. Abdullah
+  references:
+  - https://www.djangoproject.com/weblog/2019/aug/01/security-releases/
+  source_url: https://snyk.io/vuln/SNYK-PYTHON-DJANGO-456566
 - id: snykio:pypi:django:72562
   title: Information Exposure
   description: |
@@ -3240,7 +4133,7 @@
   title: Content Spoofing
   description: |
     [django][1] is a high-level Python Web framework that encourages rapid
-    development and clean, pragmatic design. Thanks for checking it out.
+    development and clean, pragmatic design.
 
     Affected versions of this package are vulnerable to Content Spoofing.
     The default 404 page did not properly handle user-supplied data, an

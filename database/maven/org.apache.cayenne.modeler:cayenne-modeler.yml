@@ -31,6 +31,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -43,6 +44,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -50,9 +52,8 @@
 
   affected_package: org.apache.cayenne.modeler:cayenne-modeler
   vulnerable_versions:
-  - ">= 3.1.0 < 3.1.3"
-  - ">= 4.0-a < 4.0"
-  - ">= 4.1.0 < 4.1.M2"
+  - ">= 4.0.B1 < 4.0"
+  - ">= 4.1.M1 < 4.1.M2"
   severity: medium
   package_manager: maven
   cve:

@@ -1,0 +1,57 @@
+---
+- id: npmjs:npm:generator-jhipster-kotlin:1188
+  title: Cryptographically Weak PRNG
+  description: All versions of `generator-jhipster-kotlin` use a Cryptographically
+    Weak PRNG that may lead to account takeover. The package uses a cryptographically
+    insecure method to generate password reset links, which allows an attacker to
+    guess password reset links and takeover accounts.
+  affected_package: generator-jhipster-kotlin
+  vulnerable_versions:
+  - ">=0.0.0"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-16303
+  cwe: CWE-338
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Jonathan Leitschuh
+  references: https://npmjs.com/advisories/1188
+  source_url: https://npmjs.com/advisories/1188
+- id: snykio:npm:generator-jhipster-kotlin:466981
+  title: Insecure Randomness
+  description: |
+    [generator-jhipster-kotlin][1]adds Kotlin to the JHipster application.
+
+    Affected versions of this package are vulnerable to Insecure Randomness.
+    Uses an insecure source of randomness to generate all of its random
+    values as it relies upon apache commons lang3 `RandomStringUtils`. This
+    allows an attacker (if able to obtain their own password reset URL) to
+    compute the value for all other password resets for other accounts, thus
+    allowing privilege escalation or account takeover.
+
+
+
+    [1]: https://github.com/jhipster/jhipster-kotlin#readme
+  affected_package: generator-jhipster-kotlin
+  vulnerable_versions:
+  - "<1.2.0"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-16303
+  cwe:
+  - CWE-338
+  disclosed_date: 2019-09-13
+  created_date: 2019-09-14
+  last_modified_date: 2019-09-14
+  credit:
+  - Jonathan Leitschuh
+  references:
+  - https://github.com/jhipster/generator-jhipster/issues/10401
+  - https://github.com/jhipster/generator-jhipster/security/advisories/GHSA-mwp6-j9wf-968c
+  - https://github.com/jhipster/jhipster-kotlin/issues/183
+  - https://medium.com/@alex91ar/the-java-soothsayer-a-practical-application-for-insecure-randomness-c67b0cd148cd
+  - https://www.jhipster.tech/2019/09/13/jhipster-release-6.3.0.html
+  source_url: https://snyk.io/vuln/SNYK-JS-GENERATORJHIPSTERKOTLIN-466981

@@ -57,7 +57,7 @@
   severity: medium
   package_manager: npm
   cve:
-  - CVE-2017-16027
+  - CVE-2016-10707
   cwe: CWE-121
   disclosed_date: 1970-01-01
   created_date: 1970-01-01
@@ -65,48 +65,176 @@
   credit: Michał Gołębiowski
   references: https://npmjs.com/advisories/330
   source_url: https://npmjs.com/advisories/330
+- id: npmjs:npm:jquery:796
+  title: Prototype Pollution
+  description: Versions of `jquery`  prior to 3.4.0 are vulnerable to Prototype Pollution.
+    The extend() method allows an attacker to modify the prototype for `Object` causing
+    changes in properties that will exist on all objects.
+  affected_package: jquery
+  vulnerable_versions:
+  - "<3.4.0"
+  severity: medium
+  package_manager: npm
+  cve:
+  - CVE-2019-5428
+  cwe: CWE-471
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: asgerf
+  references: https://npmjs.com/advisories/796
+  source_url: https://npmjs.com/advisories/796
+- id: snykio:npm:jquery:174006
+  title: Prototype Pollution
+  description: "[jquery][1] is a JavaScript library. It makes things like HTML document\ntraversal
+    and manipulation, event handling, animation, and Ajax much\nsimpler with an easy-to-use
+    API that works across a multitude of\nbrowsers.\n\nAffected versions of this package
+    are vulnerable to Prototype Pollution.\nThe `extend` function can be tricked into
+    modifying the prototype of\n`Object` when the attacker controls part of the structure
+    passed to this\nfunction. This can let an attacker add or modify an existing property\nthat
+    will then exist on all objects.\n\n\n\n[1]: https://www.npmjs.com/package/jquery\n\\nPrototype
+    Pollution is a vulnerability affecting JavaScript. Prototype\nPollution refers
+    to the ability to inject properties into existing\nJavaScript language construct
+    prototypes, such as objects. JavaScript\nallows all Object attributes to be altered,
+    including their magical\nattributes such as `_proto_`, `constructor` and `prototype`.
+    An attacker\nmanipulates these attributes to overwrite, or pollute, a JavaScript\napplication
+    object prototype of the base object by injecting other\nvalues. Properties on
+    the `Object.prototype` are then inherited by all\nthe JavaScript objects through
+    the prototype chain. When that happens,\nthis leads to either denial of service
+    by triggering JavaScript\nexceptions, or it tampers with the application source
+    code to force the\ncode path that the attacker injects, thereby leading to remote
+    code\nexecution.\n\nThere are two main ways in which the pollution of prototypes
+    occurs:\n\n* Unsafe `Object` recursive merge\n\n* Property definition by path\n\n###
+    Unsafe Object recursive merge   {#unsafe-object-recursive-merge}\n\nThe logic
+    of a vulnerable recursive merge function follows the following\nhigh-level model:\n\n
+    \   merge (target, source)\n    \n      foreach property of source\n    \n        if
+    property exists and is an object on both the target and the source\n    \n          merge(target[property],
+    source[property])\n    \n        else\n    \n          target[property] = source[property]\n\n\n\nWhen
+    the source object contains a property named `_proto_` defined with\n`Object.defineProperty()`
+    , the condition that checks if the property\nexists and is an object on both the
+    target and the source passes and the\nmerge recurses with the target, being the
+    prototype of `Object` and the\nsource of `Object` as defined by the attacker.
+    Properties are then\ncopied on the `Object` prototype.\n\nClone operations are
+    a special sub-class of unsafe recursive merges,\nwhich occur when a recursive
+    merge is conducted on an empty object:\n`merge({},source)`.\n\n`lodash` and `Hoek`
+    are examples of libraries susceptible to recursive\nmerge attacks.\n\n### Property
+    definition by path   {#property-definition-by-path}\n\nThere are a few JavaScript
+    libraries that use an API to define property\nvalues on an object based on a given
+    path. The function that is\ngenerally affected contains this signature: `theFunction(object,
+    path,\nvalue)`\n\nIf the attacker can control the value of “path”, they can set
+    this value\nto `_proto_.myValue`. `myValue` is then assigned to the prototype
+    of the\nclass of the object.\n\n"
+  affected_package: jquery
+  vulnerable_versions:
+  - "<3.4.0"
+  severity: medium
+  package_manager: npm
+  cve:
+  - CVE-2019-11358
+  - CVE-2019-5428
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-03-26
+  created_date: 2019-03-27
+  last_modified_date: 2019-03-27
+  credit:
+  - Semmle Security Research Team
+  references:
+  - https://github.com/jquery/jquery/commit/753d591aea698e57d6db58c9f722cd0808619b1b
+  - https://github.com/jquery/jquery/pull/4333
+  - https://hackerone.com/reports/454365
+  - https://snyk.io/blog/after-three-years-of-silence-a-new-jquery-prototype-pollution-vulnerability-emerges-once-again/
+  source_url: https://snyk.io/vuln/SNYK-JS-JQUERY-174006
 - id: snykio:npm:jquery:20110606
   title: Cross-site Scripting (XSS)
   description: |+
-    [`jquery`][1] is JavaScript library for DOM operations. Affected
-    versions of the package are vulnerable to Cross-site Scripting (XSS).
-    The `location.hash()` function was used to select elements, but also
-    allows remote attackers to inject script into the page.
+    [jquery][1] JavaScript library. It makes things like HTML document
+    traversal and manipulation, event handling, animation, and Ajax much
+    simpler with an easy-to-use API that works across a multitude of
+    browsers.
 
-    Related to a vulnerability in [jQuery-migrate][2] and in
-    [fullpage.js](npm:fullpage.js:20151207).
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). The `location.hash()` function was used to select elements, but
+    also allows remote attackers to inject script into the page.
+
+    This vulnerability is related to a vulnerability in [jQuery-migrate][2]
+    and in [fullpage.js](npm:fullpage.js:20151207).
 
 
 
     [1]: https://www.npmjs.com/package/jquery
     [2]: https://snyk.io/vuln/npm:jquery-migrate:20130419
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: jquery
   vulnerable_versions:
@@ -126,18 +254,22 @@
   - http://blog.jquery.com/2011/09/01/jquery-1-6-3-released/
   - http://www.openwall.com/lists/oss-security/2013/01/31/3
   - https://bugs.jquery.com/ticket/9521
+  - https://github.com/rails/jquery-rails/blob/master/VERSIONS.md
   source_url: https://snyk.io/vuln/npm:jquery:20110606
 - id: snykio:npm:jquery:20120206
   title: Cross-site Scripting (XSS)
   description: |+
-    [`jquery`][1] is JavaScript library for DOM operations.
+    [jquery][1] is a JavaScript library. It makes things like HTML document
+    traversal and manipulation, event handling, animation, and Ajax much
+    simpler with an easy-to-use API that works across a multitude of
+    browsers.
 
-    Affected versions of the package are vulnerable to Cross-site Scripting
-    (XSS) attacks. The `jQuery(strInput)` function does not differentiate
-    selectors from HTML in a reliable fashion. In the vulnerable version,
-    jQuery determined whether the input was HTML or not by looking for the
-    \'&lt;\' character anywhere in the string, giving attackers more
-    flexibility when attempting to construct malicious payload.
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). The `jQuery(strInput)` function does not differentiate selectors
+    from HTML in a reliable fashion. In the vulnerable version, jQuery
+    determined whether the input was HTML or not by looking for the \'&lt;\'
+    character anywhere in the string, giving attackers more flexibility when
+    attempting to construct malicious payload.
 
     In the fixed versions, jQuery only deems the input to be HTML if it
     explicitly starts with \'&lt;\', limiting exploitability only to
@@ -147,37 +279,81 @@
 
 
     [1]: https://www.npmjs.com/package/jquery
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: jquery
   vulnerable_versions:
-  - "<1.9.0 >=1.7.1"
+  - ">=1.7.1 <1.9.0"
   severity: medium
   package_manager: npm
   cve:
@@ -198,41 +374,88 @@
 - id: snykio:npm:jquery:20140902
   title: Cross-site Scripting (XSS)
   description: |+
-    [`jquery`][1] is JavaScript library for DOM operations. Affected
-    versions of the package are vulnerable to a DOM based Cross-site
-    Scripting (XSS) attack due to using the `text()` function inside the
-    `after()` function.
+    [jquery][1] is a JavaScript library. It makes things like HTML document
+    traversal and manipulation, event handling, animation, and Ajax much
+    simpler with an easy-to-use API that works across a multitude of
+    browsers.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). due to using the `text()` function inside the `after()` function.
 
 
 
     [1]: https://www.npmjs.com/package/jquery
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: jquery
   vulnerable_versions:
@@ -255,47 +478,95 @@
 - id: snykio:npm:jquery:20150627
   title: Cross-site Scripting (XSS)
   description: |+
-    [`jquery`][1] is JavaScript library for DOM operations.
+    [jquery][1] is a JavaScript library. It makes things like HTML document
+    traversal and manipulation, event handling, animation, and Ajax much
+    simpler with an easy-to-use API that works across a multitude of
+    browsers.
 
-    Affected versions of the package are vulnerable to Cross-site Scripting
+    Affected versions of this package are vulnerable to Cross-site Scripting
     (XSS) attacks when a cross-domain ajax request is performed without the
     `dataType` option causing `text/javascript` responses to be executed.
 
 
 
     [1]: https://www.npmjs.com/package/jquery
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: jquery
   vulnerable_versions:
-  - "<1.12.0 >=1.4.0"
-  - "<3.0.0-beta1 >1.12.3"
+  - "<1.12.2"
+  - ">=1.12.3 <2.2.2"
+  - ">=2.2.3 <3.0.0"
   severity: medium
   package_manager: npm
   cve:
@@ -317,11 +588,15 @@
 - id: snykio:npm:jquery:20160529
   title: Denial of Service (DoS)
   description: |+
-    [`jquery`][1] is JavaScript library for DOM operations. Affected
-    versions of the package are vulnerable to Denial of Service (DoS) due to
-    removing a logic that lowercased attribute names. Any attribute getter
-    using a mixed-cased name for boolean attributes goes into an infinite
-    recursion, exceeding the stack call limit.
+    [jquery][1] is a JavaScript library. It makes things like HTML document
+    traversal and manipulation, event handling, animation, and Ajax much
+    simpler with an easy-to-use API that works across a multitude of
+    browsers.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) due to removing a logic that lowercased attribute names. Any
+    attribute getter using a mixed-cased name for boolean attributes goes
+    into an infinite recursion, exceeding the stack call limit.
 
 
 
@@ -354,7 +629,7 @@
 
   affected_package: jquery
   vulnerable_versions:
-  - "=3.0.0-rc.1"
+  - ">=3.0.0-rc1 <3.0.0"
   severity: low
   package_manager: npm
   cve:

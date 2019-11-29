@@ -1,0 +1,49 @@
+---
+- id: npmjs:npm:sailclothjs:1099
+  title: Malicious Package
+  description: 'Version 1.2.6 of `sailclothjs` contained malicious code. The code
+    when executed in the browser would enumerate password, cvc, cardnumber fields
+    from forms and send the extracted values to `https://js-metrics.com/minjs.php?pl=`
+
+'
+  affected_package: sailclothjs
+  vulnerable_versions:
+  - 1.2.6
+  severity: high
+  package_manager: npm
+  cwe: CWE-506
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: npm security
+  references: https://npmjs.com/advisories/1099
+  source_url: https://npmjs.com/advisories/1099
+- id: snykio:npm:sailclothjs:456749
+  title: Malicious Package
+  description: |
+    [sailclothjs][1] is a malicious package.
+
+    This package contained malicious code that would enumerate password,
+    CVC, Card Number fields from forms and send the extracted values to a
+    remote server.
+
+
+
+    [1]: https://www.npmjs.com/package/sailclothjs
+  affected_package: sailclothjs
+  vulnerable_versions:
+  - 1.2.6
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-506
+  disclosed_date: 2019-08-05
+  created_date: 2019-08-06
+  last_modified_date: 2019-08-06
+  credit:
+  - NPM Security
+  references:
+  - https://www.npmjs.com/advisories/1098
+  - https://www.npmjs.com/advisories/1099
+  - https://www.npmjs.com/advisories/1100
+  source_url: https://snyk.io/vuln/SNYK-JS-SAILCLOTHJS-456749

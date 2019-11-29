@@ -11,7 +11,7 @@
     ```
   affected_package: serve-here
   vulnerable_versions:
-  - "<=99.999.99999"
+  - ">=0"
   severity: high
   package_manager: npm
   cwe: CWE-22
@@ -24,9 +24,13 @@
 - id: snykio:npm:serve-here:20171225
   title: Directory Traversal
   description: |
-    [`serve-here`][1] is local static server.
+    **Note** The `serve-here` package has been deprecated by the author and
+    replaced by `@vivaxy/here` package.
 
-    Affected versions of the package are vulnerable to Directory Traversal.
+    [serve-here][1] was a Local static server which has been renamed to
+    `@vivaxy/here`.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
     A crafted request can be used to traverse the directory structure of a
     host using the `serve-here` package, and request arbitrary files outside
     of the specified web root.
@@ -84,7 +88,7 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: serve-here
   vulnerable_versions:
-  - "<3.2.2"
+  - "*"
   severity: high
   package_manager: npm
   cwe:
@@ -99,4 +103,5 @@
   - https://github.com/vivaxy/here/issues/16
   - https://github.com/vivaxy/here/pull/17
   - https://hackerone.com/reports/296254
+  - https://www.npmjs.com/advisories/554
   source_url: https://snyk.io/vuln/npm:serve-here:20171225

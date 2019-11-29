@@ -488,6 +488,175 @@
   - https://github.com/GNOME/libxml2/commit/960f0e2
   - https://github.com/rubysec/ruby-advisory-db
   source_url: https://github.com/sparklemotion/nokogiri/pull/1746
+- id: rubyadvisory:rubygems:nokogiri:CVE-2019-11068
+  title: Nokogiri gem, via libxslt, is affected by improper access control vulnerability
+  description: |
+    Nokogiri v1.10.3 has been released.
+
+    This is a security release. It addresses a CVE in upstream libxslt rated as
+    "Priority: medium" by Canonical, and "NVD Severity: high" by Debian. More
+    details are available below.
+
+    If you're using your distro's system libraries, rather than Nokogiri's
+    vendored libraries, there's no security need to upgrade at this time, though
+    you may want to check with your distro whether they've patched this
+    (Canonical has patched Ubuntu packages). Note that this patch is not yet (as
+    of 2019-04-22) in an upstream release of libxslt.
+
+    Full details about the security update are available in Github Issue
+    [#1892] https://github.com/sparklemotion/nokogiri/issues/1892.
+
+    ---
+
+    CVE-2019-11068
+
+    Permalinks are:
+    - Canonical: https://people.canonical.com/~ubuntu-security/cve/CVE-2019-11068
+    - Debian: https://security-tracker.debian.org/tracker/CVE-2019-11068
+
+    Description:
+
+    > libxslt through 1.1.33 allows bypass of a protection mechanism
+    > because callers of xsltCheckRead and xsltCheckWrite permit access
+    > even upon receiving a -1 error code. xsltCheckRead can return -1 for
+    > a crafted URL that is not actually invalid and is subsequently
+    > loaded.
+
+    Canonical rates this as "Priority: Medium".
+
+    Debian rates this as "NVD Severity: High (attack range: remote)".
+  affected_package: nokogiri
+  patched_versions:
+  - ">= 1.10.3"
+  package_manager: rubygems
+  cve:
+  - CVE-2019-11068
+  disclosed_date: 2019-04-22
+  created_date: 2019-04-22
+  last_modified_date: 2019-04-22
+  credit:
+  - Rubysec
+  references:
+  - https://github.com/rubysec/ruby-advisory-db
+  - https://gitlab.gnome.org/GNOME/libxslt/commit/e03553605b45c88f0b4b2980adfbbb8f6fca2fd6
+  - https://groups.google.com/forum/#!msg/ruby-security-ann/_y80o1zZlOs/k4SDX6hoAAAJ
+  source_url: https://github.com/sparklemotion/nokogiri/issues/1892
+- id: rubyadvisory:rubygems:nokogiri:CVE-2019-13117
+  title: Nokogiri gem, via libxslt, is affected by multiple vulnerabilities
+  description: |
+    Nokogiri v1.10.5 has been released.
+
+    This is a security release. It addresses three CVEs in upstream libxml2,
+    for which details are below.
+
+    If you're using your distro's system libraries, rather than Nokogiri's
+    vendored libraries, there's no security need to upgrade at this time,
+    though you may want to check with your distro whether they've patched this
+    (Canonical has patched Ubuntu packages). Note that libxslt 1.1.34 addresses
+    these vulnerabilities.
+
+    Full details about the security update are available in Github Issue
+    [#1943] https://github.com/sparklemotion/nokogiri/issues/1943.
+
+    ---
+
+    CVE-2019-13117
+
+    https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-13117.html
+
+    Priority: Low
+
+    Description: In numbers.c in libxslt 1.1.33, an xsl:number with certain format strings
+    could lead to a uninitialized read in xsltNumberFormatInsertNumbers. This
+    could allow an attacker to discern whether a byte on the stack contains the
+    characters A, a, I, i, or 0, or any other character.
+
+    Patched with commit https://gitlab.gnome.org/GNOME/libxslt/commit/c5eb6cf3aba0af048596106ed839b4ae17ecbcb1
+
+    ---
+
+    CVE-2019-13118
+
+    https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-13118.html
+
+    Priority: Low
+
+    Description: In numbers.c in libxslt 1.1.33, a type holding grouping characters of an
+    xsl:number instruction was too narrow and an invalid character/length
+    combination could be passed to xsltNumberFormatDecimal, leading to a read
+    of uninitialized stack data
+
+    Patched with commit https://gitlab.gnome.org/GNOME/libxslt/commit/6ce8de69330783977dd14f6569419489875fb71b
+
+    ---
+
+    CVE-2019-18197
+
+    https://people.canonical.com/~ubuntu-security/cve/2019/CVE-2019-18197.html
+
+    Priority: Medium
+
+    Description: In xsltCopyText in transform.c in libxslt 1.1.33, a pointer variable isn't
+    reset under certain circumstances. If the relevant memory area happened to
+    be freed and reused in a certain way, a bounds check could fail and memory
+    outside a buffer could be written to, or uninitialized data could be
+    disclosed.
+
+    Patched with commit https://gitlab.gnome.org/GNOME/libxslt/commit/2232473733b7313d67de8836ea3b29eec6e8e285
+  affected_package: nokogiri
+  patched_versions:
+  - ">= 1.10.5"
+  package_manager: rubygems
+  cve:
+  - CVE-2019-13117
+  disclosed_date: 2019-10-31
+  created_date: 2019-10-31
+  last_modified_date: 2019-10-31
+  credit:
+  - Rubysec
+  references:
+  - https://github.com/rubysec/ruby-advisory-db
+  - https://gitlab.gnome.org/GNOME/libxslt/commit/2232473733b7313d67de8836ea3b29eec6e8e285
+  - https://gitlab.gnome.org/GNOME/libxslt/commit/6ce8de69330783977dd14f6569419489875fb71b
+  - https://gitlab.gnome.org/GNOME/libxslt/commit/c5eb6cf3aba0af048596106ed839b4ae17ecbcb1
+  - https://groups.google.com/d/msg/ruby-security-ann/-Wq4aouIA3Q/yc76ZHemBgAJ
+  - https://usn.ubuntu.com/4164-1/
+  source_url: https://github.com/sparklemotion/nokogiri/issues/1943
+- id: rubyadvisory:rubygems:nokogiri:CVE-2019-5477
+  title: Nokogiri Command Injection Vulnerability via Nokogiri::CSS::Tokenizer#load_file
+  description: |
+    A command injection vulnerability in Nokogiri v1.10.3 and earlier allows
+    commands to be executed in a subprocess by Ruby's `Kernel.open` method.
+    Processes are vulnerable only if the undocumented method
+    `Nokogiri::CSS::Tokenizer#load_file` is being passed untrusted user input.
+
+    This vulnerability appears in code generated by the Rexical gem versions
+    v1.0.6 and earlier. Rexical is used by Nokogiri to generate lexical scanner
+    code for parsing CSS queries. The underlying vulnerability was addressed in
+    Rexical v1.0.7 and Nokogiri upgraded to this version of Rexical in
+    Nokogiri v1.10.4.
+
+    Upgrade to Nokogiri v1.10.4, or avoid calling the undocumented method
+    `Nokogiri::CSS::Tokenizer#load_file` with untrusted user input.
+  affected_package: nokogiri
+  patched_versions:
+  - ">= 1.10.4"
+  severity: high
+  package_manager: rubygems
+  cve:
+  - CVE-2019-5477
+  cvss_v2_score: 7.5
+  cvss_v3_score: 9.8
+  disclosed_date: 2019-08-11
+  created_date: 2019-08-11
+  last_modified_date: 2019-08-11
+  credit:
+  - Rubysec
+  references:
+  - https://github.com/rubysec/ruby-advisory-db
+  - https://github.com/tenderlove/rexical/commit/a652474dbc66be350055db3e8f9b3a7b3fd75926
+  - https://groups.google.com/forum/#!msg/ruby-security-ann/YMnKFsASOAE/Fw3ocLI0BQAJ
+  source_url: https://github.com/sparklemotion/nokogiri/issues/1915
 - id: rubyadvisory:rubygems:nokogiri:OSVDB-101179
   title: 'Nokogiri Gem for JRuby Crafted XML Document Handling Infinite Loop Remote
     DoS
@@ -637,8 +806,8 @@
     [1]: https://rubygems.org/gems/nokogiri
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.5.11"
-  - "< 1.6.1  >= 1.6"
+  - "<1.5.11"
+  - ">=1.6  <1.6.1"
   severity: medium
   package_manager: rubygems
   cve:
@@ -696,8 +865,8 @@
 
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.5.11"
-  - "< 1.6.1  >= 1.6"
+  - "<1.5.11"
+  - ">=1.6  <1.6.1"
   severity: medium
   package_manager: rubygems
   cve:
@@ -811,8 +980,8 @@
 
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.6.6.4"
-  - "< 1.6.7.rc4  >= 1.6.7.a"
+  - "<1.6.6.4"
+  - ">=1.6.7.rc2  <1.6.7.rc4"
   severity: medium
   package_manager: rubygems
   cve:
@@ -872,7 +1041,7 @@
 
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.6.7.1  >= 1.6.0"
+  - ">=1.6.0  <1.6.7.1"
   severity: medium
   package_manager: rubygems
   cve:
@@ -936,7 +1105,7 @@
 
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.6.7.2  >= 1.6.0"
+  - ">=1.6.0  <1.6.7.2"
   severity: medium
   package_manager: rubygems
   cve:
@@ -997,7 +1166,7 @@
 
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.6.8  >= 1.6.0"
+  - ">=1.6.0  <1.6.8"
   severity: high
   package_manager: rubygems
   cve:
@@ -1033,7 +1202,7 @@
     [2]: https://snyk.io/vuln/SNYK-RUBY-NOKOGIRI-20268
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.6.8  >= 1.6.0"
+  - ">=1.6.0  <1.6.8"
   severity: high
   package_manager: rubygems
   cve:
@@ -1073,7 +1242,7 @@
 
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.6.7.2  >= 1.6.0"
+  - ">=1.6.0  <1.6.7.2"
   severity: medium
   package_manager: rubygems
   cve:
@@ -1103,8 +1272,8 @@
     crafted XML documents on an internal XML parsing service and may lead to
     unauthorized disclosure of potentially sensitive information.
 
-    **Note:** This vulnerability exists also in versions `>= 1.5.4` only
-    when opting into the `DTDLOAD` option and opting out of the `NONET`
+    **Note:** This vulnerability exists also in versions `>=1.5.4 <1.8.3`
+    only when opting into the `DTDLOAD` option and opting out of the `NONET`
     option. See information [here][2]
 
 
@@ -1129,6 +1298,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -1141,6 +1311,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -1148,7 +1319,7 @@
 
   affected_package: nokogiri
   vulnerable_versions:
-  - "< 1.5.4"
+  - "<1.5.4"
   severity: high
   package_manager: rubygems
   cwe:
@@ -1164,7 +1335,7 @@
   source_url: https://snyk.io/vuln/SNYK-RUBY-NOKOGIRI-20298
 - id: snykio:rubygems:nokogiri:20299
   title: XML External Entity (XXE) Injection
-  description: |+
+  description: |
     [nokogiri][1] is an HTML, XML, SAX, and Reader parser, with the ability
     to search documents via XPath or CSS3 selectors.
 
@@ -1179,52 +1350,16 @@
     crafted XML documents on an internal XML parsing service and may lead to
     unauthorized disclosure of potentially sensitive information.
 
-    **Note:** This vulnerability exists also in versions `< 1.5.4`
-    regardless of the options opted into or out of. See information
-    [here][2]
+    **Note:** This vulnerability exists also in versions `<1.5.4` regardless
+    of the options opted into or out of. See information [here][2]
 
 
 
     [1]: https://rubygems.org/gems/nokogiri
     [2]: https://snyk.io/vuln/SNYK-RUBY-NOKOGIRI-20298
-    \nXXE Injection is a type of attack against an application that parses XML
-    input. XML is a markup language that defines a set of rules for encoding
-    documents in a format that is both human-readable and machine-readable.
-    By default, many XML processors allow specification of an external
-    entity, a URI that is dereferenced and evaluated during XML processing.
-    When an XML document is being parsed, the parser can make a request and
-    include the content at the specified URI inside of the XML document.
-
-    Attacks can include disclosing local files, which may contain sensitive
-    data such as passwords or private user data, using file: schemes or
-    relative paths in the system identifier.
-
-    For example, below is a sample XML document, containing an XML element-
-    username.
-
-        <?xml version="1.0" encoding="ISO-8859-1"?>
-           <username>John</username>
-        </xml>
-
-    An external XML entity - `xxe`, is defined using a system identifier and
-    present within a DOCTYPE header. These entities can access local or
-    remote content. For example the below code contains an external XML
-    entity that would fetch the content of `/etc/passwd` and display it to
-    the user rendered by `username`.
-
-        <?xml version="1.0" encoding="ISO-8859-1"?>
-        <!DOCTYPE foo [
-           <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
-           <username>&xxe;</username>
-        </xml>
-
-    Other XXE Injection attacks can access local resources that may not stop
-    returning data, possibly impacting application availability and leading
-    to Denial of Service.
-
   affected_package: nokogiri
   vulnerable_versions:
-  - ">= 1.5.4"
+  - ">=1.5.4  <1.8.3"
   severity: high
   package_manager: rubygems
   cwe:
@@ -1249,12 +1384,12 @@
     site. Nokogiri bundles the `libxslt` library, which is vulnerable in
     versions below 3.
 
-    ### Denial of Service (DoS) - CVE-2016-4738   {#denial-of-service-dos-cve-2016-4738}
+    ### Denial of Service (DoS) - CVE-2016-4738   {#denial-of-service-dos---cve-2016-4738}
 
     libxslt allows remote attackers to execute arbitrary code or cause a
     denial of service (memory corruption) via a crafted web site.
 
-    ### Arbitrary Code Execution - CVE-2017-5029   {#arbitrary-code-execution-cve-2017-5029}
+    ### Arbitrary Code Execution - CVE-2017-5029   {#arbitrary-code-execution---cve-2017-5029}
 
     The `xsltAddTextString` function in transform.c in libxslt, lacked a
     check for integer overflow during a size calculation. This allowed a
@@ -1514,6 +1649,87 @@
   - https://bugzilla.redhat.com/show_bug.cgi?id=1523128
   - https://github.com/sparklemotion/nokogiri/issues/1714
   source_url: https://snyk.io/vuln/SNYK-RUBY-NOKOGIRI-22014
+- id: snykio:rubygems:nokogiri:459107
+  title: Command Injection
+  description: |
+    [nokogiri][1] is a gem for parsing HTML, XML, SAX, and Reader.
+
+    Affected versions of this package are vulnerable to Command Injection
+    via the undocumented method `Nokogiri::CSS::Tokenizer#load_file`. This
+    allows commands to be executed in a subprocess.
+
+
+
+    [1]: https://nokogiri.org
+  affected_package: nokogiri
+  vulnerable_versions:
+  - "<1.10.4-java"
+  severity: high
+  package_manager: rubygems
+  cve:
+  - CVE-2019-5477
+  cwe:
+  - CWE-78
+  disclosed_date: 2019-07-20
+  created_date: 2019-08-13
+  last_modified_date: 2019-08-13
+  credit:
+  - Unknown
+  references:
+  - https://github.com/sparklemotion/nokogiri/commit/5fe449fd3ab8cc25a71499128529c821c10dde83
+  - https://github.com/sparklemotion/nokogiri/issues/1915
+  - https://github.com/tenderlove/rexical/commit/a652474dbc66be350055db3e8f9b3a7b3fd75926
+  - https://hackerone.com/reports/650835
+  source_url: https://snyk.io/vuln/SNYK-RUBY-NOKOGIRI-459107
+- id: snykio:rubygems:nokogiri:534637
+  title: Uncontrolled Memory Allocation
+  description: |
+    [nokogiri][1] is a gem for parsing HTML, XML, SAX, and Reader.
+
+    Affected versions of this package are vulnerable to Uncontrolled Memory
+    Allocation. Nokogiri bundles the `libxslt` C library, that has been
+    recently discovered to have vulnerabilities.
+
+    CVE-2019-13117 In `numbers.c` in `libxslt` 1.1.33, an `xsl:number` with
+    certain format strings could lead to a uninitialized read in
+    `xsltNumberFormatInsertNumbers`. This could allow an attacker to discern
+    whether a byte on the stack contains the characters `A`, `a`, `I`, `i`,
+    or `0`, or any other character.
+
+    CVE-2019-13118 In `numbers.c` in `libxslt` 1.1.33, a type holding
+    grouping characters of an `xsl:number` instruction was too narrow and an
+    invalid character/length combination could be passed to
+    `xsltNumberFormatDecimal`, leading to a read of uninitialized stack data
+
+    CVE-2019-18197 In `xsltCopyTex`t in `transform.c` in `libxslt` 1.1.33, a
+    pointer variable isn\'t reset under certain circumstances. If the
+    relevant memory area happened to be freed and reused in a certain way, a
+    bounds check could fail and memory outside a buffer could be written to,
+    or uninitialized data could be disclosed.
+
+
+
+    [1]: https://nokogiri.org
+  affected_package: nokogiri
+  vulnerable_versions:
+  - "<1.10.5"
+  severity: high
+  package_manager: rubygems
+  cwe:
+  - CWE-789
+  disclosed_date: 2019-11-17
+  created_date: 2019-11-19
+  last_modified_date: 2019-11-19
+  credit:
+  - Unknown
+  references:
+  - https://github.com/sparklemotion/nokogiri/commit/061d75dfd462040bd075370e0b59dbc990873ecb
+  - https://github.com/sparklemotion/nokogiri/commit/43a175339b47b8c604508813fc75b83f13cd173e
+  - https://github.com/sparklemotion/nokogiri/issues/1943
+  - https://gitlab.gnome.org/GNOME/libxslt/commit/2232473733b7313d67de8836ea3b29eec6e8e285
+  - https://gitlab.gnome.org/GNOME/libxslt/commit/6ce8de69330783977dd14f6569419489875fb71b
+  - https://gitlab.gnome.org/GNOME/libxslt/commit/c5eb6cf3aba0af048596106ed839b4ae17ecbcb1
+  source_url: https://snyk.io/vuln/SNYK-RUBY-NOKOGIRI-534637
 - id: snykio:rubygems:nokogiri:72433
   title: Denial of Service (DoS)
   description: |

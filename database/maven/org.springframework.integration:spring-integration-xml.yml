@@ -29,6 +29,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -41,6 +42,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -48,9 +50,9 @@
 
   affected_package: org.springframework.integration:spring-integration-xml
   vulnerable_versions:
-  - "< 4.3.19"
-  - ">= 5.0.0 < 5.0.11"
-  - ">= 5.1.0 < 5.1.2"
+  - "< 4.3.19.RELEASE"
+  - ">= 5.0.0.RELEASE < 5.0.11.RELEASE"
+  - ">= 5.1.0.RELEASE < 5.1.2.RELEASE"
   severity: high
   package_manager: maven
   cve:
@@ -63,5 +65,6 @@
   credit:
   - Unknown
   references:
+  - https://github.com/spring-projects/spring-integration/commit/59c69ed40d3755ef59f80872e0ea711adbb13620
   - https://pivotal.io/security/cve-2019-3772
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKINTEGRATION-73518

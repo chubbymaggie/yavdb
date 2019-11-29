@@ -41,6 +41,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -53,6 +54,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -60,9 +62,9 @@
 
   affected_package: org.apache.lucene:lucene-queryparser
   vulnerable_versions:
-  - ">= 5.5 < 5.5.5"
-  - ">= 6 < 6.6.2"
-  - ">= 7 < 7.1.0"
+  - ">= 5.5.0 < 5.5.5"
+  - ">= 6.0.0 < 6.6.2"
+  - ">= 7.0.0 < 7.1.0"
   severity: high
   package_manager: maven
   cve:
@@ -77,6 +79,6 @@
   - Olga Barinova
   references:
   - http://seclists.org/oss-sec/2017/q4/79
-  - https://github.com/apache/lucene-solr/commit/926cc4d65b6d2cc40ff07f76d50ddeda947e3cc4#diff-5ec4e4f72cf2a1f5d475f0283ec684db
+  - https://github.com/apache/lucene-solr/commit/926cc4d65b6d2cc40ff07f76d50ddeda947e3cc4%23diff-5ec4e4f72cf2a1f5d475f0283ec684db
   - https://s.apache.org/FJDl
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHELUCENE-31569

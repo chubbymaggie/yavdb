@@ -1,4 +1,44 @@
 ---
+- id: npmjs:npm:sequelize:1017
+  title: SQL Injection
+  description: Versions of `sequelize` prior to 3.35.1 are vulnerable to SQL Injection.
+    The package fails to sanitize JSON path keys in the Postgres dialect,  which may
+    allow attackers to inject SQL statements and execute arbitrary SQL queries.
+  affected_package: sequelize
+  vulnerable_versions:
+  - "<3.35.1"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-10749
+  cwe: CWE-89
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Snyk Security Team
+  references: https://npmjs.com/advisories/1017
+  source_url: https://npmjs.com/advisories/1017
+- id: npmjs:npm:sequelize:1018
+  title: SQL Injection
+  description: Affected versions of `sequelize` are vulnerable to SQL Injection. The
+    package fails to sanitize JSON path keys in the MariaDB and MySQL dialects,  which
+    may allow attackers to inject SQL statements and execute arbitrary SQL queries.
+  affected_package: sequelize
+  vulnerable_versions:
+  - "<3.35.1"
+  - ">=4.0.0 <4.44.3"
+  - ">=5.0.0 <5.8.11"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-10748
+  cwe: CWE-89
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Snyk Security Team
+  references: https://npmjs.com/advisories/1018
+  source_url: https://npmjs.com/advisories/1018
 - id: npmjs:npm:sequelize:102
   title: SQL Injection
   description: |-
@@ -102,6 +142,29 @@
   credit: Anonymous
   references: https://npmjs.com/advisories/113
   source_url: https://npmjs.com/advisories/113
+- id: npmjs:npm:sequelize:1146
+  title: SQL Injection
+  description: "Affected versions of `sequelize` are vulnerable to SQL Injection.
+    The function `sequelize.json()` incorrectly formatted sub paths for JSON queries,
+    which allows attackers to inject SQL statements and execute arbitrary SQL queries
+    if user input is passed to the query.  Exploitation example:  \n```return User.findAll({\n
+    \ where: this.sequelize.json(\"data.id')) AS DECIMAL) = 1 DELETE YOLO INJECTIONS;
+    -- \", 1)\n});```"
+  affected_package: sequelize
+  vulnerable_versions:
+  - "<4.44.3"
+  - ">=5.0.0 <5.15.1"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-10752
+  cwe: CWE-89
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Unknown
+  references: https://npmjs.com/advisories/1146
+  source_url: https://npmjs.com/advisories/1146
 - id: npmjs:npm:sequelize:122
   title: SQL Injection via GeoJSON
   description: Affected versions of `sequelize` are vulnerable to SQL Injection in
@@ -151,6 +214,42 @@
   credit: Levan Basharuli
   references: https://npmjs.com/advisories/33
   source_url: https://npmjs.com/advisories/33
+- id: npmjs:npm:sequelize:820
+  title: NoSQL Injection
+  description: Versions of `sequelize` prior to 4.12.0 are vulnerable to NoSQL Injection.
+    Query operators such as `$gt` are not properly sanitized and may allow an attacker
+    to alter data queries, leading to NoSQL Injection.
+  affected_package: sequelize
+  vulnerable_versions:
+  - "<4.12.0"
+  severity: high
+  package_manager: npm
+  cwe: CWE-943
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Egor Homakov
+  references: https://npmjs.com/advisories/820
+  source_url: https://npmjs.com/advisories/820
+- id: npmjs:npm:sequelize:821
+  title: SQL Injection
+  description: Versions of `sequelize` prior to 5.3.0 (excluding v3 and v4) are vulnerable
+    to SQL Injection. PostgreSQL option`standard_conforming_strings` is not set to
+    `on` by default, which may allow attackers to inject SQL statements due to poor
+    handling of backslashes in string literals.
+  affected_package: sequelize
+  vulnerable_versions:
+  - "<3.0.0"
+  - ">=5.0.0 <5.3.0"
+  severity: medium
+  package_manager: npm
+  cwe: CWE-89
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: maxdos64
+  references: https://npmjs.com/advisories/821
+  source_url: https://npmjs.com/advisories/821
 - id: ossindex:npm:sequelize:367231
   title: "[CVE-2015-1369]  Improper Neutralization of Special Elements used in an
     SQL Command (SQL Injection)"
@@ -286,6 +385,83 @@
   - https://github.com/sequelize/sequelize/pull/5167/commits/f282d85e60e3df5e57ecdb82adccb4eaef404f03
   - https://nodesecurity.io/advisories/112
   source_url: https://ossindex.net/resource/package/7014430328/vulnerabilities
+- id: snykio:npm:sequelize:174147
+  title: Hash Injection
+  description: |
+    [sequelize][1] is a promise-based Node.js ORM for Postgres, MySQL,
+    MariaDB, SQLite and Microsoft SQL Server.
+
+    Affected versions of this package are vulnerable to Hash Injection.
+    Using specially crafted requests an attacker can bypass `secret_token`
+    protections on websites using sequalize.
+
+    For example:
+
+        db.Token.findOne({
+              where: {
+                token: req.query.token
+              }
+        );
+
+    Node.js and other platforms allow nested parameters, i.e. `token[$gt]=1`
+    will be transformed into `token = {"$gt":1}`. When such a hash is passed
+    into `sequalize` it will consider it a query (greater than 1) and find
+    the first token in the DB, bypassing security of this endpoint.
+
+
+
+    [1]: http://docs.sequelizejs.com/
+  affected_package: sequelize
+  vulnerable_versions:
+  - "<4.12.0"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-77
+  disclosed_date: 2017-03-01
+  created_date: 2019-04-07
+  last_modified_date: 2019-04-07
+  credit:
+  - Egor Homakov
+  references:
+  - https://blog.websecurify.com/2014/08/hacking-nodejs-and-mongodb.html
+  - https://github.com/sequelize/sequelize/commit/ccb99daedb69e8750a241436415ccac8abef358d
+  - https://github.com/sequelize/sequelize/issues/7310
+  - https://github.com/sequelize/sequelize/issues/8417
+  - https://github.com/sequelize/sequelize/pull/8240/files
+  - https://www.npmjs.com/advisories/820
+  source_url: https://snyk.io/vuln/SNYK-JS-SEQUELIZE-174147
+- id: snykio:npm:sequelize:174167
+  title: SQL Injection
+  description: |
+    [sequelize][1] is a promise-based Node.js ORM for Postgres, MySQL,
+    MariaDB, SQLite and Microsoft SQL Server.
+
+    Affected versions of this package are vulnerable to SQL Injection due to
+    lack of ensuring that standard conforming strings are used.
+
+
+
+    [1]: http://docs.sequelizejs.com/
+  affected_package: sequelize
+  vulnerable_versions:
+  - ">=5.0.0 <5.3.0"
+  severity: medium
+  package_manager: npm
+  cve:
+  - CVE-2019-11069
+  cwe:
+  - CWE-89
+  disclosed_date: 2019-04-10
+  created_date: 2019-04-11
+  last_modified_date: 2019-04-11
+  credit:
+  - Unknown
+  references:
+  - https://github.com/sequelize/sequelize/pull/10746/files
+  - https://github.com/sequelize/sequelize/releases/tag/v5.3.0
+  - https://www.npmjs.com/advisories/821
+  source_url: https://snyk.io/vuln/SNYK-JS-SEQUELIZE-174167
 - id: snykio:npm:sequelize:20130614
   title: SQL Injection
   description: |+
@@ -295,7 +471,7 @@
 
   affected_package: sequelize
   vulnerable_versions:
-  - "<=1.7.0-alpha2 >=0.2.2"
+  - ">=0.2.2 <1.7.0-alpha3"
   severity: medium
   package_manager: npm
   cve:
@@ -318,7 +494,7 @@
 
   affected_package: sequelize
   vulnerable_versions:
-  - "<=2.0.0-rc7"
+  - "<2.0.0-rc8"
   severity: high
   package_manager: npm
   cve:
@@ -346,7 +522,7 @@
 
   affected_package: sequelize
   vulnerable_versions:
-  - "<=2.1.3"
+  - "<2.1.4"
   severity: medium
   package_manager: npm
   cve:
@@ -370,6 +546,7 @@
     then executes:
 
         User.findAll( { where: { name: req.body.name } } )
+    {: .language-js}
 
     a malicious attacker may exploit this to find the users password by
     entering `$password$`. This could be avoided by specifying the exact
@@ -403,7 +580,7 @@
 
   affected_package: sequelize
   vulnerable_versions:
-  - "<=3.16.0 >=0.2.2"
+  - ">=0.2.2 <3.13.17"
   severity: high
   package_manager: npm
   cwe:
@@ -436,7 +613,7 @@
     Task = sequelize.define('Pastebin', {\n        title: Sequelize.STRING,\n        content:
     Sequelize.BLOB,\n      });\n    \n    Task.create({\n      title: 'title',\n      content:
     100,\n    }).then(function (task) {\n      console.log(task.title);\n      console.log(task.content);
-    // will print out 100 bytes of previously used memory\n    });\n\n"
+    // will print out 100 bytes of previously used memory\n    });\n{: .language-javascript}\n\n"
   affected_package: sequelize
   vulnerable_versions:
   - "<3.17.2"
@@ -456,15 +633,15 @@
   - https://github.com/sequelize/sequelize/commit/cbfaa4f0a135cfc55874c9bfc39ead2d85c417e9
   source_url: https://snyk.io/vuln/npm:sequelize:20160115
 - id: snykio:npm:sequelize:20160329
-  title: SQL Injection in IN statement
+  title: SQL Injection
   description: |+
     `sequelize` versions prior to 3.20.0 improperly escape arrays of strings
     bound to named parameters.
 
   affected_package: sequelize
   vulnerable_versions:
-  - "<=3.19.3"
-  severity: high
+  - "<3.20.0"
+  severity: medium
   package_manager: npm
   cve:
   - CVE-2016-10556
@@ -473,6 +650,8 @@
   disclosed_date: 2016-03-29
   created_date: 2016-04-01
   last_modified_date: 2016-04-01
+  credit:
+  - Unknown
   references:
   - https://github.com/sequelize/sequelize/commit/23952a2b020cc3571f090e67dae7feb084e1be71
   - https://github.com/sequelize/sequelize/issues/5671
@@ -497,7 +676,7 @@
     [1]: http://geojson.org/
   affected_package: sequelize
   vulnerable_versions:
-  - "<3.23.6 >=3.4.0"
+  - ">=3.4.0 <3.23.6"
   severity: high
   package_manager: npm
   cwe:
@@ -512,3 +691,98 @@
   - http://geojson.org/
   - https://github.com/sequelize/sequelize/issues/6194
   source_url: https://snyk.io/vuln/npm:sequelize:20160718
+- id: snykio:npm:sequelize:450221
+  title: SQL Injection
+  description: |
+    [sequelize][1] is a promise-based Node.js ORM for Postgres, MySQL,
+    MariaDB, SQLite and Microsoft SQL Server.
+
+    Affected versions of this package are vulnerable to SQL Injection due to
+    JSON path keys not being properly escaped for the MySQL/MariaDB
+    dialects.
+
+
+
+    [1]: http://docs.sequelizejs.com/
+  affected_package: sequelize
+  vulnerable_versions:
+  - ">=3.0.0 <3.35.1"
+  - ">=4.0.0 <4.44.3"
+  - ">=5.0.0 <5.8.11"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-10748
+  cwe:
+  - CWE-89
+  disclosed_date: 2019-06-20
+  created_date: 2019-06-21
+  last_modified_date: 2019-06-21
+  credit:
+  - Snyk Security Team
+  references:
+  - https://github.com/sequelize/sequelize/commit/a72a3f5
+  - https://github.com/sequelize/sequelize/pull/11089
+  - https://www.npmjs.com/advisories/1018
+  source_url: https://snyk.io/vuln/SNYK-JS-SEQUELIZE-450221
+- id: snykio:npm:sequelize:450222
+  title: SQL Injection
+  description: |
+    [sequelize][1] is a promise-based Node.js ORM for Postgres, MySQL,
+    MariaDB, SQLite and Microsoft SQL Server.
+
+    Affected versions of this package are vulnerable to SQL Injection due to
+    JSON path keys not being properly sanitized in the Postgres dialect.
+
+
+
+    [1]: http://docs.sequelizejs.com/
+  affected_package: sequelize
+  vulnerable_versions:
+  - "<3.35.1"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-10749
+  cwe:
+  - CWE-89
+  disclosed_date: 2019-06-20
+  created_date: 2019-06-21
+  last_modified_date: 2019-06-21
+  credit:
+  - Snyk Security Team
+  references:
+  - https://github.com/sequelize/sequelize/commit/ee4017379db0059566ecb5424274ad4e2d66bc68
+  source_url: https://snyk.io/vuln/SNYK-JS-SEQUELIZE-450222
+- id: snykio:npm:sequelize:459751
+  title: SQL Injection
+  description: |
+    [sequelize][1] is a promise-based Node.js ORM for Postgres, MySQL,
+    MariaDB, SQLite and Microsoft SQL Server.
+
+    Affected versions of this package are vulnerable to SQL Injection due to
+    `sequelize.json()` helper function not escaping values properly when
+    formatting sub paths for JSON queries for MySQL, MariaDB and SQLite.
+
+
+
+    [1]: http://docs.sequelizejs.com/
+  affected_package: sequelize
+  vulnerable_versions:
+  - ">=4.0.0 <4.44.3"
+  - ">=5.0.0 <5.15.1"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-10752
+  cwe:
+  - CWE-89
+  disclosed_date: 2019-08-18
+  created_date: 2019-08-19
+  last_modified_date: 2019-08-19
+  credit:
+  - Snyk Security Team
+  references:
+  - https://github.com/sequelize/sequelize/commit/9bd0bc111b6f502223edf7e902680f7cc2ed541e
+  - https://github.com/sequelize/sequelize/pull/11329
+  source_url: https://snyk.io/vuln/SNYK-JS-SEQUELIZE-459751

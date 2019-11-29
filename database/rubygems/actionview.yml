@@ -197,29 +197,269 @@
   references:
   - https://github.com/rubysec/ruby-advisory-db
   source_url: https://groups.google.com/forum/#!topic/rubyonrails-security/I-VWr034ouk
+- id: rubyadvisory:rubygems:actionview:CVE-2019-5418
+  title: File Content Disclosure in Action View
+  description: |
+    There is a possible file content disclosure vulnerability in Action View. This
+    vulnerability has been assigned the CVE identifier CVE-2019-5418.
+
+    Versions Affected:  All.
+    Not affected:       None.
+    Fixed Versions:     6.0.0.beta3, 5.2.2.1, 5.1.6.2, 5.0.7.2, 4.2.11.1
+
+    Impact
+    ------
+    There is a possible file content disclosure vulnerability in Action View.
+    Specially crafted accept headers in combination with calls to `render file:`
+    can cause arbitrary files on the target server to be rendered, disclosing the
+    file contents.
+
+    The impact is limited to calls to `render` which render file contents without
+    a specified accept format.  Impacted code in a controller looks something like
+    this:
+
+    ```
+    class UserController < ApplicationController
+      def index
+        render file: "#{Rails.root}/some/file"
+      end
+    end
+    ```
+
+    Rendering templates as opposed to files is not impacted by this vulnerability.
+
+    All users running an affected release should either upgrade or use one of the
+    workarounds immediately.
+
+    Releases
+    --------
+    The 6.0.0.beta3, 5.2.2.1, 5.1.6.2, 5.0.7.2, and 4.2.11.1 releases are
+    available at the normal locations.
+
+    Workarounds
+    -----------
+    This vulnerability can be mitigated by specifying a format for file rendering,
+    like this:
+
+    ```
+    class UserController < ApplicationController
+      def index
+        render file: "#{Rails.root}/some/file", formats: [:html]
+      end
+    end
+    ```
+
+    In summary, impacted calls to `render` look like this:
+
+    ```
+    render file: "#{Rails.root}/some/file"
+    ```
+
+    The vulnerability can be mitigated by changing to this:
+
+    ```
+    render file: "#{Rails.root}/some/file", formats: [:html]
+    ```
+
+    Other calls to `render` are not impacted.
+
+    Alternatively, the following monkey patch can be applied in an initializer:
+
+    ```
+    $ cat config/initializers/formats_filter.rb
+    # frozen_string_literal: true
+
+    ActionDispatch::Request.prepend(Module.new do
+      def formats
+        super().select do |format|
+          format.symbol || format.ref == "*/*"
+        end
+      end
+    end)
+    ```
+
+    Credits
+    -------
+    Thanks to John Hawthorn <john@hawthorn.email> of GitHub
+  affected_package: actionview
+  patched_versions:
+  - ">= 6.0.0.beta3"
+  - "~> 4.2.11  >= 4.2.11.1"
+  - "~> 5.0.7  >= 5.0.7.2"
+  - "~> 5.1.6  >= 5.1.6.2"
+  - "~> 5.2.2  >= 5.2.2.1"
+  package_manager: rubygems
+  cve:
+  - CVE-2019-5418
+  disclosed_date: 2019-03-13
+  created_date: 2019-03-13
+  last_modified_date: 2019-03-13
+  credit:
+  - Rubysec
+  references:
+  - https://github.com/rubysec/ruby-advisory-db
+  source_url: https://groups.google.com/forum/#!topic/rubyonrails-security/pFRKI96Sm8Q
+- id: rubyadvisory:rubygems:actionview:CVE-2019-5419
+  title: Denial of Service Vulnerability in Action View
+  description: "There is a potential denial of service vulnerability in actionview.\nThis
+    vulnerability has been assigned the CVE identifier CVE-2019-5419.\n\nImpact\n------\nSpecially
+    crafted accept headers can cause the Action View template location\ncode to consume
+    100% CPU, causing the server unable to process requests.  This\nimpacts all Rails
+    applications that render views.\n\nAll users running an affected release should
+    either upgrade or use one of the\nworkarounds immediately.\n\nWorkarounds\n-----------\nThis
+    vulnerability can be mitigated by wrapping `render` calls with\n`respond_to` blocks.
+    \ For example, the following example is vulnerable:\n\n```\nclass UserController
+    < ApplicationController\n  def index\n    render \"index\"\n  end\nend\n```\n\nBut
+    the following code is not vulnerable:\n\n```\nclass UserController < ApplicationController\n
+    \ def index\n    respond_to |format|\n      format.html { render \"index\" }\n
+    \   end\n  end\nend\n```\n\nImplicit rendering is impacted, so this code is vulnerable:\n\n```\nclass
+    UserController < ApplicationController\n  def index\n  end\nend\n```\n\nBut can
+    be changed this this:\n\n```\nclass UserController < ApplicationController\n  def
+    index\n    respond_to |format|\n      format.html { render \"index\" }\n    end\n
+    \ end\nend\n```\n\nAlternatively to specifying the format, the following monkey
+    patch can be\napplied in an initializer:\n\n```\n$ cat config/initializers/formats_filter.rb\n#
+    frozen_string_literal: true\n\nActionDispatch::Request.prepend(Module.new do\n
+    \ def formats\n    super().select do |format|\n      format.symbol || format.ref
+    == \"*/*\"\n    end\n  end\nend)\n```\n\nCredits \n------- \nThanks to John Hawthorn
+    <john@hawthorn.email> of GitHub \n"
+  affected_package: actionview
+  patched_versions:
+  - ">= 6.0.0.beta3"
+  - "~> 4.2.11  >= 4.2.11.1"
+  - "~> 5.0.7  >= 5.0.7.2"
+  - "~> 5.1.6  >= 5.1.6.2"
+  - "~> 5.2.2  >= 5.2.2.1"
+  package_manager: rubygems
+  cve:
+  - CVE-2019-5419
+  disclosed_date: 2019-03-13
+  created_date: 2019-03-13
+  last_modified_date: 2019-03-13
+  credit:
+  - Rubysec
+  references:
+  - https://github.com/rubysec/ruby-advisory-db
+  source_url: https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI
+- id: snykio:rubygems:actionview:173783
+  title: Denial of Service (DoS)
+  description: |+
+    [actionview][1] is a simple, battle-tested conventions and helpers for
+    building web pages.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). Specially crafted accept headers can cause the Action View
+    template location code to consume 100% CPU, causing the server to be
+    unable to process requests. It impacts all `Rails` applications that
+    render views.
+
+
+
+    [1]: https://rubygems.org/gems/actionview
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: actionview
+  vulnerable_versions:
+  - ">=4.2.11  <4.2.11.1"
+  - ">=5.0.7  <5.0.7.2"
+  - ">=5.1.6  <5.1.6.2"
+  - ">=5.2.2  <5.2.2.1"
+  severity: medium
+  package_manager: rubygems
+  cve:
+  - CVE-2019-5419
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-03-13
+  created_date: 2019-03-13
+  last_modified_date: 2019-03-13
+  credit:
+  - John Hawthorn
+  references:
+  - https://groups.google.com/forum/#!topic/rubyonrails-security/GN7w9fFAQeI
+  source_url: https://snyk.io/vuln/SNYK-RUBY-ACTIONVIEW-173783
+- id: snykio:rubygems:actionview:173784
+  title: Arbitrary File Read
+  description: |
+    [actionview][1] is a simple, battle-tested conventions and helpers for
+    building web pages.
+
+    Affected versions of this package are vulnerable to Arbitrary File Read.
+    Specially crafted accept headers in combination with calls to `render
+    file:` could cause arbitrary files on the target server to be rendered,
+    disclosing the file contents.
+
+
+
+    [1]: https://rubygems.org/gems/actionview
+  affected_package: actionview
+  vulnerable_versions:
+  - ">=4.2.11  <4.2.11.1"
+  - ">=5.0.7  <5.0.7.2"
+  - ">=5.1.6  <5.1.6.2"
+  - ">=5.2.2  <5.2.2.1"
+  severity: medium
+  package_manager: rubygems
+  cve:
+  - CVE-2019-5418
+  cwe:
+  - CWE-538
+  disclosed_date: 2019-03-13
+  created_date: 2019-03-13
+  last_modified_date: 2019-03-13
+  credit:
+  - John Hawthorn
+  references:
+  - https://groups.google.com/forum/#!topic/rubyonrails-security/pFRKI96Sm8Q
+  - https://www.exploit-db.com/exploits/46585
+  source_url: https://snyk.io/vuln/SNYK-RUBY-ACTIONVIEW-173784
 - id: snykio:rubygems:actionview:20262
   title: Information Exposure
   description: "[`actionview`][1] is a conventions and helpers gem for building web\npages.
     Affected versions of this Gem are vulnerable to directory\ntraversal and information
-    leaks.\n\n# Details   {#details}\n\nApplications that pass unverified user input
-    to the `render` method in a\ncontroller may be vulnerable to an information leak
-    vulnerability.\n\nImpacted code will look something like this:\n\n    def index\n
-    \     render params[:id]\n    end\n\nCarefully crafted requests can cause the
-    above code to render files from\nunexpected places like outside the application\\'s
-    view directory, and\ncan possibly escalate this to a remote code execution attack.\n\nAll
-    users running an affected release should either upgrade or use one\nof the workarounds
-    immediately.\n\nA workaround to this issue is to not pass arbitrary user input
-    to the\n`render` method. Instead, verify that data before passing it to the\n`render`
-    method.\n\nFor example, change this:\n\n    def index\n      render params[:id]\n
-    \   end\n\nTo this:\n\n    def index\n      render verify_template(params[:id])\n
-    \   end\n    \n    private\n    def verify_template(name)\n      # add verification
-    logic particular to your application here\n    end\n\n\n\n[1]: https://rubygems.org/gems/actionview\n"
+    leaks.\n\n\n\n[1]: https://rubygems.org/gems/actionview\n\\nApplications that
+    pass unverified user input to the `render` method in a\ncontroller may be vulnerable
+    to an information leak vulnerability.\n\nImpacted code will look something like
+    this:\n\n    def index\n      render params[:id]\n    end\n{: .language-ruby}\n\nCarefully
+    crafted requests can cause the above code to render files from\nunexpected places
+    like outside the application\\'s view directory, and\ncan possibly escalate this
+    to a remote code execution attack.\n\nAll users running an affected release should
+    either upgrade or use one\nof the workarounds immediately.\n\nA workaround to
+    this issue is to not pass arbitrary user input to the\n`render` method. Instead,
+    verify that data before passing it to the\n`render` method.\n\nFor example, change
+    this:\n\n    def index\n      render params[:id]\n    end\n{: .language-ruby}\n\nTo
+    this:\n\n    def index\n      render verify_template(params[:id])\n    end\n    \n
+    \   private\n    def verify_template(name)\n      # add verification logic particular
+    to your application here\n    end\n{: .language-ruby}\n\n"
   affected_package: actionview
   vulnerable_versions:
-  - "< 3.2.22.1"
-  - "< 4.1.14.1  >= 3.2.23"
-  - "< 4.2.5.1  >= 4.2"
-  - "< 5.0.0.beta1.1  >= 4.3"
+  - "<3.2.22.1"
+  - ">=3.2.23  <4.1.14.1"
+  - ">=4.2.0  <4.2.5.1"
+  - ">=4.3.0  <5.0.0"
   severity: high
   package_manager: rubygems
   cve:
@@ -244,20 +484,21 @@
     https://snyk.io/vuln/SNYK-RUBY-ACTIONVIEW-20262\n\\nApplications that pass unverified
     user input to the `render` method in a\ncontroller may be vulnerable to an information
     leak vulnerability.\n\nImpacted code will look something like this:\n\n    def
-    index\n      render params[:id]\n    end\n\nCarefully crafted requests can cause
-    the above code to render files from\nunexpected places like outside the application\\'s
-    view directory, and\ncan possibly escalate this to a remote code execution attack.\n\nAll
-    users running an affected release should either upgrade or use one\nof the workarounds
-    immediately.\n\nA workaround to this issue is to not pass arbitrary user input
-    to the\n`render` method. Instead, verify that data before passing it to the\n`render`
-    method.\n\nFor example, change this:\n\n    def index\n      render params[:id]\n
-    \   end\n\nTo this:\n\n    def index\n      render verify_template(params[:id])\n
-    \   end\n    \n    private\n    def verify_template(name)\n      # add verification
-    logic particular to your application here\n    end\n\n"
+    index\n      render params[:id]\n    end\n{: .language-ruby}\n\nCarefully crafted
+    requests can cause the above code to render files from\nunexpected places like
+    outside the application\\'s view directory, and\ncan possibly escalate this to
+    a remote code execution attack.\n\nAll users running an affected release should
+    either upgrade or use one\nof the workarounds immediately.\n\nA workaround to
+    this issue is to not pass arbitrary user input to the\n`render` method. Instead,
+    verify that data before passing it to the\n`render` method.\n\nFor example, change
+    this:\n\n    def index\n      render params[:id]\n    end\n{: .language-ruby}\n\nTo
+    this:\n\n    def index\n      render verify_template(params[:id])\n    end\n    \n
+    \   private\n    def verify_template(name)\n      # add verification logic particular
+    to your application here\n    end\n{: .language-ruby}\n\n"
   affected_package: actionview
   vulnerable_versions:
-  - "< 3.2.22.2"
-  - "< 4.1.14.2  >= 3.2.23"
+  - "<3.2.22.2"
+  - ">=3.2.23  <4.1.14.2"
   severity: medium
   package_manager: rubygems
   cve:
@@ -280,38 +521,69 @@
     unescaped quotes when used as attribute values in tag\nhelpers.\n\nText declared
     as \\\"HTML safe\\\" when passed as an attribute value to a\ntag helper will not
     have quotes escaped which can lead to a Cross-site\nScripting (XSS) attack. Impacted
-    code looks something like this:\n\n    content_tag(:div, \"hi\", title: user_input.html_safe)\n\nSome
-    helpers like the `sanitize` helper will automatically mark strings\nas \\\"HTML
-    safe\\\", so impacted code could also look something like this:\n\n    content_tag(:div,
-    \"hi\", title: sanitize(user_input))\n\nAll users running an affected release
-    should either upgrade or use one\nof the workarounds immediately.\n\nYou can work
-    around this issue by either *not* marking arbitrary user\ninput as safe, or by
-    manually escaping quotes like this:\n\n    def escape_quotes(value)\n      value.gsub(/\"/,
-    '&quot;'.freeze)\n    end\n    \n    content_tag(:div, \"hi\", title: escape_quotes(sanitize(user_input)))\n\n\n\n[1]:
-    https://rubygems.org/gems/actionview\n\\nCross-Site Scripting (XSS) attacks occur
-    when an attacker tricks a\nuser’s browser to execute malicious JavaScript code
-    in the context of a\nvictim’s domain. Such scripts can steal the user’s session
-    cookies for\nthe domain, scrape or modify its content, and perform or modify actions\non
-    the user’s behalf, actions typically blocked by the browser’s Same\nOrigin Policy.\n\nThese
-    attacks are possible by escaping the context of the web\napplication and injecting
-    malicious scripts in an otherwise trusted\nwebsite. These scripts can introduce
-    additional attributes (say, a\n\\\"new\\\" option in a dropdown list or a new
-    link to a malicious site) and\ncan potentially execute code on the clients side,
-    unbeknown to the\nvictim. This occurs when characters like `<` `>` `\"` `'` are
-    not escaped\nproperly.\n\nThere are a few types of XSS:\n\n* **Persistent XSS**
-    is an attack in which the malicious code persists\n  into the web app’s database.\n*
-    **Reflected XSS** is an which the website echoes back a portion of the\n  request.
-    The attacker needs to trick the user into clicking a\n  malicious link (for instance
-    through a phishing email or malicious JS\n  on another page), which triggers the
-    XSS attack.\n* **DOM-based XSS** is an that occurs purely in the browser when\n
-    \ client-side JavaScript echoes back a portion of the URL onto the page.\n  DOM-Based
-    XSS is notoriously hard to detect, as the server never gets\n  a chance to see
-    the attack taking place.\n\n"
+    code looks something like this:\n\n    content_tag(:div, \"hi\", title: user_input.html_safe)\n{:
+    .language-ruby}\n\nSome helpers like the `sanitize` helper will automatically
+    mark strings\nas \\\"HTML safe\\\", so impacted code could also look something
+    like this:\n\n    content_tag(:div, \"hi\", title: sanitize(user_input))\n{: .language-ruby}\n\nAll
+    users running an affected release should either upgrade or use one\nof the workarounds
+    immediately.\n\nYou can work around this issue by either *not* marking arbitrary
+    user\ninput as safe, or by manually escaping quotes like this:\n\n    def escape_quotes(value)\n
+    \     value.gsub(/\"/, '&quot;'.freeze)\n    end\n    \n    content_tag(:div,
+    \"hi\", title: escape_quotes(sanitize(user_input)))\n{: .language-ruby}\n\n\n\n[1]:
+    https://rubygems.org/gems/actionview\n\\nA cross-site scripting attack occurs
+    when the attacker tricks a\nlegitimate web-based application or site to accept
+    a request as\noriginating from a trusted source.\n\nThis is done by escaping the
+    context of the web application; the web\napplication then delivers that data to
+    its users along with other\ntrusted dynamic content, without validating it. The
+    browser unknowingly\nexecutes malicious script on the client side (through client-side\nlanguages;
+    usually JavaScript or HTML) in order to perform actions that\nare otherwise typically
+    blocked by the browser’s Same Origin Policy.\n\nֿInjecting malicious code is the
+    most prevalent manner by which XSS is\nexploited; for this reason, escaping characters
+    in order to prevent this\nmanipulation is the top method for securing code against
+    this\nvulnerability.\n\nEscaping means that the application is coded to mark key
+    characters, and\nparticularly key characters included in user input, to prevent
+    those\ncharacters from being interpreted in a dangerous context. For example,\nin
+    HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in\norder to be
+    interpreted and displayed as themselves in text, while\nwithin the code itself,
+    they are used for HTML tags. If malicious\ncontent is injected into an application
+    that escapes special characters\nand that malicious content uses `<` and `>` as
+    HTML tags, those\ncharacters are nonetheless not interpreted as HTML tags by the
+    browser\nif they’ve been correctly escaped in the application code and in this\nway
+    the attempted attack is diverted.\n\nThe most prominent use of XSS is to steal
+    cookies (source: OWASP\nHttpOnly) and hijack user sessions, but XSS exploits have
+    been used to\nexpose sensitive information, enable access to privileged services
+    and\nfunctionality and deliver malware.\n\n### Types of attacks   {#types-of-attacks}\n\nThere
+    are a few methods by which XSS can be manipulated:\n\n| Type | Origin | Description
+    |\n|----------\n| **Stored** | Server | The malicious code is inserted in the
+    application (usually as a link) by the attacker. The code is activated every time
+    a user clicks the link. |\n| **Reflected** | Server | The attacker delivers a
+    malicious link externally from the vulnerable web site application to a user.
+    When clicked, malicious code is sent to the vulnerable web site, which reflects
+    the attack back to the user’s browser. |\n| **DOM-based** | Client | The attacker
+    forces the user’s browser to render a malicious page. The data in the page itself
+    delivers the cross-site scripting data. |\n| **Mutated** |  | The attacker injects
+    code that appears safe, but is then rewritten and modified by the browser, while
+    parsing the markup. An example is rebalancing unclosed quotation marks or even
+    adding quotation marks to unquoted parameters. |\n\n### Affected environments
+    \  {#affected-environments}\n\nThe following environments are susceptible to an
+    XSS attack:\n\n* Web servers\n* Application servers\n* Web application environments\n\n###
+    How to prevent   {#how-to-prevent}\n\nThis section describes the top best practices
+    designed to specifically\nprotect your code:\n\n* Sanitize data input in an HTTP
+    request before reflecting it back,\n  ensuring all data is validated, filtered
+    or escaped before echoing\n  anything back to the user, such as the values of
+    query parameters\n  during searches.\n* Convert special characters such as `?`,
+    `&`, `/`, `<`, `>` and spaces\n  to their respective HTML or URL encoded equivalents.\n*
+    Give users the option to disable client-side scripts.\n* Redirect invalid requests.\n*
+    Detect simultaneous logins, including those from two separate IP\n  addresses,
+    and invalidate those sessions.\n* Use and enforce a Content Security Policy (source:
+    Wikipedia) to\n  disable any features that might be manipulated for an XSS attack.\n*
+    Read the documentation for any of the libraries referenced in your\n  code to
+    understand which elements allow for embedded HTML.\n\n"
   affected_package: actionview
   vulnerable_versions:
-  - "< 3.2.22.3  >= 3.0.0"
-  - "< 4.2.7.1  >= 3.2.23"
-  - "< 5.0.0.1  >= 5.0.0.0"
+  - ">=3.0.0  <3.2.22.3"
+  - ">=3.2.23  <4.2.7.1"
+  - ">=5.0.0.0  <5.0.0.1"
   severity: medium
   package_manager: rubygems
   cve:

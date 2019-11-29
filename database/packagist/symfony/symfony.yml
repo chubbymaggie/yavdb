@@ -769,6 +769,252 @@
   references:
   - https://symfony.com/cve-2018-19790
   source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2018-19790.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-10909
+  title: 'CVE-2019-10909: Escape validation messages in the PHP templating engine'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.7.0 <2.7.51"
+  - ">=2.8.0 <2.8.50"
+  - ">=3.0.0 <3.1.0"
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.26"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.1.12"
+  - ">=4.2.0 <4.2.7"
+  package_manager: packagist
+  cve:
+  - CVE-2019-10909
+  disclosed_date: 2019-04-16
+  created_date: 2019-04-16
+  last_modified_date: 2019-04-16
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-10909
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-10909.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-10910
+  title: 'CVE-2019-10910: Check service IDs are valid'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.7.0 <2.7.51"
+  - ">=2.8.0 <2.8.50"
+  - ">=3.0.0 <3.1.0"
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.26"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.1.12"
+  - ">=4.2.0 <4.2.7"
+  package_manager: packagist
+  cve:
+  - CVE-2019-10910
+  disclosed_date: 2019-04-16
+  created_date: 2019-04-16
+  last_modified_date: 2019-04-16
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-10910
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-10910.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-10911
+  title: 'CVE-2019-10911: Add a separator in the remember me cookie hash'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.7.0 <2.7.51"
+  - ">=2.8.0 <2.8.50"
+  - ">=3.0.0 <3.1.0"
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.26"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.1.12"
+  - ">=4.2.0 <4.2.7"
+  package_manager: packagist
+  cve:
+  - CVE-2019-10911
+  disclosed_date: 2019-04-16
+  created_date: 2019-04-16
+  last_modified_date: 2019-04-16
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-10911
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-10911.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-10912
+  title: 'CVE-2019-10912: Prevent destructors with side-effects from being unserialized'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.8.0 <2.8.50"
+  - ">=3.0.0 <3.1.0"
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.26"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.1.12"
+  - ">=4.2.0 <4.2.7"
+  package_manager: packagist
+  cve:
+  - CVE-2019-10912
+  disclosed_date: 2019-04-16
+  created_date: 2019-04-16
+  last_modified_date: 2019-04-16
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-10912
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-10912.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-10913
+  title: 'CVE-2019-10913: Reject invalid HTTP method overrides'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.7.0 <2.7.51"
+  - ">=2.8.0 <2.8.50"
+  - ">=3.0.0 <3.1.0"
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.26"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.1.12"
+  - ">=4.2.0 <4.2.7"
+  package_manager: packagist
+  cve:
+  - CVE-2019-10913
+  disclosed_date: 2019-04-16
+  created_date: 2019-04-16
+  last_modified_date: 2019-04-16
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-10913
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-10913.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-11325
+  title: 'CVE-2019-11325: Fix escaping of strings in VarExporter'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=4.2.0 <4.2.12"
+  - ">=4.3.0 <4.3.8"
+  package_manager: packagist
+  cve:
+  - CVE-2019-11325
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-13
+  last_modified_date: 2019-11-13
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-11325
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-11325.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-18886
+  title: 'CVE-2019-18886: Prevent user enumeration using switch user functionality'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=4.1.0 <4.2.0"
+  - ">=4.2.0 <4.2.12"
+  - ">=4.3.0 <4.3.8"
+  package_manager: packagist
+  cve:
+  - CVE-2019-18886
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-13
+  last_modified_date: 2019-11-13
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-18886
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-18886.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-18887
+  title: 'CVE-2019-18887: Use constant time comparison in UriSigner'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.2.0 <2.3.0"
+  - ">=2.3.0 <2.4.0"
+  - ">=2.4.0 <2.5.0"
+  - ">=2.5.0 <2.6.0"
+  - ">=2.6.0 <2.7.0"
+  - ">=2.7.0 <2.8.0"
+  - ">=2.8.0 <2.8.52"
+  - ">=3.0.0 <3.1.0"
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.35"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.2.0"
+  - ">=4.2.0 <4.2.12"
+  - ">=4.3.0 <4.3.8"
+  package_manager: packagist
+  cve:
+  - CVE-2019-18887
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-13
+  last_modified_date: 2019-11-13
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-18887
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-18887.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-18888
+  title: 'CVE-2019-18888: Prevent argument injection in a MimeTypeGuesser'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.0.0 <2.1.0"
+  - ">=2.1.0 <2.2.0"
+  - ">=2.2.0 <2.3.0"
+  - ">=2.3.0 <2.4.0"
+  - ">=2.4.0 <2.5.0"
+  - ">=2.5.0 <2.6.0"
+  - ">=2.6.0 <2.7.0"
+  - ">=2.7.0 <2.8.0"
+  - ">=2.8.0 <2.8.52"
+  - ">=3.0.0 <3.1.0"
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.35"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.2.0"
+  - ">=4.2.0 <4.2.12"
+  - ">=4.3.0 <4.3.8"
+  package_manager: packagist
+  cve:
+  - CVE-2019-18888
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-13
+  last_modified_date: 2019-11-13
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-18888
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-18888.yaml
+- id: friendsofphp:packagist:symfony/symfony:CVE-2019-18889
+  title: 'CVE-2019-18889: Forbid serializing AbstractAdapter and TagAwareAdapter instances'
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=3.1.0 <3.2.0"
+  - ">=3.2.0 <3.3.0"
+  - ">=3.3.0 <3.4.0"
+  - ">=3.4.0 <3.4.35"
+  - ">=4.0.0 <4.1.0"
+  - ">=4.1.0 <4.2.0"
+  - ">=4.2.0 <4.2.12"
+  - ">=4.3.0 <4.3.8"
+  package_manager: packagist
+  cve:
+  - CVE-2019-18889
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-13
+  last_modified_date: 2019-11-13
+  credit:
+  - FriendsOfPHP
+  references:
+  - https://symfony.com/cve-2019-18889
+  source_url: https://github.com/FriendsOfPHP/security-advisories/blob/master/symfony/symfony/CVE-2019-18889.yaml
 - id: ossindex:packagist:symfony/symfony:351071
   title: "[CVE-2012-2667] Session fixation vulnerability in lib/user/sfBasicSecurityUser.class.php
     in Sens..."
@@ -2019,6 +2265,706 @@
   - http://symfony.com/blog/cve-2016-2403-unauthorized-access-on-a-misconfigured-ldap-server-when-using-an-empty-password
   - http://www.securityfocus.com/bid/96137
   source_url: https://ossindex.net/resource/package/8397625916/vulnerabilities
+- id: snykio:packagist:symfony/symfony:173743
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). A remote attacker could inject arbitrary web script or HTML via
+    the \"file\" parameter in a URL.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - "<4.1"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2018-12040
+  cwe:
+  - CWE-79
+  disclosed_date: 2018-06-08
+  created_date: 2018-06-14
+  last_modified_date: 2018-06-14
+  credit:
+  - Unknown
+  references:
+  - https://nvd.nist.gov/vuln/detail/CVE-2018-12040
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-173743
+- id: snykio:packagist:symfony/symfony:173744
+  title: Host Header Injection
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Host Header
+    Injection. When using `HttpCache`, the values of the `X-Forwarded-Host`
+    headers are implicitly set as trusted while this should be forbidden,
+    leading to potential host header injection.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - "<2.7.49"
+  - ">=2.8.0  <2.8.44"
+  - ">=3.3.0  <3.3.18"
+  - ">=3.4.0  <3.4.14"
+  - ">=4.0.0  <4.0.14"
+  - ">=4.1.0  <4.1.2"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2018-14774
+  cwe:
+  - CWE-444
+  disclosed_date: 2018-07-31
+  created_date: 2018-08-05
+  last_modified_date: 2018-08-05
+  credit:
+  - Chaosversum
+  references:
+  - https://github.com/symfony/symfony/commit/725dee4cd8b4ccd52e335ae4b4522242cea9bd4a
+  - https://github.com/symfony/symfony/releases/tag/v4.1.3
+  - https://symfony.com/blog/cve-2018-14774-possible-host-header-injection-when-using-httpcache
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-173744
+- id: snykio:packagist:symfony/symfony:173745
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) via the content page.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - "<2.7.7"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2018-12043
+  cwe:
+  - CWE-79
+  disclosed_date: 2018-06-07
+  created_date: 2018-06-13
+  last_modified_date: 2018-06-13
+  credit:
+  - Unknown
+  references:
+  - https://github.com/symphonycms/symphony-2/commit/1ace6b31867cc83267b3550686271c9c65ac3ec0
+  - https://nvd.nist.gov/vuln/detail/CVE-2018-12043
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-173745
+- id: snykio:packagist:symfony/symfony:174495
+  title: Deserialization of Untrusted Data
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Deserialization of
+    Untrusted Data. Malicious content obtained from user input could be used
+    to trigger file deletions or echo raw output by triggering the
+    `unserialize()` function.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.8.0  <2.8.50"
+  - ">=3.0.0  <3.1.0"
+  - ">=3.1.0  <3.2.0"
+  - ">=3.2.0  <3.3.0"
+  - ">=3.3.0  <3.4.0"
+  - ">=3.4.0  <3.4.26"
+  - ">=4.0.0  <4.1.0"
+  - ">=4.1.0  <4.1.12"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-10912
+  cwe:
+  - CWE-502
+  disclosed_date: 2019-04-24
+  created_date: 2019-04-24
+  last_modified_date: 2019-04-24
+  credit:
+  - Mindaugas Vedegys
+  references:
+  - https://github.com/symfony/symfony/commit/4fb975281634b8d49ebf013af9e502e67c28816b
+  - https://symfony.com/blog/cve-2019-10912-prevent-destructors-with-side-effects-from-being-unserialized
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-174495
+- id: snykio:packagist:symfony/symfony:174496
+  title: Arbitrary Code Execution
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Execution. Service IDs derived from unfiltered user input could result
+    in the execution of any arbitrary code.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.7.0  <2.7.51"
+  - ">=2.8.0  <2.8.50"
+  - ">=3.0.0  <3.1.0"
+  - ">=3.1.0  <3.2.0"
+  - ">=3.2.0  <3.3.0"
+  - ">=3.3.0  <3.4.0"
+  - ">=3.4.0  <3.4.26"
+  - ">=4.0.0  <4.1.0"
+  - ">=4.1.0  <4.1.12"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-10910
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-04-24
+  created_date: 2019-04-24
+  last_modified_date: 2019-04-24
+  credit:
+  - Unknown
+  references:
+  - https://github.com/symfony/symfony/commit/d2fb5893923292a1da7985f0b56960b5bb10737b
+  - https://symfony.com/blog/cve-2019-10910-check-service-ids-are-valid
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-174496
+- id: snykio:packagist:symfony/symfony:174497
+  title: Improper Input Validation
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Improper Input
+    Validation. The function `getMethod()` does not validate or escape the
+    `X-HTTP-Method-Override` header or the HTTP method itself. This could
+    result resulting in those input being returned in dangerous contexts
+    under certain circumstances.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.7.0  <2.7.51"
+  - ">=2.8.0  <2.8.50"
+  - ">=3.0.0  <3.1.0"
+  - ">=3.1.0  <3.2.0"
+  - ">=3.2.0  <3.3.0"
+  - ">=3.3.0  <3.4.0"
+  - ">=3.4.0  <3.4.26"
+  - ">=4.0.0  <4.1.0"
+  - ">=4.1.0  <4.1.12"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-10913
+  cwe:
+  - CWE-20
+  disclosed_date: 2019-04-24
+  created_date: 2019-04-24
+  last_modified_date: 2019-04-24
+  credit:
+  - mschop
+  references:
+  - https://github.com/symfony/symfony/commit/944e60f083c3bffbc6a0b5112db127a10a66a8ec
+  - https://symfony.com/blog/cve-2019-10913-reject-invalid-http-method-overrides
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-174497
+- id: snykio:packagist:symfony/symfony:174498
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). Validation messages are not escaped when using the form theme of
+    the PHP templating engine which, when validation messages may reflect
+    user input, could result in an Cross-site Scripting (XSS).
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.7.0  <2.7.51"
+  - ">=2.8.0  <2.8.50"
+  - ">=3.0.0  <3.1.0"
+  - ">=3.1.0  <3.2.0"
+  - ">=3.2.0  <3.3.0"
+  - ">=3.3.0  <3.4.0"
+  - ">=3.4.0  <3.4.26"
+  - ">=4.0.0  <4.1.0"
+  - ">=4.1.0  <4.1.12"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-10909
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-04-24
+  created_date: 2019-04-24
+  last_modified_date: 2019-04-24
+  credit:
+  - Christophe Coevoet
+  references:
+  - https://github.com/symfony/symfony/commit/ab4d05358c3d0dd1a36fc8c306829f68e3dd84e2
+  - https://symfony.com/blog/cve-2019-10909-escape-validation-messages-in-the-php-templating-engine
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-174498
+- id: snykio:packagist:symfony/symfony:174499
+  title: Access Control Bypass
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Access Control
+    Bypass. The `generateCookieHash` function used to create a user\'s
+    remember me cookie does not contain a delimiter during token generation.
+    As such, an attacker could modify the remember me cookie and
+    authenticate as a different user. This attack is only possible if the
+    remember me functionality is enabled and the two users share a password
+    hash or if the password hashes (e.g. `UserInterface::getPassword()`) are
+    null for all users (which is valid if passwords are checked by an
+    external system, e.g. an SSO).
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.7.0  <2.7.51"
+  - ">=2.8.0  <2.8.50"
+  - ">=3.0.0  <3.1.0"
+  - ">=3.1.0  <3.2.0"
+  - ">=3.2.0  <3.3.0"
+  - ">=3.3.0  <3.4.0"
+  - ">=3.4.0  <3.4.26"
+  - ">=4.0.0  <4.1.0"
+  - ">=4.1.0  <4.1.12"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-10911
+  cwe:
+  - CWE-288
+  disclosed_date: 2019-04-24
+  created_date: 2019-04-24
+  last_modified_date: 2019-04-24
+  credit:
+  - Jon Cave
+  references:
+  - https://github.com/symfony/symfony/commit/a29ce2817cf43bb1850cf6af114004ac26c7a081
+  - https://symfony.com/blog/cve-2019-10911-add-a-separator-in-the-remember-me-cookie-hash
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-174499
+- id: snykio:packagist:symfony/symfony:535350
+  title: Timing Attack
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Timing Attack. When
+    checking the signature of an URI (an ESI fragment URL for instance), the
+    URISigner does not use a constant time string comparison function,
+    resulting in a potential remote timing attack vulnerability.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.8.0  <2.8.52"
+  - ">=3.4.0  <3.4.35"
+  - ">=4.2.0  <4.2.12"
+  - ">=4.3.0  <4.3.8"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-18887
+  cwe:
+  - CWE-362
+  disclosed_date: 2019-11-21
+  created_date: 2019-11-22
+  last_modified_date: 2019-11-22
+  credit:
+  - Unknown
+  references:
+  - https://github.com/symfony/symfony/commit/cccefe6a7f12e776df0665aeb77fe9294c285fbb
+  - https://github.com/symfony/symfony/releases/tag/v4.3.8
+  - https://symfony.com/blog/cve-2019-18887-use-constant-time-comparison-in-urisigner
+  - https://symfony.com/blog/symfony-4-3-8-released
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-535350
+- id: snykio:packagist:symfony/symfony:535351
+  title: User Enumeration
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to User Enumeration.
+    The ability to enumerate users was possible due to different handling
+    depending on whether the user existed when making unauthorized attempts
+    to use the switch users functionality.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=4.2.0  <4.2.12"
+  - ">=4.3.0  <4.3.8"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-18886
+  cwe:
+  - CWE-203
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-22
+  last_modified_date: 2019-11-22
+  credit:
+  - Matt Daum
+  references:
+  - https://github.com/symfony/symfony/commit/7bd4a92fc9cc15d9a9fbb9eb1041e01b977f8332
+  - https://github.com/symfony/symfony/releases/tag/v4.3.8
+  - https://symfony.com/blog/cve-2019-18886-prevent-user-enumeration-using-switch-user-functionality
+  - https://symfony.com/blog/symfony-4-3-8-released
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-535351
+- id: snykio:packagist:symfony/symfony:535352
+  title: Arbitrary Code Execution
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Execution. Some strings were not properly escaped when being dumped by
+    the `VarExporter` component leading to remote code execution.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=4.2.0  <4.2.12"
+  - ">=4.3.0  <4.3.8"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-11325
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-22
+  last_modified_date: 2019-11-22
+  credit:
+  - Seung Woo Yuk (xtac)
+  references:
+  - https://github.com/symfony/symfony/commit/0524868cbf3d3a36e0af804432016d5a6d98169a
+  - https://github.com/symfony/symfony/releases/tag/v4.3.8
+  - https://symfony.com/blog/cve-2019-11325-fix-escaping-of-strings-in-varexporter
+  - https://symfony.com/blog/symfony-4-3-8-released
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-535352
+- id: snykio:packagist:symfony/symfony:535353
+  title: Arbitrary Code Execution
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Execution. When an instance of `TagAwareAdapter` is destructed, Symfony
+    execute callables stored in privates properties in order to invalidates
+    tags. When the instance has been created by unserializing an external
+    payload, those properties are not checked leading to a remote code
+    execution.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=3.4.0  <3.4.35"
+  - ">=4.2.0  <4.2.12"
+  - ">=4.3.0  <4.3.8"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-18889
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-22
+  last_modified_date: 2019-11-22
+  credit:
+  - wisdomtree
+  references:
+  - https://github.com/symfony/symfony/commit/8817d28fcaacb31fe01d267f6e19b44d8179395a
+  - https://github.com/symfony/symfony/releases/tag/v4.3.8
+  - https://symfony.com/blog/cve-2019-18889-forbid-serializing-abstractadapter-and-tagawareadapter-instances
+  - https://symfony.com/blog/symfony-4-3-8-released
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-535353
+- id: snykio:packagist:symfony/symfony:535354
+  title: Arbitrary Code Execution
+  description: |
+    [symfony/symfony][1] is a PHP framework for web applications and a set
+    of reusable PHP components.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Execution. Provided file paths were not being properly escaped before
+    being used in the `FileBinaryMimeTypeGuesser` resulting in potential
+    argument injection through the provided `$path` variable.
+
+
+
+    [1]: https://packagist.org/packages/symfony/symfony
+  affected_package: symfony/symfony
+  vulnerable_versions:
+  - ">=2.8.0  <2.8.52"
+  - ">=3.4.0  <3.4.35"
+  - ">=4.2.0  <4.2.11"
+  - ">=4.3.0  <4.3.8"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-18888
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-11-13
+  created_date: 2019-11-22
+  last_modified_date: 2019-11-22
+  credit:
+  - Ivan Novikov
+  references:
+  - https://github.com/symfony/symfony/commit/691486e43ce0e4893cd703e221bafc10a871f365
+  - https://github.com/symfony/symfony/commit/77ddabf2e785ea85860d2720cc86f7c5d8967ed5
+  - https://github.com/symfony/symfony/releases/tag/v4.3.8
+  - https://symfony.com/blog/cve-2019-18888-prevent-argument-injection-in-a-mimetypeguesser
+  - https://symfony.com/blog/symfony-4-3-8-released
+  source_url: https://snyk.io/vuln/SNYK-PHP-SYMFONYSYMFONY-535354
 - id: snykio:packagist:symfony/symfony:70199
   title: Access Restriction Bypass
   description: |
@@ -2072,6 +3018,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -2084,6 +3031,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -2147,6 +3095,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -2159,6 +3108,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -3448,33 +4398,77 @@
 
 
     [1]: https://packagist.org/packages/symfony/symfony
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: symfony/symfony
   vulnerable_versions:

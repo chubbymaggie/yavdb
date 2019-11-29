@@ -40,6 +40,224 @@
   - http://www.securityfocus.com/bid/94247
   - https://dist.apache.org/repos/dist/release/tika/CHANGES-1.14.txt
   source_url: https://ossindex.net/resource/package/7015342516/vulnerabilities
+- id: snykio:maven:org.apache.tika:tika-core:456557
+  title: Stack Overflow
+  description: |
+    [org.apache.tika:tika-core][1] is a toolkit for detecting and extracting
+    metadata and structured text content from various documents using
+    existing parser libraries.
+
+    Affected versions of this package are vulnerable to Stack Overflow due
+    to a carefully crafted package/compressed file that, when
+    unzipped/uncompressed yields the same file.
+
+
+
+    [1]: https://github.com/apache/tika
+  affected_package: org.apache.tika:tika-core
+  vulnerable_versions:
+  - ">= 1.7 < 1.22"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2019-10094
+  cwe:
+  - CWE-119
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-04
+  last_modified_date: 2019-08-04
+  credit:
+  - Tim Allison
+  references:
+  - https://github.com/apache/tika/commit/426be73b9e7500fa3d441231fa4e473de34743f6#diff-50b4c680642efeacd4cc2cfb59b94bef
+  - https://lists.apache.org/thread.html/fe876a649d9d36525dd097fe87ff4dcb3b82bb0fbb3a3d71fb72ef61@%3Cdev.tika.apache.org%3E
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETIKA-456557
+- id: snykio:maven:org.apache.tika:tika-core:456558
+  title: Denial of Service (DoS)
+  description: |+
+    [org.apache.tika:tika-core][1] is a toolkit for detecting and extracting
+    metadata and structured text content from various documents using
+    existing parser libraries.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) due a carefully crafted 2003ml or 2006ml file being able to
+    consume all available SAXParsers in the pool and lead to very long
+    hangs.
+
+
+
+    [1]: https://github.com/apache/tika
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tika:tika-core
+  vulnerable_versions:
+  - ">= 1.19 < 1.22"
+  severity: low
+  package_manager: maven
+  cve:
+  - CVE-2019-10093
+  cwe:
+  - CWE-404
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-04
+  last_modified_date: 2019-08-04
+  credit:
+  - Tim Allison
+  references:
+  - https://lists.apache.org/thread.html/a5a44eff1b9eda3bc69d22943a1030c43d376380c75d3ab04d0c1a21@%3Cdev.tika.apache.org%3E
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETIKA-456558
+- id: snykio:maven:org.apache.tika:tika-core:456559
+  title: Denial of Service (Memory Exhaustion)
+  description: |+
+    [org.apache.tika:tika-core][1] is a toolkit for detecting and extracting
+    metadata and structured text content from various documents using
+    existing parser libraries.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (Memory Exhaustion) due to a carefully crafted or corrupt zip file.
+
+
+
+    [1]: https://github.com/apache/tika
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tika:tika-core
+  vulnerable_versions:
+  - ">= 1.7 < 1.22"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2019-10088
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-04
+  last_modified_date: 2019-08-04
+  credit:
+  - RunningSnail
+  references:
+  - https://github.com/apache/tika/commit/426be73b9e7500fa3d441231fa4e473de34743f6#diff-50b4c680642efeacd4cc2cfb59b94bef
+  - https://lists.apache.org/thread.html/1c63555609b737c20d1bbfa4a3e73ec488e3408a84e2f5e47e1b7e08@%3Cdev.tika.apache.org%3E
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETIKA-456559
+- id: snykio:maven:org.apache.tika:tika-core:466520
+  title: XML External Entity (XXE) Injection
+  description: |+
+    [org.apache.tika:tika-core][1] is a toolkit for detecting and extracting
+    metadata and structured text content from various documents using
+    existing parser libraries.
+
+    Affected versions of this package are vulnerable to XML External Entity
+    (XXE) Injection. The XML parsers were not configured to limit entity
+    expansion.
+
+
+
+    [1]: https://github.com/apache/tika
+    \nXXE Injection is a type of attack against an application that parses XML
+    input. XML is a markup language that defines a set of rules for encoding
+    documents in a format that is both human-readable and machine-readable.
+    By default, many XML processors allow specification of an external
+    entity, a URI that is dereferenced and evaluated during XML processing.
+    When an XML document is being parsed, the parser can make a request and
+    include the content at the specified URI inside of the XML document.
+
+    Attacks can include disclosing local files, which may contain sensitive
+    data such as passwords or private user data, using file: schemes or
+    relative paths in the system identifier.
+
+    For example, below is a sample XML document, containing an XML element-
+    username.
+
+        <?xml version="1.0" encoding="ISO-8859-1"?>
+           <username>John</username>
+        </xml>
+    {: .language-xml}
+
+    An external XML entity - `xxe`, is defined using a system identifier and
+    present within a DOCTYPE header. These entities can access local or
+    remote content. For example the below code contains an external XML
+    entity that would fetch the content of `/etc/passwd` and display it to
+    the user rendered by `username`.
+
+        <?xml version="1.0" encoding="ISO-8859-1"?>
+        <!DOCTYPE foo [
+           <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
+           <username>&xxe;</username>
+        </xml>
+    {: .language-xml}
+
+    Other XXE Injection attacks can access local resources that may not stop
+    returning data, possibly impacting application availability and leading
+    to Denial of Service.
+
+  affected_package: org.apache.tika:tika-core
+  vulnerable_versions:
+  - ">= 1.0 < 1.19"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2018-11761
+  cwe:
+  - CWE-611
+  disclosed_date: 2018-09-19
+  created_date: 2018-09-26
+  last_modified_date: 2018-09-26
+  credit:
+  - Renfei (Brian) Wang
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1632462
+  - https://github.com/apache/tika/commit/4e67928412ad56333d400f3728ecdb59d07d9d63
+  - https://github.com/apache/tika/commit/bd9d75d8b0a85af2937047bfad04288c3044b2a6
+  - https://lists.apache.org/thread.html/5553e10bba5604117967466618f219c0cae710075819c70cfb3fb421@%3Cdev.tika.apache.org%3E
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETIKA-466520
 - id: snykio:maven:org.apache.tika:tika-core:72437
   title: XML External Entity (XXE) Injection
   description: |+
@@ -72,6 +290,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -84,6 +303,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -91,7 +311,7 @@
 
   affected_package: org.apache.tika:tika-core
   vulnerable_versions:
-  - ">= 0.1 < 1.19.1"
+  - ">= 0.4 < 1.19.1"
   severity: medium
   package_manager: maven
   cve:

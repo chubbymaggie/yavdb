@@ -12174,7 +12174,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22catalina%22
   affected_package: tomcat:catalina
   vulnerable_versions:
-  - ">= 5.5 <= 5.5.29"
+  - ">= 5.5 < 5.5.29"
   severity: low
   package_manager: maven
   cve:
@@ -12251,7 +12251,7 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: tomcat:catalina
   vulnerable_versions:
-  - ">= 5.5.0 <= 5.5.29"
+  - ">= 5.5.0 < 5.5.30"
   severity: low
   package_manager: maven
   cve:
@@ -12278,33 +12278,77 @@
 
 
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22catalina%22
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: tomcat:catalina
   vulnerable_versions:
@@ -12718,7 +12762,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22catalina%22
   affected_package: tomcat:catalina
   vulnerable_versions:
-  - ">= 4 <= 5.5.23"
+  - ">= 4 < 5.5.24"
   severity: medium
   package_manager: maven
   cve:
@@ -12736,17 +12780,20 @@
 - id: snykio:maven:tomcat:catalina:31373
   title: Access Restriction Bypass
   description: |
-    [`tomcat:catalina`][1] Affected versions of the package are vulnerable
-    to Access Restriction Bypass. It was discovered that it was possible for
-    a web application to access any global JNDI resource whether an explicit
-    ResourceLink had been configured or not.
+    [tomcat:catalina][1] is a library that contains Tomcat Servlet Engine
+    Core Classes and Standard implementations.
+
+    Affected versions of this package are vulnerable to Access Restriction
+    Bypass. It was discovered that it was possible for a web application to
+    access any global JNDI resource whether an explicit ResourceLink had
+    been configured or not.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22catalina%22
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
   affected_package: tomcat:catalina
   vulnerable_versions:
-  - ">= 4.0.4 <= 5.5.23"
+  - ">= 4.0.4 < 5.5.24"
   severity: high
   package_manager: maven
   cve:
@@ -12760,4 +12807,307 @@
   - the Apache Tomcat Security Team
   references:
   - http://seclists.org/oss-sec/2016/q4/257
+  - https://github.com/apache/tomcat/commit/2859ac3eae132383cb6f3f2042e25d7a4a281b0d
+  - https://github.com/apache/tomcat/commit/b3406e6c318378cbf440f902f9fdbb8b440aef4e
+  - https://github.com/apache/tomcat/commit/d6b5600afe75e1086dd564344e1d085966e4237d
+  - https://github.com/apache/tomcat80/commit/824c7dc781056442046db0ae34bcf1497f23f44c
   source_url: https://snyk.io/vuln/SNYK-JAVA-TOMCAT-31373
+- id: snykio:maven:tomcat:catalina:467409
+  title: Authentication Bypass
+  description: |
+    [tomcat:catalina][1] is a library that contains Tomcat Servlet Engine
+    Core Classes and Standard implementations.
+
+    Affected versions of this package are vulnerable to Authentication
+    Bypass. By default, Tomcat automatically deploys any directories placed
+    in ahost\'s `appBase`. This behaviour is controlled by the autoDeploy
+    `attributeof`which defaults to true. Depending on circumstances, files
+    normally protected by one or more security constraints may be deployed
+    without those security constraints, making them accessible without
+    authentication.
+
+    Note: This issue only affects Windows platforms.This was fixed in
+    revision 892815.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
+  affected_package: tomcat:catalina
+  vulnerable_versions:
+  - ">= 0"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2009-2901
+  cwe:
+  - CWE-264
+  disclosed_date: 2019-08-20
+  created_date: 2019-08-20
+  last_modified_date: 2019-08-20
+  credit:
+  - Unknown
+  references:
+  - http://svn.apache.org/viewvc?view=revision&revision=902650
+  - https://svn.apache.org/viewvc?view=rev&rev=892815
+  - https://tomcat.apache.org/security-6.html
+  source_url: https://snyk.io/vuln/SNYK-JAVA-TOMCAT-467409
+- id: snykio:maven:tomcat:catalina:468914
+  title: Directory Traversal
+  description: |
+    [tomcat:catalina][1] is a library that contains Tomcat Servlet Engine
+    Core Classes and Standard implementations.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+    When deploying WAR files, the WAR file names were not checked for
+    directory traversal attempts.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
+    \nA Directory Traversal attack (also known as path traversal) aims to
+    access files and directories that are stored outside the intended
+    folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
+    its variations, or by using absolute file paths, it may be possible to
+    access arbitrary files and directories stored on file system, including
+    application source code, configuration, and other critical system files.
+
+    Directory Traversal vulnerabilities can be generally divided into two
+    types:
+
+    * **Information Disclosure**\: Allows the attacker to gain information
+      about the folder structure or read the contents of sensitive files on
+      the system.
+
+    `st` is a module for serving static files on web pages, and contains a
+    [vulnerability of this type][1]. In our example, we will serve files
+    from the `public` route.
+
+    If an attacker requests the following URL from our server, it will in
+    turn leak the sensitive private key of the root user.
+
+        curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa
+
+    **Note** `%2e` is the URL encoded version of `.` (dot).
+
+    * **Writing arbitrary files**\: Allows the attacker to create or replace
+      existing files. This type of vulnerability is also known as
+      `Zip-Slip`.
+
+    One way to achieve this is by using a malicious `zip` archive that holds
+    path traversal filenames. When each filename in the zip archive gets
+    concatenated to the target extraction folder, without validation, the
+    final path ends up outside of the target folder. If an executable or a
+    configuration file is overwritten with a file containing malicious code,
+    the problem can turn into an arbitrary code execution issue quite
+    easily.
+
+    The following is an example of a `zip` archive with one benign file and
+    one malicious file. Extracting the malicious file will result in
+    traversing out of the target folder, ending up in `/root/.ssh/`
+    overwriting the `authorized_keys` file:
+
+        2018-04-15 22:04:29 .....           19           19  good.txt
+        2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys
+
+
+
+    [1]: https://snyk.io/vuln/npm:st:20140206
+  affected_package: tomcat:catalina
+  vulnerable_versions:
+  - ">= 5.5.0"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2009-2902
+  cwe:
+  - CWE-22
+  disclosed_date: 2010-03-01
+  created_date: 2019-09-23
+  last_modified_date: 2019-09-23
+  credit:
+  - Unknown
+  references:
+  - http://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2009-2902
+  - http://svn.apache.org/viewvc?view=revision&revision=902650
+  - https://svn.apache.org/viewvc?view=rev&rev=892815
+  - https://tomcat.apache.org/security-6.html
+  source_url: https://snyk.io/vuln/SNYK-JAVA-TOMCAT-468914
+- id: snykio:maven:tomcat:catalina:468915
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [tomcat:catalina][1] is a library that contains Tomcat Servlet Engine
+    Core Classes and Standard implementations.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). The calendar example application in the examples web application
+    contains an XSS flaw due to invalid HTML which renders the XSS filtering
+    protection ineffective. This allows an attack using the time attribute.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: tomcat:catalina
+  vulnerable_versions:
+  - ">= 4.1.0 < 4.1.40"
+  - ">= 5.5.0 < 5.5.28"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2009-0781
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-03-06
+  created_date: 2019-09-23
+  last_modified_date: 2019-09-23
+  credit:
+  - Deniz Cevik
+  references:
+  - http://svn.apache.org/viewvc?rev=750924&view=rev
+  - http://svn.apache.org/viewvc?rev=750928&view=rev
+  - https://svn.apache.org/viewvc?view=rev&rev=750927
+  - https://tomcat.apache.org/security-4.html
+  source_url: https://snyk.io/vuln/SNYK-JAVA-TOMCAT-468915
+- id: snykio:maven:tomcat:catalina:471343
+  title: Information Disclosure
+  description: |
+    [tomcat:catalina][1] is a library that contains Tomcat Servlet Engine
+    Core Classes and Standard implementations.
+
+    Affected versions of this package are vulnerable to Information
+    Disclosure. When using a RequestDispatcher obtained from the Request,
+    the target path was normalised before the query string was removed. A
+    request that included a specially crafted request parameter could be
+    used to access content that would otherwise be protected by a security
+    constraint or by locating it in under the WEB-INF directory. This was
+    fixed in revisions 782763 and783292.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
+  affected_package: tomcat:catalina
+  vulnerable_versions:
+  - ">= 4.1.9"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2008-5515
+  cwe:
+  - CWE-592
+  disclosed_date: 2019-08-20
+  created_date: 2019-10-02
+  last_modified_date: 2019-10-02
+  credit:
+  - Unknown
+  references:
+  - https://svn.apache.org/viewvc?view=rev&rev=782763
+  - https://svn.apache.org/viewvc?view=rev&rev=783292
+  - https://tomcat.apache.org/security-4.html
+  source_url: https://snyk.io/vuln/SNYK-JAVA-TOMCAT-471343
+- id: snykio:maven:tomcat:catalina:472788
+  title: Cross-site Request Forgery (CSRF)
+  description: |
+    [tomcat:catalina][1] is a library that contains Tomcat Servlet Engine
+    Core Classes and Standard implementations.
+
+    Affected versions of this package are vulnerable to Cross-site Request
+    Forgery (CSRF). It allows remote attackers to hijack the authentication
+    of administrators for requests that manipulate application deployment
+    via the POST method, as demonstrated by a `/manager/html/undeploy?path=`
+    URI. **NOTE:** the vendor disputes the significance of this report,
+    stating that the Apache Tomcat Security team has not accepted any
+    reports of CSRF attacks against the Manager application ... as they
+    require a reckless system administrator.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-catalina
+  affected_package: tomcat:catalina
+  vulnerable_versions:
+  - ">= 0"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2013-6357
+  cwe:
+  - CWE-352
+  disclosed_date: 2013-11-13
+  created_date: 2019-10-10
+  last_modified_date: 2019-10-10
+  credit:
+  - unknown
+  references:
+  - http://www.webapp-security.com/wp-content/uploads/2013/11/Apache-Tomcat-5.5.25-CSRF-Vulnerabilities.txt
+  - https://www.exploit-db.com/exploits/29435
+  source_url: https://snyk.io/vuln/SNYK-JAVA-TOMCAT-472788

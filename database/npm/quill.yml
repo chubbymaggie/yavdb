@@ -1,4 +1,22 @@
 ---
+- id: npmjs:npm:quill:1039
+  title: Reverse Tabnabbing
+  description: Versions of `quill` prior to 1.3.7 are vulnerable to [Reverse Tabnabbing](https://www.owasp.org/index.php/Reverse_Tabnabbing).
+    The package uses `target='_blank'` in anchor tags, allowing attackers to access
+    `window.opener` for the original page when opening links. This is commonly used
+    for phishing attacks.
+  affected_package: quill
+  vulnerable_versions:
+  - "<1.3.7"
+  severity: medium
+  package_manager: npm
+  cwe: CWE-1022
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Jonathan Lloyd
+  references: https://npmjs.com/advisories/1039
+  source_url: https://npmjs.com/advisories/1039
 - id: snykio:npm:quill:20160916
   title: Arbitrary Code Execution
   description: "[`quill`][1] is powerful, rich text editor. Affected versions of the\npackage
@@ -6,10 +24,10 @@
     in the `pasteHTML()` function. The function was renamed,\ndeprecated and was set
     to be removed in version `2.0.0`.\n\n    var quill = new Quill('#editor', {\n
     \     theme: 'snow'\n    });\n    \n    quill.pasteHTML('<img src=// onerror=\"alert(\\'Not
-    Found!\\')\">');\n\n\n\n[1]: https://www.npmjs.com/package/quill\n"
+    Found!\\')\">');\n{: .language-js}\n\n\n\n[1]: https://www.npmjs.com/package/quill\n"
   affected_package: quill
   vulnerable_versions:
-  - "<1.0.4 >=1.0.0-beta.0"
+  - ">=1.0.0-beta.0 <1.0.4"
   severity: medium
   package_manager: npm
   cwe:
@@ -25,3 +43,66 @@
   - https://github.com/quilljs/quill/issues/981
   - https://github.com/quilljs/quill/pull/990
   source_url: https://snyk.io/vuln/npm:quill:20160916
+- id: snykio:npm:quill:451551
+  title: Reverse Tabnabbing
+  description: |
+    [quill][1] is a modern rich text editor built for compatibility and
+    extensibility.
+
+    Affected versions of this package are vulnerable to Reverse Tabnabbing
+    via the snow theme. The link has the target attribute set to `_blank`
+    but has no `rel` property. This means that documents containing
+    untrusted links make the page they are embedded in susceptible to
+    tabnabbing.
+
+
+
+    [1]: https://www.npmjs.com/package/quill
+  affected_package: quill
+  vulnerable_versions:
+  - "<1.3.7"
+  severity: medium
+  package_manager: npm
+  cwe:
+  - CWE-1022
+  disclosed_date: 2019-07-06
+  created_date: 2019-07-08
+  last_modified_date: 2019-07-08
+  credit:
+  - danielw93
+  references:
+  - https://github.com/quilljs/quill/issues/2438
+  - https://github.com/quilljs/quill/pull/2674
+  - https://github.com/quilljs/quill/pull/2674/files/b2f7b586e1564e43062483eff9fa8111bbc80e32
+  source_url: https://snyk.io/vuln/SNYK-JS-QUILL-451551
+- id: snykio:npm:quill:460312
+  title: Reverse Tabnabbing
+  description: |
+    [quill][1] is a modern rich text editor built for compatibility and
+    extensibility.
+
+    Affected versions of this package are vulnerable to Reverse Tabnabbing
+    due to use of `target='_blank'` in anchor tags, allowing attackers to
+    access `window.opener` for the original page when opening links. This is
+    commonly used for phishing attacks.
+
+
+
+    [1]: https://www.npmjs.com/package/quill
+  affected_package: quill
+  vulnerable_versions:
+  - "<1.3.7"
+  severity: medium
+  package_manager: npm
+  cwe:
+  - CWE-1022
+  disclosed_date: 2019-07-05
+  created_date: 2019-08-27
+  last_modified_date: 2019-08-27
+  credit:
+  - Jonathan Lloyd
+  references:
+  - https://github.com/quilljs/quill/issues/2438
+  - https://github.com/quilljs/quill/pull/2439
+  - https://www.npmjs.com/advisories/1039
+  source_url: https://snyk.io/vuln/SNYK-JS-QUILL-460312

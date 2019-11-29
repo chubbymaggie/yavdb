@@ -1,4 +1,22 @@
 ---
+- id: npmjs:npm:showdown:1302
+  title: Reverse Tabnabbing
+  description: Versions of `showdown` prior to 1.9.1 are vulnerable to [Reverse Tabnabbing](https://www.owasp.org/index.php/Reverse_Tabnabbing).
+    The package uses `target='_blank'` in anchor tags, allowing attackers to access
+    `window.opener` for the original page when opening links. This is commonly used
+    for phishing attacks.
+  affected_package: showdown
+  vulnerable_versions:
+  - "<1.9.1"
+  severity: low
+  package_manager: npm
+  cwe: CWE-1022
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Jammerware
+  references: https://npmjs.com/advisories/1302
+  source_url: https://npmjs.com/advisories/1302
 - id: ossindex:npm:showdown:8400152857
   title: Possible Cross Site Scripting (XSS)
   description: The sd-model-to-html directive allows XSS and should not be used on
@@ -18,3 +36,32 @@
   - https://github.com/showdownjs/showdown/issues/70
   - https://github.com/showdownjs/showdown/releases/tag/0.5.3
   source_url: https://ossindex.net/resource/package/7014441220/vulnerabilities
+- id: snykio:npm:showdown:469487
+  title: Reverse Tabnabbing
+  description: |
+    [showdown][1] is a JavaScript Markdown to HTML converter.
+
+    Affected versions of this package are vulnerable to Reverse Tabnabbing.
+    Multiple link values within the package has the target attribute set to
+    `_blank` but has no `rel` property. This means that documents containing
+    untrusted links make the page they are embedded in susceptible to
+    tabnabbing.
+
+
+
+    [1]: https://www.npmjs.com/package/showdown
+  affected_package: showdown
+  vulnerable_versions:
+  - "<1.9.1"
+  severity: low
+  package_manager: npm
+  cwe:
+  - CWE-1022
+  disclosed_date: 2019-10-03
+  created_date: 2019-10-01
+  last_modified_date: 2019-10-01
+  credit:
+  - Jammerware
+  references:
+  - https://github.com/showdownjs/showdown/pull/670
+  source_url: https://snyk.io/vuln/SNYK-JS-SHOWDOWN-469487

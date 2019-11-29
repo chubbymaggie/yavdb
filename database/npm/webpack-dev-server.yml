@@ -7,7 +7,8 @@
     that is used for Hot Module Replacement (HMR) are not validated.
   affected_package: webpack-dev-server
   vulnerable_versions:
-  - "<=3.1.10"
+  - "<2.11.4"
+  - ">=3.0.0 <=3.1.10"
   severity: high
   package_manager: npm
   cve:
@@ -69,4 +70,5 @@
   references:
   - https://github.com/webpack/webpack-dev-server/commit/f18e5adf123221a1015be63e1ca2491ca45b8d10
   - https://github.com/webpack/webpack-dev-server/issues/1445
+  - https://www.npmjs.com/advisories/725
   source_url: https://snyk.io/vuln/SNYK-JS-WEBPACKDEVSERVER-72405

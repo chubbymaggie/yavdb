@@ -1,0 +1,53 @@
+---
+- id: npmjs:npm:larvitbase-api:1120
+  title: Unintended Require
+  description: Versions of `larvitbase-api` prior to 0.5.4 are vulnerable to an Unintended
+    Require. The package exposes an API endpoint and passes a GET parameter unsanitized
+    to an `require()` call. This allows attackers to execute any `.js` file in the
+    same folder as the server is running.
+  affected_package: larvitbase-api
+  vulnerable_versions:
+  - "<0.5.4"
+  severity: medium
+  package_manager: npm
+  cwe: CWE-94
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Vasiliy Ermilov
+  references: https://npmjs.com/advisories/1120
+  source_url: https://npmjs.com/advisories/1120
+- id: snykio:npm:larvitbase-api:459899
+  title: Relative Path Traversal
+  description: |
+    [larvitbase-api][1] is a part of larbitbase - a scaled down version of
+    Express.
+
+    Affected versions of this package are vulnerable to Relative Path
+    Traversal. The server dynamically loads some parts of the code. As long
+    as the path to required module is partially depend on the URL, an
+    attacker can cause code to load that was not intended to run on the
+    server.
+
+
+
+    [1]: https://github.com/larvit/larvitbase-api
+  affected_package: larvitbase-api
+  vulnerable_versions:
+  - "<0.5.5"
+  severity: medium
+  package_manager: npm
+  cve:
+  - CVE-2019-5479
+  cwe:
+  - CWE-23
+  disclosed_date: 2019-08-20
+  created_date: 2019-08-20
+  last_modified_date: 2019-08-20
+  credit:
+  - Vasiliy Ermilov
+  references:
+  - https://github.com/larvit/larvitbase-api/commit/07ea896a3951172e5b742b9ab83b3592698ef91a
+  - https://github.com/larvit/larvitbase-api/commit/0e953337e75770abdcc0a8bb71932a44d2239514
+  - https://hackerone.com/reports/566056
+  source_url: https://snyk.io/vuln/SNYK-JS-LARVITBASEAPI-459899

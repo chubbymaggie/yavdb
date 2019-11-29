@@ -12163,15 +12163,18 @@
 - id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:30953
   title: Directory Traversal
   description: |
-    [`org.apache.tomcat.embed:tomcat-embed-core`][1] Apache Tomcat 7.0.0
-    through 7.0.3, 6.0.x, and 5.5.x, when running within a SecurityManager,
-    does not make the ServletContext attribute read-only, which allows local
-    web applications to read or write files outside of the intended working
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+    When running within a SecurityManager, does not make the
+    `ServletContext` attribute read-only, which allows local web
+    applications to read or write files outside of the intended working
     directory, as demonstrated using a directory traversal attack.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
     \nA Directory Traversal attack (also known as path traversal) aims to
     access files and directories that are stored outside the intended
     folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
@@ -12222,7 +12225,9 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 <= 7.0.3"
+  - ">= 5.5.0 < 5.6.0"
+  - ">= 6.0.0 < 6.1.0"
+  - ">= 7.0.0 < 7.0.4"
   severity: low
   package_manager: maven
   cve:
@@ -12235,6 +12240,8 @@
   credit:
   - Unknown
   references:
+  - https://github.com/apache/tomcat/commit/a697f7b52c4e3aea0c6763b33d413b54a518e883
+  - https://github.com/apache/tomcat55/commit/53b9e4bf21aef92321404644bfbb22ae625c033b
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-3718
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-30953
 - id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:30954
@@ -12252,37 +12259,81 @@
 
 
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 <= 7.0.4"
+  - ">= 7.0.0 <= 7.0.4"
   severity: medium
   package_manager: maven
   cve:
@@ -12309,37 +12360,81 @@
 
 
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.6"
+  - ">= 7.0.0 < 7.0.6"
   severity: medium
   package_manager: maven
   cve:
@@ -12367,7 +12462,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.10"
+  - ">= 7.0.0 < 7.0.10"
   severity: medium
   package_manager: maven
   cve:
@@ -12397,7 +12492,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7.0.11"
+  - ">= 7.0.11 < 7.0.12"
   severity: medium
   package_manager: maven
   cve:
@@ -12428,7 +12523,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.12"
+  - ">= 7.0.0 < 7.0.12"
   severity: medium
   package_manager: maven
   cve:
@@ -12458,7 +12553,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.11"
+  - ">= 7.0.0 < 7.0.11"
   severity: medium
   package_manager: maven
   cve:
@@ -12488,7 +12583,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.12"
+  - ">= 7.0.0 < 7.0.12"
   severity: medium
   package_manager: maven
   cve:
@@ -12547,7 +12642,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.17"
+  - ">= 7.0.0 < 7.0.17"
   severity: low
   package_manager: maven
   cve:
@@ -12578,7 +12673,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.17"
+  - ">= 7.0.0 < 7.0.17"
   severity: medium
   package_manager: maven
   cve:
@@ -12608,7 +12703,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.19"
+  - ">= 7.0.0 < 7.0.19"
   severity: medium
   package_manager: maven
   cve:
@@ -12637,7 +12732,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.22"
+  - ">= 7.0.0 < 7.0.22"
   severity: medium
   package_manager: maven
   cve:
@@ -12667,7 +12762,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.22"
+  - ">= 7.0.0 < 7.0.22"
   severity: medium
   package_manager: maven
   cve:
@@ -12722,7 +12817,7 @@
 
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.23"
+  - ">= 7.0.0 < 7.0.23"
   severity: medium
   package_manager: maven
   cve:
@@ -12752,7 +12847,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.12"
+  - ">= 7.0.0 < 7.0.12"
   severity: medium
   package_manager: maven
   cve:
@@ -12783,7 +12878,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.12"
+  - ">= 7.0.0 < 7.0.12"
   severity: medium
   package_manager: maven
   cve:
@@ -12814,7 +12909,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.12"
+  - ">= 7.0.0 < 7.0.12"
   severity: medium
   package_manager: maven
   cve:
@@ -12870,7 +12965,7 @@
 
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.23"
+  - ">= 7.0.0 < 7.0.23"
   severity: medium
   package_manager: maven
   cve:
@@ -12900,7 +12995,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.30"
+  - ">= 7.0.0 < 7.0.30"
   severity: medium
   package_manager: maven
   cve:
@@ -12929,7 +13024,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.32"
+  - ">= 7.0.0 < 7.0.32"
   severity: medium
   package_manager: maven
   cve:
@@ -12961,7 +13056,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.30"
+  - ">= 7.0.0 < 7.0.30"
   severity: medium
   package_manager: maven
   cve:
@@ -12991,7 +13086,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.30"
+  - ">= 7.0.0 < 7.0.30"
   severity: medium
   package_manager: maven
   cve:
@@ -13021,7 +13116,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.30"
+  - ">= 7.0.0 < 7.0.30"
   severity: medium
   package_manager: maven
   cve:
@@ -13052,7 +13147,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.33"
+  - ">= 7.0.0 < 7.0.33"
   severity: medium
   package_manager: maven
   cve:
@@ -13083,7 +13178,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.40"
+  - ">= 7.0.0 < 7.0.40"
   severity: low
   package_manager: maven
   cve:
@@ -13114,8 +13209,8 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.50"
-  - ">= 8 <= 8.0.0-RC10"
+  - ">= 7.0.0 < 7.0.50"
+  - ">= 8.0.0-RC1 < 8.0.0-RC11"
   severity: medium
   package_manager: maven
   cve:
@@ -13147,8 +13242,8 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.53"
-  - ">= 8 < 8.0.4"
+  - ">= 7.0.0 < 7.0.53"
+  - ">= 8.0.0-RC1 < 8.0.4"
   severity: medium
   package_manager: maven
   cve:
@@ -13181,8 +13276,8 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.54"
-  - ">= 8 < 8.0.6"
+  - ">= 7.0.0 < 7.0.54"
+  - ">= 8.0.0-RC1 < 8.0.6"
   severity: medium
   package_manager: maven
   cve:
@@ -13238,8 +13333,8 @@
 
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.55"
-  - ">= 8 < 8.0.9"
+  - ">= 7.0.0 < 7.0.55"
+  - ">= 8.0.0-RC1 < 8.0.9"
   severity: high
   package_manager: maven
   cve:
@@ -13270,8 +13365,8 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.58"
-  - ">= 8 < 8.0.16"
+  - ">= 7.0.0 < 7.0.58"
+  - ">= 8.0.0-RC1 < 8.0.16"
   severity: medium
   package_manager: maven
   cve:
@@ -13349,9 +13444,9 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.68"
-  - ">= 8 < 8.0.30"
-  - ">= 9-alpha < 9.0.0.M2"
+  - ">= 7.0.0 < 7.0.68"
+  - ">= 8.0.0-RC1 < 8.0.30"
+  - ">= 9.0.0.M1 < 9.0.0.M2"
   severity: medium
   package_manager: maven
   cve:
@@ -13382,9 +13477,9 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.66"
-  - ">= 8 < 8.0.30"
-  - ">= 9-alpha < 9.0.0.M2"
+  - ">= 7.0.0 < 7.0.66"
+  - ">= 8.0.0-RC1 < 8.0.30"
+  - ">= 9.0.0.M1 < 9.0.0.M2"
   severity: high
   package_manager: maven
   cve:
@@ -13415,9 +13510,9 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.68"
-  - ">= 8 < 8.0.31"
-  - ">= 9-alpha < 9.0.0.M2"
+  - ">= 7.0.0 < 7.0.68"
+  - ">= 8.0.0-RC1 < 8.0.32"
+  - ">= 9.0.0.M1 < 9.0.0.M3"
   severity: medium
   package_manager: maven
   cve:
@@ -13447,9 +13542,9 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.68"
-  - ">= 8 < 8.0.31"
-  - ">= 9-alpha < 9.0.0.M2"
+  - ">= 7.0.0 < 7.0.68"
+  - ">= 8.0.0-RC1 < 8.0.32"
+  - ">= 9.0.0.M1 < 9.0.0.M3"
   severity: high
   package_manager: maven
   cve:
@@ -13467,23 +13562,26 @@
 - id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:30988
   title: Timing Attack
   description: |
-    [`org.apache.tomcat.embed:tomcat-embed-core`][1] Affected versions of
-    the package are vulnerable to Timing Attack. The `setGlobalContext`
-    method in `ResourceLinkFactory.java` does not consider whether callers
-    to this method are authorized, which allows remote authenticated users
-    to bypass intended SecurityManager restrictions and read or write to
-    arbitrary application data, or cause a denial of service (application
-    disruption), via a web application that sets a crafted global context.
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Timing Attack. The
+    `setGlobalContext` method in `ResourceLinkFactory.java` does not
+    consider whether callers to this method are authorized, which allows
+    remote authenticated users to bypass intended SecurityManager
+    restrictions and read or write to arbitrary application data, or cause a
+    denial of service (application disruption), via a web application that
+    sets a crafted global context.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.72"
-  - ">= 8 < 8.0.37"
-  - ">= 8.5 < 8.5.5"
-  - ">= 9-alpha < 9.0.0.M10"
+  - ">= 7.0.0 < 7.0.72"
+  - ">= 8.0.0-RC1 < 8.0.37"
+  - ">= 8.5.0 < 8.5.5"
+  - ">= 9.0.0.M1 < 9.0.0.M10"
   severity: medium
   package_manager: maven
   cve:
@@ -13497,6 +13595,9 @@
   - The Apache Tomcat Security Team
   references:
   - http://www.openwall.com/lists/oss-security/2016/10/27/8
+  - https://github.com/apache/tomcat/commit/86b2e436099cb48f30dad950175c5beeeb763756
+  - https://github.com/apache/tomcat/commit/970e615c7ade6ec6c341470bbc76aa1256353737
+  - https://github.com/apache/tomcat80/commit/dc4c3317452f0bc2c5e1f6a08d3bd9f22488b450
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-30988
 - id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:30989
   title: Access Restriction Bypass
@@ -13515,9 +13616,9 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.68"
-  - ">= 8 < 8.0.31"
-  - ">= 9-alpha < 9.0.0.M3"
+  - ">= 7.0.0 < 7.0.68"
+  - ">= 8.0.0-RC1 < 8.0.32"
+  - ">= 9.0.0.M1 < 9.0.0.M3"
   severity: medium
   package_manager: maven
   cve:
@@ -13547,7 +13648,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.68"
+  - ">= 7.0.0 < 7.0.68"
   - ">= 8 < 8.0.33"
   - ">= 9-alpha < 9.0.0.M3"
   severity: medium
@@ -13580,8 +13681,8 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 8.5 < 8.5.13"
-  - ">= 9-alpha < 9.0.0.M19"
+  - ">= 8.5.0 < 8.5.13"
+  - ">= 9.0.0.M1 < 9.0.0.M19"
   severity: high
   package_manager: maven
   cve:
@@ -13617,10 +13718,10 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.76"
-  - ">= 8 < 8.0.42"
-  - ">= 8.5 < 8.5.12"
-  - ">= 9-alpha < 9.0.0.M17"
+  - ">= 7.0.0 < 7.0.76"
+  - ">= 8.0.0-RC1 < 8.0.42"
+  - ">= 8.5.0 < 8.5.12"
+  - ">= 9.0.0.M1 < 9.0.0.M17"
   severity: high
   package_manager: maven
   cve:
@@ -13657,10 +13758,10 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-embed-core%22
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 7 < 7.0.77"
-  - ">= 8 < 8.0.43"
-  - ">= 8.5 < 8.5.13"
-  - ">= 9-alpha < 9.0.0.M19"
+  - ">= 7.0.0 < 7.0.77"
+  - ">= 8.0.0-RC1 < 8.0.43"
+  - ">= 8.5.0 < 8.5.13"
+  - ">= 9.0.0.M1 < 9.0.0.M19"
   severity: high
   package_manager: maven
   cve:
@@ -13718,8 +13819,8 @@
 
   affected_package: org.apache.tomcat.embed:tomcat-embed-core
   vulnerable_versions:
-  - ">= 8.5 < 8.5.13"
-  - ">= 9-alpha < 9.0.0.M19"
+  - ">= 8.5.0 < 8.5.13"
+  - ">= 9.0.0.M1 < 9.0.0.M19"
   severity: high
   package_manager: maven
   cve:
@@ -13735,3 +13836,1327 @@
   - https://lists.apache.org/thread.html/d24303fb095db072740d8154b0f0db3f2b8f67bc91a0562dbe89c738@%3Cannounce.tomcat.apache.org%3E
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2017-5650
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-31435
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451342
+  title: Denial of Service (DoS)
+  description: |+
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) due to not sending `WINDOW_UPDATE` messages for the connection
+    window, clients were able to cause server-side threads to block
+    eventually leading to thread exhaustion and a DoS.
+
+    **Note:** This vulnerability is due to an incomplete fix for
+    [CVE-2019-0199][2].
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    [2]: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-174102
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 8.5.0 < 8.5.40"
+  - ">= 9.0.0.M1 < 9.0.20"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2019-10072
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-06-21
+  created_date: 2019-06-27
+  last_modified_date: 2019-06-27
+  credit:
+  - Unknown
+  references:
+  - http://tomcat.apache.org/security-9.html
+  - https://github.com/apache/tomcat/commit/7f748eb
+  - https://github.com/apache/tomcat/commit/ada725a
+  - https://lists.apache.org/thread.html/df1a2c1b87c8a6c500ecdbbaf134c7f1491c8d79d98b48c6b9f0fa6a@%3Cannounce.tomcat.apache.org%3E
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451342
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451343
+  title: Remote Code Execution
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution due to a bug in the way the underlying Java Runtime
+    Environment (JRE) passes command line arguments to windows systems when
+    the option `enableCmdLineArguments` is enabled.
+
+    The CGI Servlet in Apache Tomcat when enabled, will pass user input to
+    the underlying operating system for command line parsing. However, this
+    process is not consistent and may allow the injection of additional
+    arguments. This misconfiguration could be abused by attackers to execute
+    code on an application\'s underlying operating system.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.94"
+  - ">= 8.5.0 < 8.5.40"
+  - ">= 9.0.0.M1 < 9.0.19"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2019-0232
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-04-15
+  created_date: 2019-04-17
+  last_modified_date: 2019-04-17
+  credit:
+  - Unknown
+  references:
+  - https://codewhitesec.blogspot.com/2016/02/java-and-command-line-injections-in-windows.html
+  - https://exploit-db.com/exploits/47073
+  - https://tomcat.apache.org/security-7.html#Fixed_in_Apache_Tomcat_7.0.94
+  - https://tomcat.apache.org/security-8.html#Fixed_in_Apache_Tomcat_8.5.40
+  - https://tomcat.apache.org/security-9.html#Fixed_in_Apache_Tomcat_9.0.19
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451343
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451458
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) via the SSI `printenv` command.
+
+    Note: Server Side Includes (SSI) is disabled by default and is intended
+    for debugging purposes only.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.94"
+  - ">= 8.5.0 < 8.5.40"
+  - ">= 9.0.0.M1 < 9.0.18"
+  severity: low
+  package_manager: maven
+  cve:
+  - CVE-2019-0221
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-05-17
+  created_date: 2019-05-28
+  last_modified_date: 2019-05-28
+  credit:
+  - Nightwatch Cybersecurity Research
+  references:
+  - https://lists.apache.org/thread.html/6e6e9eacf7b28fd63d249711e9d3ccd4e0a83f556e324aee37be5a8c@%3Cannounce.tomcat.apache.org%3E
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451458
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451459
+  title: Denial of Service (DoS)
+  description: |+
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). The `HTTP/2` implementation accepted streams with excessive
+    numbers of `SETTINGS` frames and also permitted clients to keep streams
+    open without reading/writing request/response data. By keeping streams
+    open for requests that utilised the Servlet API\'s blocking I/O, clients
+    were able to cause server-side threads to block eventually leading to
+    thread exhaustion.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 8.5.0 < 8.5.38"
+  - ">= 9.0.0.M1 < 9.0.16"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2019-0199
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-03-25
+  created_date: 2019-04-04
+  last_modified_date: 2019-04-04
+  credit:
+  - Michal Karm
+  references:
+  - http://tomcat.apache.org/security-8.html
+  - http://tomcat.apache.org/security-9.html
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1693325
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451459
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451503
+  title: Open Redirect
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Open Redirect. When
+    the default servlet returned a redirect to a directory (e.g. redirecting
+    to \'/foo/\' when the user requested \'/foo\') a specially crafted URL
+    could be used to cause the redirect to be generated to any URI of the
+    attackers choice.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.23 < 7.0.91"
+  - ">= 8.5.0 < 8.5.34"
+  - ">= 9.0.0 < 9.0.12"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2018-11784
+  cwe:
+  - CWE-601
+  disclosed_date: 2018-10-03
+  created_date: 2018-10-09
+  last_modified_date: 2018-10-09
+  credit:
+  - Sergey Bobrov
+  references:
+  - http://tomcat.apache.org/security-9.html
+  - https://github.com/apache/tomcat/commit/efb860b3ff8ebcf606199b8d0d432f76898040da
+  - https://lists.apache.org/thread.html/23134c9b5a23892a205dc140cdd8c9c0add233600f76b313dda6bd75@%3Cannounce.tomcat.apache.org%3E
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451503
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451504
+  title: Information Exposure
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. A bug in the tracking of connection closures can lead to reuse
+    of user sessions in a new connection.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 8.5.0 < 8.5.32"
+  - ">= 9.0.0 < 9.0.10"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2018-8037
+  cwe:
+  - CWE-200
+  disclosed_date: 2018-07-22
+  created_date: 2018-07-24
+  last_modified_date: 2018-07-24
+  credit:
+  - Unknown
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1607582
+  - https://github.com/apache/tomcat/commit/ed4b9d791f9470e4c3de691dd0153a9ce431701b
+  - https://markmail.org/message/u5pnqhckg3igebfu?q=list:org%2Eapache%2Etomcat%2Eannounce/
+  - https://tomcat.apache.org/security-8.html
+  - https://tomcat.apache.org/security-9.html
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451504
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451505
+  title: Insecure Defaults
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Insecure Defaults.
+    The defaults settings for the `CORS` filter are insecure and enable
+    `supportsCredentials` for all origins.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - "< 7.0.89"
+  - ">= 8.0.0 < 8.0.53"
+  - ">= 8.5.0 < 8.5.32"
+  - ">= 9.0.0 < 9.0.9"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2018-8014
+  cwe:
+  - CWE-453
+  disclosed_date: 2018-05-16
+  created_date: 2018-05-21
+  last_modified_date: 2018-05-21
+  credit:
+  - Unknown
+  references:
+  - http://tomcat.apache.org/security-7.html
+  - http://tomcat.apache.org/security-8.html
+  - http://tomcat.apache.org/security-9.html
+  - https://github.com/apache/tomcat/commit/d83a76732e6804739b81d8b2056365307637b42d
+  - https://lists.apache.org/thread.html/fbfb713e4f8a4c0f81089b89450828011343593800cae3fb629192b1@%3Cannounce.tomcat.apache.org%3E
+  - https://nvd.nist.gov/vuln/detail/CVE-2018-8014
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451505
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451508
+  title: Denial of Service (DoS)
+  description: |+
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) via the UTF-8 decoder. When handling some special characters, the
+    decoder may enter an infinite loop, thus denying service to other
+    requests.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - "< 7.0.90"
+  - ">= 8.0.0 < 8.0.52"
+  - ">= 8.5.0 < 8.5.32"
+  - ">= 9.0.0 < 9.0.10"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2018-1336
+  cwe:
+  - CWE-400
+  disclosed_date: 2018-07-22
+  created_date: 2018-07-24
+  last_modified_date: 2018-07-24
+  credit:
+  - Unknown
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1607591
+  - https://github.com/apache/tomcat/commit/92cd494555598e99dd691712e8ee426a2f9c2e93
+  - https://tomcat.apache.org/security-7.html
+  - https://tomcat.apache.org/security-8.html
+  - https://tomcat.apache.org/security-9.html
+  - https://www.alphabot.com/security/blog/2018/java/Apache-Tomcat-user-session-mix-up-and-DoS.html#no-host-name-verification-in-websocket-client
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451508
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451510
+  title: Directory Traversal
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+    Security constraints defined by annotations of Servlets were only
+    applied once a Servlet had been loaded. Because security constraints
+    defined in this way apply to the URL pattern and any URLs below that
+    point, it was possible - depending on the order Servlets were loaded -
+    for some security constraints not to be applied. This could have exposed
+    resources to users who were not authorised to access them.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    \nA Directory Traversal attack (also known as path traversal) aims to
+    access files and directories that are stored outside the intended
+    folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
+    its variations, or by using absolute file paths, it may be possible to
+    access arbitrary files and directories stored on file system, including
+    application source code, configuration, and other critical system files.
+
+    Directory Traversal vulnerabilities can be generally divided into two
+    types:
+
+    * **Information Disclosure**\: Allows the attacker to gain information
+      about the folder structure or read the contents of sensitive files on
+      the system.
+
+    `st` is a module for serving static files on web pages, and contains a
+    [vulnerability of this type][1]. In our example, we will serve files
+    from the `public` route.
+
+    If an attacker requests the following URL from our server, it will in
+    turn leak the sensitive private key of the root user.
+
+        curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa
+
+    **Note** `%2e` is the URL encoded version of `.` (dot).
+
+    * **Writing arbitrary files**\: Allows the attacker to create or replace
+      existing files. This type of vulnerability is also known as
+      `Zip-Slip`.
+
+    One way to achieve this is by using a malicious `zip` archive that holds
+    path traversal filenames. When each filename in the zip archive gets
+    concatenated to the target extraction folder, without validation, the
+    final path ends up outside of the target folder. If an executable or a
+    configuration file is overwritten with a file containing malicious code,
+    the problem can turn into an arbitrary code execution issue quite
+    easily.
+
+    The following is an example of a `zip` archive with one benign file and
+    one malicious file. Extracting the malicious file will result in
+    traversing out of the target folder, ending up in `/root/.ssh/`
+    overwriting the `authorized_keys` file:
+
+        2018-04-15 22:04:29 .....           19           19  good.txt
+        2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys
+
+
+
+    [1]: https://snyk.io/vuln/npm:st:20140206
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.85"
+  - ">= 8.0.0RC1 < 8.0.50"
+  - ">= 8.5.0 < 8.5.28"
+  - ">= 9.0.0M1 < 9.0.5"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2018-1305
+  cwe:
+  - CWE-22
+  disclosed_date: 2018-02-23
+  created_date: 2018-02-25
+  last_modified_date: 2018-02-25
+  credit:
+  - Unknown
+  references:
+  - https://github.com/apache/tomcat/commit/3e54b2a6314eda11617ff7a7b899c251e222b1a1
+  - https://github.com/apache/tomcat/commit/4d637bc3986e5d09b9363e2144b8ba74fa6eac3a
+  - https://lists.apache.org/thread.html/d3354bb0a4eda4acc0a66f3eb24a213fdb75d12c7d16060b23e65781@%3Cannounce.tomcat.apache.org%3E
+  - https://nvd.nist.gov/vuln/detail/CVE-2018-1305
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451510
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451511
+  title: Access Restriction Bypass
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Access Restriction
+    Bypass. The URL pattern of (the empty string) which exactly maps to the
+    context root was not correctly handled, this caused the constraint to be
+    ignored. It was, therefore, possible for unauthorised users to gain
+    access to web application resources that should have been protected.
+    Only security constraints with a URL pattern of the empty string were
+    affected.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.85"
+  - ">= 8.0.0.RC1 < 8.0.50"
+  - ">= 8.5.0 < 8.5.28"
+  - ">= 9.0.0.M1 < 9.0.5"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2018-1304
+  cwe:
+  - CWE-284
+  disclosed_date: 2018-02-23
+  created_date: 2018-03-05
+  last_modified_date: 2018-03-05
+  credit:
+  - Unknown
+  references:
+  - https://github.com/apache/tomcat/commit/723ea6a5bc5e7bc49e5ef84273c3b3c164a6a4fd
+  - https://lists.apache.org/thread.html/b1d7e2425d6fd2cebed40d318f9365b44546077e10949b01b1f8a0fb@%3Cannounce.tomcat.apache.org%3E
+  - https://nvd.nist.gov/vuln/detail/CVE-2018-1304
+  - https://www.securitytracker.com/id/1040427
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451511
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451515
+  title: Arbitrary Code Execution
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Execution. When running Apache Tomcat versions 9.0.0.M1 to 9.0.0, 8.5.0
+    to 8.5.22, 8.0.0.RC1 to 8.0.46 and 7.0.0 to 7.0.81 with HTTP PUTs
+    enabled (e.g. via setting the readonly initialisation parameter of the
+    Default servlet to false) it was possible to upload a JSP file to the
+    server via a specially crafted request. This JSP could then be requested
+    and any code it contained would be executed by the server.
+
+    This is due to an incomplete fix for [CVE-2017-12615][2].
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    [2]: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-31534
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - "< 7.0.82"
+  - ">= 8 < 8.0.46"
+  - ">= 8.5 < 8.5.22"
+  - ">= 9.0.0.M1 < 9.0.1"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2017-12617
+  cwe:
+  - CWE-94
+  disclosed_date: 2017-09-21
+  created_date: 2017-10-11
+  last_modified_date: 2017-10-11
+  credit:
+  - Unknown
+  references:
+  - http://tomcat.apache.org/security-8.html
+  - https://access.redhat.com/security/cve/cve-2017-12617
+  - https://bz.apache.org/bugzilla/show_bug.cgi?id=61542
+  - https://exploit-db.com/exploits/43008
+  - https://github.com/apache/tomcat/blob/52a2f5ba1eb954c93d52897b25d3599bda271f88/webapps/docs/changelog.xml#L51
+  - https://github.com/apache/tomcat/commit/24aea94807f940ee44aa550378dc903289039ddd
+  - https://github.com/apache/tomcat/commit/46dfedbc0523d7182be97f4244d7b6c942164485
+  - https://github.com/apache/tomcat/commit/74ad0e216c791454a318c1811300469eedc5c6f3
+  - https://github.com/apache/tomcat/commit/a9dd96046d7acb0357c6b7b9e6cc70d186fae663
+  - https://github.com/apache/tomcat/commit/bbcbb749c75056a2781f37038d63e646fe972104
+  - https://github.com/apache/tomcat/commit/cf0b37beb0622abdf24acc7110daf883f3fe4f95
+  - https://github.com/apache/tomcat/commit/d5b170705d24c386d76038e5989045c89795c28c
+  - https://github.com/apache/tomcat80/commit/e76505ba9bb59d9a8b5ae7c103867b00005ac676
+  - https://github.com/cyberheartmi9/CVE-2017-12617
+  - https://lists.apache.org/thread.html/3fd341a604c4e9eab39e7eaabbbac39c30101a022acc11dd09d7ebcb@%3Cannounce.tomcat.apache.org%3E
+  - https://www.exploit-db.com/exploits/42966
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451515
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451518
+  title: Directory Traversal
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+    The HTTP/2 implementation in Apache Tomcat 9.0.0.M1 to 9.0.0.M21 and
+    8.5.0 to 8.5.15 bypassed a number of security checks that prevented
+    directory traversal attacks. It was therefore possible to bypass
+    security constraints using a specially crafted URL.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    \nA Directory Traversal attack (also known as path traversal) aims to
+    access files and directories that are stored outside the intended
+    folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
+    its variations, or by using absolute file paths, it may be possible to
+    access arbitrary files and directories stored on file system, including
+    application source code, configuration, and other critical system files.
+
+    Directory Traversal vulnerabilities can be generally divided into two
+    types:
+
+    * **Information Disclosure**\: Allows the attacker to gain information
+      about the folder structure or read the contents of sensitive files on
+      the system.
+
+    `st` is a module for serving static files on web pages, and contains a
+    [vulnerability of this type][1]. In our example, we will serve files
+    from the `public` route.
+
+    If an attacker requests the following URL from our server, it will in
+    turn leak the sensitive private key of the root user.
+
+        curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa
+
+    **Note** `%2e` is the URL encoded version of `.` (dot).
+
+    * **Writing arbitrary files**\: Allows the attacker to create or replace
+      existing files. This type of vulnerability is also known as
+      `Zip-Slip`.
+
+    One way to achieve this is by using a malicious `zip` archive that holds
+    path traversal filenames. When each filename in the zip archive gets
+    concatenated to the target extraction folder, without validation, the
+    final path ends up outside of the target folder. If an executable or a
+    configuration file is overwritten with a file containing malicious code,
+    the problem can turn into an arbitrary code execution issue quite
+    easily.
+
+    The following is an example of a `zip` archive with one benign file and
+    one malicious file. Extracting the malicious file will result in
+    traversing out of the target folder, ending up in `/root/.ssh/`
+    overwriting the `authorized_keys` file:
+
+        2018-04-15 22:04:29 .....           19           19  good.txt
+        2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys
+
+
+
+    [1]: https://snyk.io/vuln/npm:st:20140206
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 8.5.0 < 8.5.16"
+  - ">= 9.0.0.M1 < 9.0.0.M22"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2017-7675
+  cwe:
+  - CWE-22
+  disclosed_date: 2017-05-23
+  created_date: 2017-10-09
+  last_modified_date: 2017-10-09
+  credit:
+  - Apache Tomcat Security Team
+  references:
+  - https://github.com/apache/tomcat/commit/cf181edc9a8c239cde704cffc3c503425bdcae2b
+  - https://nvd.nist.gov/vuln/detail/CVE-2017-7675
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451518
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451519
+  title: Access Restriction Bypass
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Access Restriction
+    Bypass. The error page mechanism of the Java Servlet Specification
+    requires that, when an error occurs and an error page is configured for
+    the error that occurred, the original request and response are forwarded
+    to the error page. This means that the request is presented to the error
+    page with the original HTTP method. If the error page is a static file,
+    expected behaviour is to serve content of the file as if processing a
+    GET request, regardless of the actual HTTP method. The Default Servlet
+    in Apache Tomcat 9.0.0.M1 to 9.0.0.M20, 8.5.0 to 8.5.14, 8.0.0.RC1 to
+    8.0.43 and 7.0.0 to 7.0.77 did not do this. Depending on the original
+    request this could lead to unexpected and undesirable results for static
+    error pages including, if the DefaultServlet is configured to permit
+    writes, the replacement or removal of the custom error page. Notes for
+    other user provided error pages: (1) Unless explicitly coded otherwise,
+    JSPs ignore the HTTP method. JSPs used as error pages must must ensure
+    that they handle any error dispatch as a GET request, regardless of the
+    actual method. (2) By default, the response generated by a Servlet does
+    depend on the HTTP method. Custom Servlets used as error pages must
+    ensure that they handle any error dispatch as a GET request, regardless
+    of the actual method.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.78"
+  - ">= 8.0.0RC1 < 8.0.44"
+  - ">= 8.5.0 < 8.5.15"
+  - ">= 9.0.0.M1 < 9.0.0.M21"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2017-5664
+  cwe:
+  - CWE-254
+  disclosed_date: 2017-05-01
+  created_date: 2017-10-09
+  last_modified_date: 2017-10-09
+  credit:
+  - Aniket Nandkishor Kulkarni
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1459158
+  - https://github.com/apache/tomcat/commit/29893e66111d33cfe99dd01cb146317c0c262ef4
+  - https://github.com/apache/tomcat/commit/3242efea525df01d15da6e90ea69a9a21b10b454
+  - https://github.com/apache/tomcat/commit/3bfe9fb886598c4d8ecbe674216152006bbce456
+  - https://github.com/apache/tomcat/commit/4545dcce444aa619374a659cb450dbbd0be3c921
+  - https://github.com/apache/tomcat/commit/58b32048ce25cb812ae394dafb0cd57254c68155
+  - https://github.com/apache/tomcat/commit/7d93527254d9e9371b342800617f20d13c8b85ad
+  - https://github.com/apache/tomcat80/commit/25d3c0d93190ef165ecd6c744bc15b5059abfa8f
+  - https://github.com/apache/tomcat80/commit/e070a31ec81b56377822e44883c64abb41f36a3b
+  - https://nvd.nist.gov/vuln/detail/CVE-2017-5664
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451519
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451520
+  title: Information Exposure
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. A class in the`Http11InputBuffer.java` allows remote attackers
+    to read data that was intended to be associated with a different
+    request.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 8.5.7 < 8.5.11"
+  - ">= 9.0.0.M1 < 9.0.0.M17"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2016-8747
+  cwe:
+  - CWE-200
+  disclosed_date: 2017-03-13
+  created_date: 2018-02-22
+  last_modified_date: 2018-02-22
+  credit:
+  - Unknown
+  references:
+  - http://tomcat.apache.org/security-8.html
+  - https://github.com/apache/tomcat/commit/452c8094a665ef6375530e81c033da4eeb2e4865
+  - https://github.com/apache/tomcat/commit/9601a937ff3b7ef5d04b2a0e950d0e44e1bb4cbd
+  - https://nvd.nist.gov/vuln/detail/CVE-2016-8747
+  - https://www.securityfocus.com/bid/96895
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451520
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451521
+  title: Information Exposure
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. The refactoring of the Connector code for 8.5.x onwards
+    introduced a regression in the error handling of the send file code for
+    the NIO HTTP connector. An error during send file processing resulted in
+    the current Processor object being added to the Processor cache multiple
+    times. This in turn meant that the same Processor could be used for
+    concurrent requests. Sharing a Processor can result in information
+    leakage between requests including, not not limited to, session ID and
+    the response body.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7 < 7.0.74"
+  - ">= 8.0.0RC1 < 8.0.40"
+  - ">= 8.5.0 < 8.5.9"
+  - ">= 9.0.0M1 < 9.0.0M15"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2016-8745
+  cwe:
+  - CWE-200
+  disclosed_date: 2016-12-13
+  created_date: 2016-12-13
+  last_modified_date: 2016-12-13
+  credit:
+  - Unknown
+  references:
+  - http://seclists.org/bugtraq/2016/Dec/15
+  - https://github.com/apache/tomcat/commit/143bb466cf96a89e791b7db5626055ea819dad89
+  - https://github.com/apache/tomcat/commit/16a57bc885e212839f1d717b94b01d154a36943a
+  - https://github.com/apache/tomcat/commit/cbc9b18a845d3c8c053ac293dffda6c6c19dd92b
+  - https://github.com/apache/tomcat80/commit/3dd2fec73e0de1edc1d3eb1c52a01255fdfc84e7
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451521
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451525
+  title: Denial of Service (DoS)
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). The HTTP/2 header parser entered an infinite loop if a header was
+    received that was larger than the available buffer.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 8.5.0 < 8.5.8"
+  - ">= 9.0.0M1 < 9.0.0M13"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2016-6817
+  cwe:
+  - CWE-400
+  disclosed_date: 2016-11-23
+  created_date: 2016-11-23
+  last_modified_date: 2016-11-23
+  credit:
+  - Apache Tomcat Security Team
+  references:
+  - http://seclists.org/oss-sec/2016/q4/501
+  - https://github.com/apache/tomcat/commit/079372fc7bac8e2e378942715c9ce26a4a72c07a
+  - https://github.com/apache/tomcat/commit/85c63227edabbfb4f2f500fc557480a190135d21
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451525
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451526
+  title: Information Exposure
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. The code that parsed the HTTP request line permitted invalid
+    characters. This could be exploited, in conjunction with a proxy that
+    also permitted the invalid characters but with a different
+    interpretation, to inject data into the HTTP response. By manipulating
+    the HTTP response the attacker could poison a web-cache, perform an XSS
+    attack and/or obtain sensitive information from requests other then
+    their own.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.73"
+  - ">= 8 < 8.0.39"
+  - ">= 8.5.0 < 8.5.8"
+  - ">= 9-alpha < 9.0.0.M13"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2016-6816
+  cwe:
+  - CWE-200
+  disclosed_date: 2016-11-23
+  created_date: 2016-11-23
+  last_modified_date: 2016-11-23
+  credit:
+  - Regis Leroy
+  references:
+  - http://www.openwall.com/lists/oss-security/2016/11/22/17
+  - https://github.com/apache/tomcat/commit/516bda676ac8d0284da3e0295a7df70391315360
+  - https://github.com/apache/tomcat/commit/cdc0a935c2173aff60039a0b85e57a461381107c
+  - https://github.com/apache/tomcat/commit/f96f5751d418ae5a2f550be040daf9c5f7d99256
+  - https://github.com/apache/tomcat80/commit/779d5d34e68e50d2f721897050b147106992f566
+  - https://www.exploit-db.com/exploits/41783
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451526
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451527
+  title: Access Restriction Bypass
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Access Restriction
+    Bypass. It was discovered that it was possible for a web application to
+    access any global JNDI resource whether an explicit ResourceLink had
+    been configured or not.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.72"
+  - ">= 8 < 8.0.37"
+  - ">= 8.5.0 < 8.5.5"
+  - ">= 9-alpha < 9.0.0.M10"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2016-6797
+  cwe:
+  - CWE-284
+  disclosed_date: 2016-10-28
+  created_date: 2016-10-28
+  last_modified_date: 2016-10-28
+  credit:
+  - the Apache Tomcat Security Team
+  references:
+  - http://seclists.org/oss-sec/2016/q4/257
+  - https://github.com/apache/tomcat/commit/2859ac3eae132383cb6f3f2042e25d7a4a281b0d
+  - https://github.com/apache/tomcat/commit/b3406e6c318378cbf440f902f9fdbb8b440aef4e
+  - https://github.com/apache/tomcat/commit/d6b5600afe75e1086dd564344e1d085966e4237d
+  - https://github.com/apache/tomcat80/commit/824c7dc781056442046db0ae34bcf1497f23f44c
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451527
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451529
+  title: Information Exposure
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. It was discovered that when a SecurityManager is configured
+    Tomcat\'s system property replacement feature for configuration files
+    could be used by a malicious web application to bypass the
+    SecurityManager and read system properties that should not be visible.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 8 < 8.0.37"
+  - ">= 8.5.0 < 8.5.5"
+  - ">= 9-alpha < 9.0.0.M10"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2016-6794
+  cwe:
+  - CWE-200
+  disclosed_date: 2016-10-28
+  created_date: 2016-10-28
+  last_modified_date: 2016-10-28
+  credit:
+  - the Apache Tomcat Security Team
+  references:
+  - http://www.openwall.com/lists/oss-security/2016/10/27/10
+  - https://github.com/apache/tomcat/commit/0b41766456b1980e4f809e13ad6dc9fa912bae7e
+  - https://github.com/apache/tomcat/commit/c1660182010b4255c21c874d69c124370a67784a
+  - https://github.com/apache/tomcat/commit/f8db078f1e6e8b225f8344e63595113ca34cd408
+  - https://github.com/apache/tomcat80/commit/ae6163a4f230bc679abfc93e048ff92996badad6
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451529
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451531
+  title: Denial of Service (DoS)
+  description: |+
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). It allows remote attackers to cause a denial of service (CPU
+    consumption) via a long boundary string.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.70"
+  - ">= 8.0 < 8.0.36"
+  - ">= 8.5.0 < 8.5.3"
+  - ">= 9-alpha < 9.0.0.M7"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2016-3092
+  cwe:
+  - CWE-20
+  disclosed_date: 2016-12-25
+  created_date: 2016-12-25
+  last_modified_date: 2016-12-25
+  credit:
+  - TERASOLUNA Framework Development Team
+  references:
+  - http://mail-archives.us.apache.org/mod_mbox/www-announce/201606.mbox/%3C6223ece6-2b41-ef4f-22f9-d3481e492832@apache.org%3E
+  - http://svn.apache.org/viewvc/commons/proper/fileupload/trunk/RELEASE-NOTES.txt?r1=1745717&r2=1749637&diff_format=h
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1349475
+  - https://github.com/apache/tomcat/commit/2c3553f3681baf775c50bb0b49ea61cb44ea914f
+  - https://github.com/apache/tomcat/commit/8999f8243197a5f8297d0cb1a0d86ed175678a77
+  - https://github.com/apache/tomcat80/commit/d752a415a875e888d8c8d0988dfbde95c2c6fb1d
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451531
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451532
+  title: Directory Traversal
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Directory Traversal.
+    It allows remote authenticated users to bypass intended SecurityManager
+    restrictions and list a parent directory via a /.. (slash dot dot) in a
+    pathname used by a web application in a getResource,
+    getResourceAsStream, or getResourcePaths call, as demonstrated by the
+    $CATALINA\_BASE/webapps directory.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    \nA Directory Traversal attack (also known as path traversal) aims to
+    access files and directories that are stored outside the intended
+    folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
+    its variations, or by using absolute file paths, it may be possible to
+    access arbitrary files and directories stored on file system, including
+    application source code, configuration, and other critical system files.
+
+    Directory Traversal vulnerabilities can be generally divided into two
+    types:
+
+    * **Information Disclosure**\: Allows the attacker to gain information
+      about the folder structure or read the contents of sensitive files on
+      the system.
+
+    `st` is a module for serving static files on web pages, and contains a
+    [vulnerability of this type][1]. In our example, we will serve files
+    from the `public` route.
+
+    If an attacker requests the following URL from our server, it will in
+    turn leak the sensitive private key of the root user.
+
+        curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa
+
+    **Note** `%2e` is the URL encoded version of `.` (dot).
+
+    * **Writing arbitrary files**\: Allows the attacker to create or replace
+      existing files. This type of vulnerability is also known as
+      `Zip-Slip`.
+
+    One way to achieve this is by using a malicious `zip` archive that holds
+    path traversal filenames. When each filename in the zip archive gets
+    concatenated to the target extraction folder, without validation, the
+    final path ends up outside of the target folder. If an executable or a
+    configuration file is overwritten with a file containing malicious code,
+    the problem can turn into an arbitrary code execution issue quite
+    easily.
+
+    The following is an example of a `zip` archive with one benign file and
+    one malicious file. Extracting the malicious file will result in
+    traversing out of the target folder, ending up in `/root/.ssh/`
+    overwriting the `authorized_keys` file:
+
+        2018-04-15 22:04:29 .....           19           19  good.txt
+        2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys
+
+
+
+    [1]: https://snyk.io/vuln/npm:st:20140206
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.65"
+  - ">= 8 < 8.0.27"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2015-5174
+  cwe:
+  - CWE-22
+  disclosed_date: 2016-02-22
+  created_date: 2016-02-22
+  last_modified_date: 2016-02-22
+  credit:
+  - Unknown
+  references:
+  - https://github.com/apache/tomcat/commit/5ea5171b735ab0c636850e23e154fc957b0ab39d
+  - https://github.com/apache/tomcat/commit/e1bbd13d393229e4e3724cb8a86b18a969e90fb2
+  - https://github.com/apache/tomcat80/commit/2fc9d03ffbc3fe7eabfd272380807ac0ddcf748d
+  - https://github.com/apache/tomcat80/commit/50f0179c78721e7fc60f679d8af9b8889ab1f106
+  - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2015-5174
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451532
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451533
+  title: HTTP Request Smuggling
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to HTTP Request
+    Smuggling. It does not properly handle attempts to continue reading data
+    after an error has occurred, which allows remote attackers to conduct
+    HTTP request smuggling attacks or cause a denial of service (resource
+    consumption) by streaming data with malformed chunked transfer coding.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.55"
+  - ">= 8 < 8.0.9"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2014-0227
+  cwe:
+  - CWE-19
+  disclosed_date: 2015-02-16
+  created_date: 2015-02-16
+  last_modified_date: 2015-02-16
+  credit:
+  - Unknown
+  references:
+  - https://github.com/apache/tomcat/commit/593a2447e6ebe465585cfa07e93b5635dffa1c70
+  - https://github.com/apache/tomcat/commit/6b23790bf7dc4233affaacec57e06cff6b6c6fd3
+  - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0227
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451533
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451534
+  title: Denial of Service (DoS)
+  description: |+
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) in the parseChunkHeader function in
+    java/org/apache/coyote/http11/filters/ChunkedInputFilter.java in Apache
+    Tomcat before 6.0.40, 7.x before 7.0.53, and 8.x before 8.0.4 allows
+    remote attackers to cause a denial of service (resource consumption) via
+    a malformed chunk size in chunked transfer coding of a request during
+    the streaming of data.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.53"
+  - ">= 8 < 8.0.4"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2014-0075
+  cwe:
+  - CWE-189
+  disclosed_date: 2014-09-08
+  created_date: 2014-09-08
+  last_modified_date: 2014-09-08
+  credit:
+  - Unknown
+  references:
+  - https://github.com/apache/tomcat/commit/b6974571c122f6a1e7ec74a90fa212976fa7b0ed
+  - https://github.com/apache/tomcat/commit/f646a5acd5e32d6f5a2d9bf1d94ca66b65477675
+  - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0075
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451534
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:451608
+  title: Arbitrary file upload
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Arbitrary file
+    upload. in certain situations involving outdated `java.io.File` code and
+    a custom JMX configuration, allows remote attackers to execute arbitrary
+    code by uploading and accessing a JSP file.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 7.0.0 < 7.0.40"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2013-2185
+  - CVE-2013-4444
+  cwe:
+  - CWE-434
+  disclosed_date: 2016-12-25
+  created_date: 2016-12-25
+  last_modified_date: 2016-12-25
+  credit:
+  - Unknown
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2013-2185
+  - https://github.com/apache/tomcat/commit/e246e5fc13307da0a5d3bbf860d64d97be1c40f8
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-451608
+- id: snykio:maven:org.apache.tomcat.embed:tomcat-embed-core:459952
+  title: Information Exposure
+  description: |
+    [org.apache.tomcat.embed:tomcat-embed-core][1] is a Core Tomcat
+    implementation.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. The previous fix for `CVE-2007-3385` was incomplete. It did
+    not consider the use of quotes or `%5C` within a cookie value which
+    might cause sensitive information such as session IDs to be leaked to
+    remote attackers and enable session hijacking attacks.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat.embed/tomcat-embed-core
+  affected_package: org.apache.tomcat.embed:tomcat-embed-core
+  vulnerable_versions:
+  - ">= 4.1.0 < 4.1.37"
+  - ">= 5.5.0 < 5.5.26"
+  - ">= 6.0.0 < 6.0.16"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2007-5333
+  cwe:
+  - CWE-000
+  disclosed_date: 2019-08-20
+  created_date: 2019-09-17
+  last_modified_date: 2019-09-17
+  credit:
+  - Unknown
+  references:
+  - http://svn.apache.org/viewvc?view=revision&revision=620028
+  - https://tomcat.apache.org/security-4.html
+  - https://tomcat.apache.org/security-5.html
+  - https://tomcat.apache.org/security-6.html
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCATEMBED-459952

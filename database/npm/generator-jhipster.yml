@@ -1,4 +1,24 @@
 ---
+- id: npmjs:npm:generator-jhipster:1187
+  title: Cryptographically Weak PRNG
+  description: Versions of `generator-jhipster` use a Cryptographically Weak PRNG
+    that may lead to account takeover. The package uses a cryptographically insecure
+    method to generate password reset links, which allows an attacker to guess password
+    reset links and takeover accounts.
+  affected_package: generator-jhipster
+  vulnerable_versions:
+  - "<6.3.0"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-16303
+  cwe: CWE-338
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Jonathan Leitschuh
+  references: https://npmjs.com/advisories/1187
+  source_url: https://npmjs.com/advisories/1187
 - id: ossindex:npm:generator-jhipster:8402731144
   title: Timing attack in TokenProvider
   description: TokenProvider uses `String.equals(str)` making it vulnerable to timing
@@ -54,7 +74,7 @@
     [1]: https://www.npmjs.com/package/generator-jhipster
   affected_package: generator-jhipster
   vulnerable_versions:
-  - "<0.14.0 >=0.3.1"
+  - ">=0.3.1 <0.14.0"
   severity: medium
   package_manager: npm
   cwe:
@@ -81,7 +101,7 @@
     [1]: https://www.npmjs.com/package/generator-jhipster
   affected_package: generator-jhipster
   vulnerable_versions:
-  - "<2.23.0 >2.0.0"
+  - ">=2.0.1 <2.23.0"
   severity: medium
   package_manager: npm
   cwe:
@@ -96,3 +116,41 @@
   - https://github.com/jhipster/generator-jhipster/issues/2095
   - https://github.com/jhipster/generator-jhipster/pull/2096
   source_url: https://snyk.io/vuln/npm:generator-jhipster:20151006
+- id: snykio:npm:generator-jhipster:466980
+  title: Insecure Randomness
+  description: |
+    [generator-jhipster][1] is a development platform to generate, develop
+    and deploy Spring Boot + Angular / React / Vue Web applications and
+    Spring microservices.
+
+    Affected versions of this package are vulnerable to Insecure Randomness.
+    Uses an insecure source of randomness to generate all of its random
+    values as it relies upon apache commons lang3 `RandomStringUtils`. This
+    allows an attacker (if able to obtain their own password reset URL) to
+    compute the value for all other password resets for other accounts, thus
+    allowing privilege escalation or account takeover.
+
+
+
+    [1]: https://www.jhipster.tech/
+  affected_package: generator-jhipster
+  vulnerable_versions:
+  - "<6.3.0"
+  severity: high
+  package_manager: npm
+  cve:
+  - CVE-2019-16303
+  cwe:
+  - CWE-338
+  disclosed_date: 2019-09-13
+  created_date: 2019-09-14
+  last_modified_date: 2019-09-14
+  credit:
+  - Jonathan Leitschuh
+  references:
+  - https://github.com/jhipster/generator-jhipster/issues/10401
+  - https://github.com/jhipster/generator-jhipster/security/advisories/GHSA-mwp6-j9wf-968c
+  - https://github.com/jhipster/jhipster-kotlin/issues/183
+  - https://medium.com/@alex91ar/the-java-soothsayer-a-practical-application-for-insecure-randomness-c67b0cd148cd
+  - https://www.jhipster.tech/2019/09/13/jhipster-release-6.3.0.html
+  source_url: https://snyk.io/vuln/SNYK-JS-GENERATORJHIPSTER-466980

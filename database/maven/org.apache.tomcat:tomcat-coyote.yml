@@ -83,6 +83,69 @@
   - https://github.com/victims/victims-cve-db/blob/master/database/java/2013/2185.yaml
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-2185
   source_url: https://ossindex.net/resource/package/7015341707/vulnerabilities
+- id: snykio:maven:org.apache.tomcat:tomcat-coyote:174102
+  title: Denial of Service (DoS)
+  description: |+
+    [org.apache.tomcat:tomcat-coyote][1] is a Tomcat Connectors and HTTP
+    parser.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). The `HTTP/2` implementation accepted streams with excessive
+    numbers of `SETTINGS` frames and also permitted clients to keep streams
+    open without reading/writing request/response data. By keeping streams
+    open for requests that utilised the Servlet API\'s blocking I/O, clients
+    were able to cause server-side threads to block eventually leading to
+    thread exhaustion.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tomcat:tomcat-coyote
+  vulnerable_versions:
+  - ">= 8.5.0 < 8.5.38"
+  - ">= 9.0.0.M1 < 9.0.16"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2019-0199
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-03-25
+  created_date: 2019-04-04
+  last_modified_date: 2019-04-04
+  credit:
+  - Michal Karm
+  references:
+  - http://tomcat.apache.org/security-8.html
+  - http://tomcat.apache.org/security-9.html
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1693325
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-174102
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30066
   title: Arbitrary file upload
   description: |
@@ -102,7 +165,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 <= 7.0.33"
+  - ">= 7.0.0 <= 7.0.33"
   severity: high
   package_manager: maven
   cve:
@@ -181,18 +244,23 @@
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30920
   title: Information Exposure
   description: |
-    [`org.apache.tomcat:tomcat-coyote`][1] Apache Tomcat 5.5.0 through
-    5.5.29, 6.0.0 through 6.0.27, and 7.0.0 beta does not properly handle an
-    invalid Transfer-Encoding header, which allows remote attackers to cause
-    a denial of service (application outage) or obtain sensitive information
-    via a crafted header that interferes with \"recycling of a buffer.\"
+    [org.apache.tomcat:tomcat-coyote][1] is a Tomcat Connectors and HTTP
+    parser.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. Does not properly handle an invalid Transfer-Encoding header,
+    which allows remote attackers to cause a denial of service (application
+    outage) or obtain sensitive information via a crafted header that
+    interferes with \"recycling of a buffer.\"
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7-beta"
+  - ">= 5.5.0 < 5.5.30"
+  - ">= 6.0.0 < 6.0.28"
+  - ">= 7.0.0 < 7.0.2"
   severity: medium
   package_manager: maven
   cve:
@@ -205,7 +273,10 @@
   credit:
   - Unknown
   references:
-  - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2010-2227
+  - https://github.com/apache/tomcat/commit/40e5880dfc51517334acda5f12beacdec52ca283
+  - https://github.com/apache/tomcat/commit/4e97b367a97a356d2f8bb9986875e20d0807d32c
+  - https://github.com/apache/tomcat55/commit/4faaca9353e5e3f963c7a674b3ac6a0bd1c3757e
+  - https://svn.apache.org/viewvc?view=revision&revision=958977
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-30920
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30921
   title: Denial of Service (DoS)
@@ -247,7 +318,7 @@
 
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 <= 7.0.6"
+  - ">= 7.0.0 <= 7.0.6"
   severity: medium
   package_manager: maven
   cve:
@@ -277,7 +348,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.12"
+  - ">= 7.0.0 < 7.0.12"
   severity: medium
   package_manager: maven
   cve:
@@ -307,7 +378,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.19"
+  - ">= 7.0.0 < 7.0.19"
   severity: medium
   package_manager: maven
   cve:
@@ -337,7 +408,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 <= 7.0.20"
+  - ">= 7.0.0 <= 7.0.20"
   severity: high
   package_manager: maven
   cve:
@@ -366,7 +437,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.22"
+  - ">= 7.0.0 < 7.0.22"
   severity: medium
   package_manager: maven
   cve:
@@ -396,7 +467,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.28"
+  - ">= 7.0.0 < 7.0.28"
   severity: medium
   package_manager: maven
   cve:
@@ -424,7 +495,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.30"
+  - ">= 7.0.0 < 7.0.30"
   severity: medium
   package_manager: maven
   cve:
@@ -480,7 +551,7 @@
 
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.28"
+  - ">= 7.0.0 < 7.0.28"
   severity: low
   package_manager: maven
   cve:
@@ -512,8 +583,8 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.47"
-  - ">= 8 < 8.0.0-RC3"
+  - ">= 7.0.0 < 7.0.47"
+  - ">= 8.0.0-RC1 < 8.0.0-RC3"
   severity: medium
   package_manager: maven
   cve:
@@ -544,8 +615,8 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.50"
-  - ">= 8 < 8.0.0-RC10"
+  - ">= 7.0.0 < 7.0.50"
+  - ">= 8.0.0-RC1 < 8.0.0-RC10"
   severity: medium
   package_manager: maven
   cve:
@@ -574,7 +645,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.40"
+  - ">= 7.0.0 < 7.0.40"
   severity: medium
   package_manager: maven
   cve:
@@ -592,8 +663,11 @@
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30932
   title: Denial of Service (DoS)
   description: |+
-    [`org.apache.tomcat:tomcat-coyote`][1] Integer overflow in the
-    parseChunkHeader function in
+    [org.apache.tomcat:tomcat-coyote][1] is a Tomcat Connectors and HTTP
+    parser.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) in the parseChunkHeader function in
     java/org/apache/coyote/http11/filters/ChunkedInputFilter.java in Apache
     Tomcat before 6.0.40, 7.x before 7.0.53, and 8.x before 8.0.4 allows
     remote attackers to cause a denial of service (resource consumption) via
@@ -602,7 +676,7 @@
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote
     \nDenial of Service (DoS) describes a family of attacks, all aimed at
     making a system inaccessible to its intended and legitimate users.
 
@@ -631,7 +705,7 @@
 
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.53"
+  - ">= 7.0.0 < 7.0.53"
   - ">= 8 < 8.0.4"
   severity: medium
   package_manager: maven
@@ -645,6 +719,8 @@
   credit:
   - Unknown
   references:
+  - https://github.com/apache/tomcat/commit/b6974571c122f6a1e7ec74a90fa212976fa7b0ed
+  - https://github.com/apache/tomcat/commit/f646a5acd5e32d6f5a2d9bf1d94ca66b65477675
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0075
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-30932
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30933
@@ -690,7 +766,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.53"
+  - ">= 7.0.0 < 7.0.53"
   - ">= 8 < 8.0.4"
   severity: medium
   package_manager: maven
@@ -709,20 +785,21 @@
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30935
   title: HTTP Request Smuggling
   description: |
-    [`org.apache.tomcat:tomcat-coyote`][1]
-    java/org/apache/coyote/http11/filters/ChunkedInputFilter.java in Apache
-    Tomcat 6.x before 6.0.42, 7.x before 7.0.55, and 8.x before 8.0.9 does
-    not properly handle attempts to continue reading data after an error has
-    occurred, which allows remote attackers to conduct HTTP request
-    smuggling attacks or cause a denial of service (resource consumption) by
-    streaming data with malformed chunked transfer coding.
+    [org.apache.tomcat:tomcat-coyote][1] is a Tomcat Connectors and HTTP
+    parser.
+
+    Affected versions of this package are vulnerable to HTTP Request
+    Smuggling. It does not properly handle attempts to continue reading data
+    after an error has occurred, which allows remote attackers to conduct
+    HTTP request smuggling attacks or cause a denial of service (resource
+    consumption) by streaming data with malformed chunked transfer coding.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.55"
+  - ">= 7.0.0 < 7.0.55"
   - ">= 8 < 8.0.9"
   severity: medium
   package_manager: maven
@@ -736,56 +813,33 @@
   credit:
   - Unknown
   references:
+  - https://github.com/apache/tomcat/commit/593a2447e6ebe465585cfa07e93b5635dffa1c70
+  - https://github.com/apache/tomcat/commit/6b23790bf7dc4233affaacec57e06cff6b6c6fd3
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0227
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-30935
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30936
-  title: Cross-site Scripting (XSS)
-  description: |+
-    [`org.apache.tomcat:tomcat-coyote`][1] Affected versions of the package
-    are vulnerable to Cross-site Scripting (XSS). The code that parsed the
-    HTTP request line permitted invalid characters. This could be exploited,
-    in conjunction with a proxy that also permitted the invalid characters
-    but with a different interpretation, to inject data into the HTTP
-    response. By manipulating the HTTP response the attacker could poison a
-    web-cache, perform an XSS attack and/or obtain sensitive information
-    from requests other then their own.
+  title: Information Exposure
+  description: |
+    [org.apache.tomcat:tomcat-coyote][1] is a Tomcat Connectors and HTTP
+    parser.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. The code that parsed the HTTP request line permitted invalid
+    characters. This could be exploited, in conjunction with a proxy that
+    also permitted the invalid characters but with a different
+    interpretation, to inject data into the HTTP response. By manipulating
+    the HTTP response the attacker could poison a web-cache, perform an XSS
+    attack and/or obtain sensitive information from requests other then
+    their own.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
-
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
-
-    There are a few types of XSS:
-
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
-
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.73"
+  - ">= 7.0.0 < 7.0.73"
   - ">= 8 < 8.0.39"
-  - ">= 8.5 < 8.5.8"
+  - ">= 8.5.0 < 8.5.8"
   - ">= 9-alpha < 9.0.0.M13"
   severity: high
   package_manager: maven
@@ -800,44 +854,25 @@
   - Regis Leroy
   references:
   - http://www.openwall.com/lists/oss-security/2016/11/22/17
+  - https://github.com/apache/tomcat/commit/516bda676ac8d0284da3e0295a7df70391315360
+  - https://github.com/apache/tomcat/commit/cdc0a935c2173aff60039a0b85e57a461381107c
+  - https://github.com/apache/tomcat/commit/f96f5751d418ae5a2f550be040daf9c5f7d99256
+  - https://github.com/apache/tomcat80/commit/779d5d34e68e50d2f721897050b147106992f566
+  - https://www.exploit-db.com/exploits/41783
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-30936
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30937
   title: Denial of Service (DoS)
-  description: |+
-    [`org.apache.tomcat:tomcat-coyote`][1] Affected versions of the package
-    are vulnerable to Denial of Service (DoS). The HTTP/2 header parser
-    entered an infinite loop if a header was received that was larger than
-    the available buffer.
+  description: |
+    [org.apache.tomcat:tomcat-coyote][1] is a Tomcat Connectors and HTTP
+    parser.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). The HTTP/2 header parser entered an infinite loop if a header was
+    received that was larger than the available buffer.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
-    \nDenial of Service (DoS) describes a family of attacks, all aimed at
-    making a system inaccessible to its intended and legitimate users.
-
-    Unlike other vulnerabilities, DoS attacks usually do not aim at
-    breaching security. Rather, they are focused on making websites and
-    services unavailable to genuine users resulting in downtime.
-
-    One popular Denial of Service vulnerability is DDoS (a Distributed
-    Denial of Service), an attack that attempts to clog network pipes to the
-    system by generating a large volume of traffic from many machines.
-
-    When it comes to open source libraries, DoS vulnerabilities allow
-    attackers to trigger such a crash or crippling of the service by using a
-    flaw either in the application code or from the use of open source
-    libraries.
-
-    Two common types of DoS vulnerabilities:
-
-    * High CPU/Memory Consumption- An attacker sending crafted requests that
-      could cause the system to take a disproportionate amount of time to
-      process. For example,
-      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
-
-    * Crash - An attacker sending crafted requests that could cause the
-      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
-
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
   - ">= 8.5.0 < 8.5.8"
@@ -855,6 +890,8 @@
   - Apache Tomcat Security Team
   references:
   - http://seclists.org/oss-sec/2016/q4/501
+  - https://github.com/apache/tomcat/commit/079372fc7bac8e2e378942715c9ce26a4a72c07a
+  - https://github.com/apache/tomcat/commit/85c63227edabbfb4f2f500fc557480a190135d21
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-30937
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:30938
   title: Information Exposure
@@ -876,7 +913,7 @@
   vulnerable_versions:
   - ">= 7 < 7.0.74"
   - ">= 8.0.0RC1 < 8.0.40"
-  - ">= 8.5 < 8.5.9"
+  - ">= 8.5.0 < 8.5.9"
   - ">= 9.0.0M1 < 9.0.0M15"
   severity: high
   package_manager: maven
@@ -908,7 +945,7 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 8.5 < 8.5.13"
+  - ">= 8.5.0 < 8.5.13"
   - ">= 9-alpha < 9.0.0.M19"
   severity: high
   package_manager: maven
@@ -943,9 +980,9 @@
     [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22tomcat-coyote%22
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 7 < 7.0.77"
+  - ">= 7.0.0 < 7.0.77"
   - ">= 8 < 8.0.43"
-  - ">= 8.5 < 8.5.13"
+  - ">= 8.5.0 < 8.5.13"
   - ">= 9-alpha < 9.0.0.M19"
   severity: high
   package_manager: maven
@@ -1004,7 +1041,7 @@
 
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
-  - ">= 8.5 < 8.5.13"
+  - ">= 8.5.0 < 8.5.13"
   - ">= 9-alpha < 9.0.0.M19"
   severity: high
   package_manager: maven
@@ -1084,9 +1121,8 @@
 - id: snykio:maven:org.apache.tomcat:tomcat-coyote:32103
   title: Information Exposure
   description: |
-    [org.apache.tomcat:tomcat-coyote][1] is an open source implementation of
-    the Java Servlet, JavaServer Pages, Java Expression Language and Java
-    WebSocket technologies.
+    [org.apache.tomcat:tomcat-coyote][1] is a Tomcat Connectors and HTTP
+    parser.
 
     Affected versions of this package are vulnerable to Information
     Exposure. A class in the`Http11InputBuffer.java` allows remote attackers
@@ -1095,7 +1131,7 @@
 
 
 
-    [1]: http://tomcat.apache.org/
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote
   affected_package: org.apache.tomcat:tomcat-coyote
   vulnerable_versions:
   - ">= 8.5.7 < 8.5.11"
@@ -1113,9 +1149,76 @@
   - Unknown
   references:
   - http://tomcat.apache.org/security-8.html
+  - https://github.com/apache/tomcat/commit/452c8094a665ef6375530e81c033da4eeb2e4865
+  - https://github.com/apache/tomcat/commit/9601a937ff3b7ef5d04b2a0e950d0e44e1bb4cbd
   - https://nvd.nist.gov/vuln/detail/CVE-2016-8747
   - https://www.securityfocus.com/bid/96895
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-32103
+- id: snykio:maven:org.apache.tomcat:tomcat-coyote:451044
+  title: Denial of Service (DoS)
+  description: |+
+    [org.apache.tomcat:tomcat-coyote][1] is a Tomcat Connectors and HTTP
+    parser.
+
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS) due to not sending `WINDOW_UPDATE` messages for the connection
+    window, clients were able to cause server-side threads to block
+    eventually leading to thread exhaustion and a DoS.
+
+    **Note:** This vulnerability is due to an incomplete fix for
+    [CVE-2019-0199][2].
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-coyote
+    [2]: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-174102
+    \nDenial of Service (DoS) describes a family of attacks, all aimed at
+    making a system inaccessible to its intended and legitimate users.
+
+    Unlike other vulnerabilities, DoS attacks usually do not aim at
+    breaching security. Rather, they are focused on making websites and
+    services unavailable to genuine users resulting in downtime.
+
+    One popular Denial of Service vulnerability is DDoS (a Distributed
+    Denial of Service), an attack that attempts to clog network pipes to the
+    system by generating a large volume of traffic from many machines.
+
+    When it comes to open source libraries, DoS vulnerabilities allow
+    attackers to trigger such a crash or crippling of the service by using a
+    flaw either in the application code or from the use of open source
+    libraries.
+
+    Two common types of DoS vulnerabilities:
+
+    * High CPU/Memory Consumption- An attacker sending crafted requests that
+      could cause the system to take a disproportionate amount of time to
+      process. For example,
+      [commons-fileupload:commons-fileupload](SNYK-JAVA-COMMONSFILEUPLOAD-30082).
+
+    * Crash - An attacker sending crafted requests that could cause the
+      system to crash. For Example, [npm `ws` package](npm:ws:20171108)
+
+  affected_package: org.apache.tomcat:tomcat-coyote
+  vulnerable_versions:
+  - ">= 8.5.0 < 8.5.40"
+  - ">= 9.0.0.M1 < 9.0.20"
+  severity: high
+  package_manager: maven
+  cve:
+  - CVE-2019-10072
+  cwe:
+  - CWE-400
+  disclosed_date: 2019-06-21
+  created_date: 2019-06-27
+  last_modified_date: 2019-06-27
+  credit:
+  - Unknown
+  references:
+  - http://tomcat.apache.org/security-9.html
+  - https://github.com/apache/tomcat/commit/7f748eb
+  - https://github.com/apache/tomcat/commit/ada725a
+  - https://lists.apache.org/thread.html/df1a2c1b87c8a6c500ecdbbaf134c7f1491c8d79d98b48c6b9f0fa6a@%3Cannounce.tomcat.apache.org%3E
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGAPACHETOMCAT-451044
 - id: victims:maven:org.apache.tomcat:tomcat-coyote:2013-2185
   title: 'Tomcat/JBossWeb: Arbitrary file upload via deserialization'
   affected_package: org.apache.tomcat:tomcat-coyote

@@ -1,0 +1,47 @@
+---
+- id: npmjs:npm:another-date-picker:616
+  title: Malicious Package
+  description: 'Version 2.0.43 of `another-date-picker` contained malicious code.
+    The code when executed in the browser would enumerate password, cvc, cardnumber
+    fields from forms and send the extracted values to `https://js-metrics.com/minjs.php?pl=`
+
+'
+  affected_package: another-date-picker
+  vulnerable_versions:
+  - 2.0.43
+  severity: high
+  package_manager: npm
+  cwe: CWE-506
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: npm security
+  references: https://npmjs.com/advisories/616
+  source_url: https://npmjs.com/advisories/616
+- id: snykio:npm:another-date-picker:451013
+  title: Malicious Package
+  description: |
+    [another-date-picker][1] is a date picker library.
+
+    This package contained malicious code that would enumerate password,
+    CVC, Card Number fields from forms and send the extracted values to a
+    remote server.
+
+
+
+    [1]: https://www.npmjs.com/package/another-date-picker
+  affected_package: another-date-picker
+  vulnerable_versions:
+  - ">=2.0.43 <2.0.45"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-506
+  disclosed_date: 2018-05-15
+  created_date: 2019-06-26
+  last_modified_date: 2019-06-26
+  credit:
+  - npm security
+  references:
+  - https://www.npmjs.com/advisories/616
+  source_url: https://snyk.io/vuln/SNYK-JS-ANOTHERDATEPICKER-451013

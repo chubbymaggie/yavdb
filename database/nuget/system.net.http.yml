@@ -110,17 +110,17 @@
 - id: snykio:nuget:system.net.http:60047
   title: Privilege Escalation
   description: |
-    [`System.Net.Http`][1] provides a programming interface for modern HTTP
+    [system.net.http][1] provides a programming interface for modern HTTP
     applications, including HTTP client components that allow applications
     to consume web services over HTTP and HTTP components that can be used
     by both clients and servers for parsing HTTP headers.
 
     Affected versions of this package are vulnerable to Privilege Escalation
-    due to failing to properly sanitize web requests,
+    due to failing to properly sanitize web requests.
 
 
 
-    [1]: https://www.nuget.org/packages/System.Net.Http
+    [1]: https://www.nuget.org/packages/System.Net.Http/
   affected_package: system.net.http
   vulnerable_versions:
   - "< 4.1.2"
@@ -139,7 +139,6 @@
   references:
   - https://github.com/aspnet/Announcements/issues/239
   - https://nvd.nist.gov/vuln/detail/2017-0249
-  - https://technet.microsoft.com/en-us/library/security/4021279.aspx
   source_url: https://snyk.io/vuln/SNYK-DOTNET-SYSTEMNETHTTP-60047
 - id: snykio:nuget:system.net.http:60048
   title: Authentication Bypass
@@ -180,26 +179,32 @@
 - id: snykio:nuget:system.net.http:72439
   title: Information Disclosure
   description: |
-    (System.Net.Http)\[[https://www.nuget.org/packages/System.Net.Http/\]][1]
-    Provides a programming interface for modern HTTP applications, including
-    HTTP client components that allow applications to consume web services
-    over HTTP and HTTP components that can be used by both clients and
-    servers for parsing HTTP headers.
+    [system.net.http][1] provides a programming interface for modern HTTP
+    applications, including HTTP client components that allow applications
+    to consume web services over HTTP and HTTP components that can be used
+    by both clients and servers for parsing HTTP headers.
 
     Affected versions of this package are vulnerable to Information
-    Disclosure.
+    Disclosure. When HTTP authentication information is inadvertently
+    exposed in an outbound request that encounters an HTTP redirect. An
+    attacker who successfully exploited this vulnerability could use the
+    information to further compromise the web application.
 
-    When HTTP authentication information is inadvertently exposed in an
-    outbound request that encounters an HTTP redirect. An attacker who
-    successfully exploited this vulnerability could use the information to
-    further compromise the web application.
+    Noe: The presence of `System.Net.Http` in the dependency graph of
+    `netcoreapp2.0` isn\'t the final determination of what is loaded at
+    runtime. The version conflict resolution logic will prefer what is
+    present in `Microsoft.NETCore.App/2.1.5`, or latest patch release. As
+    such, is not considered to an issue.
 
 
 
-    [1]: https://www.nuget.org/packages/System.Net.Http/]
+    [1]: https://www.nuget.org/packages/System.Net.Http/
   affected_package: system.net.http
   vulnerable_versions:
-  - "< 4.3.4"
+  - ">= 2.0.20126.16343 < 2.0.20710"
+  - ">= 4.0.0 < 4.0.1-beta-23225"
+  - ">= 4.1.0 < 4.1.4"
+  - ">= 4.3.0 < 4.3.4"
   severity: high
   package_manager: nuget
   cve:

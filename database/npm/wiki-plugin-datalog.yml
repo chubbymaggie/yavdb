@@ -1,0 +1,49 @@
+---
+- id: npmjs:npm:wiki-plugin-datalog:926
+  title: Command Injection
+  description: Versions of `wiki-plugin-datalog` prior to 0.1.6 are vulnerable to
+    Command Injection. The package failed to sanitize URLs on the curl endpoint, allowing
+    attackers to inject commands and possibly achieving Remote Code Execution on the
+    system.
+  affected_package: wiki-plugin-datalog
+  vulnerable_versions:
+  - "<0.1.6"
+  severity: high
+  package_manager: npm
+  cwe: CWE-78
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: Joshua Benuck
+  references: https://npmjs.com/advisories/926
+  source_url: https://npmjs.com/advisories/926
+- id: snykio:npm:wiki-plugin-datalog:449540
+  title: Arbitrary Code Injection
+  description: |
+    [wiki-plugin-datalog][1] is a plugin, type: datalog, extends the markup
+    of the federated wiki.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Injection. The package failed to sanitize URLs on the curl endpoint,
+    allowing attackers to inject commands and possibly achieving Remote Code
+    Execution on the system.
+
+
+
+    [1]: https://github.com/fedwiki/wiki-plugin-datalog#readme
+  affected_package: wiki-plugin-datalog
+  vulnerable_versions:
+  - "<0.1.6"
+  severity: medium
+  package_manager: npm
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-06-05
+  created_date: 2019-06-05
+  last_modified_date: 2019-06-05
+  credit:
+  - Joshua Benuck
+  references:
+  - https://github.com/WardCunningham/wiki-plugin-datalog/commit/020aa6201319e5b76301a61b65268c94dc242fa7
+  - https://www.npmjs.com/advisories/926
+  source_url: https://snyk.io/vuln/SNYK-JS-WIKIPLUGINDATALOG-449540

@@ -1,4 +1,1940 @@
 ---
+- id: snykio:packagist:magento/core:174031
+  title: SQL Injection
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to SQL Injection. A bug
+    in both `internal/Magento/Framework/DB/Adapter/Pdo/Mysql.php` and
+    `lib/Varien/Db/Adapter/Pdo/Mysql.php` allows for a SQLi vector in
+    `Magento\Catalog\Controller\Product\Frontend\Action\Synchronize`.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.1"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-7139
+  cwe:
+  - CWE-89
+  disclosed_date: 2019-03-29
+  created_date: 2019-03-30
+  last_modified_date: 2019-03-30
+  credit:
+  - Ambionics Security
+  - Charles Fol
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-174031
+- id: snykio:packagist:magento/core:174082
+  title: Remote Code Execution
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution. An authenticated user with administrative privileges can
+    execute arbitrary code through a `Phar deserialisation` vulnerability.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.1"
+  severity: high
+  package_manager: packagist
+  cwe:
+  - CWE-352
+  - CWE-94
+  disclosed_date: 2018-03-26
+  created_date: 2019-04-01
+  last_modified_date: 2019-04-01
+  credit:
+  - Simon Scannell
+  references:
+  - https://magento.com/security/patches/magento-2.3.1-2.2.8-and-2.1.17-security-update
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-174082
+- id: snykio:packagist:magento/core:174086
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). An authenticated user with administrative privileges can embed
+    arbitrary code in the Conditions tab of Admin Shopping Cart Rules page.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.1"
+  severity: medium
+  package_manager: packagist
+  cwe:
+  - CWE-79
+  disclosed_date: 2018-03-26
+  created_date: 2019-04-02
+  last_modified_date: 2019-04-02
+  credit:
+  - magecraze
+  references:
+  - https://magento.com/security/patches/magento-2.3.1-2.2.8-and-2.1.17-security-update
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-174086
+- id: snykio:packagist:magento/core:174087
+  title: Cross-site Request Forgery (CSRF)
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Request
+    Forgery (CSRF). An attacker can delete a product attribute within the
+    context of authenticated administrator\'s session through cross-site
+    request forgery.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.1"
+  severity: medium
+  package_manager: packagist
+  cwe:
+  - CWE-352
+  disclosed_date: 2018-03-26
+  created_date: 2019-04-02
+  last_modified_date: 2019-04-02
+  credit:
+  - djordjemarjanovic
+  references:
+  - https://magento.com/security/patches/magento-2.3.1-2.2.8-and-2.1.17-security-update
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-174087
+- id: snykio:packagist:magento/core:174089
+  title: Information Disclousure
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Information
+    Disclousure. Exception error reports capture administrative credentials
+    in clear text format.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.1"
+  severity: medium
+  package_manager: packagist
+  cwe:
+  - CWE-200
+  disclosed_date: 2018-03-26
+  created_date: 2019-04-02
+  last_modified_date: 2019-04-02
+  credit:
+  - magecraze
+  - Matt Hamm
+  references:
+  - https://magento.com/security/patches/magento-2.3.1-2.2.8-and-2.1.17-security-update
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-174089
+- id: snykio:packagist:magento/core:456783
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). An authenticated user with privileges to modify currency symbols
+    can inject malicious javascript.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7945
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-06
+  last_modified_date: 2019-08-06
+  credit:
+  - Unknown
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-456783
+- id: snykio:packagist:magento/core:456785
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the admin panel. This could be exploited by an authenticated
+    user with privileges to email templates.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7909
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-06
+  last_modified_date: 2019-08-06
+  credit:
+  - Peter O'Callaghan
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-456785
+- id: snykio:packagist:magento/core:458147
+  title: Information Exposure
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. Names of disabled downloadable products could be disclosed due
+    to inadequate validation of user input.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7899
+  cwe:
+  - CWE-200
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-07
+  last_modified_date: 2019-08-07
+  credit:
+  - Edgar BodaMajer
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-33
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458147
+- id: snykio:packagist:magento/core:458616
+  title: Cross-site Request Forgery (CSRF)
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Request
+    Forgery (CSRF) in the `GiftCardAccount` removal feature.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7947
+  cwe:
+  - CWE-352
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-07
+  last_modified_date: 2019-08-07
+  credit:
+  - Unknown
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-33
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458616
+- id: snykio:packagist:magento/core:458765
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). An authenticated user with privileges to the editor can inject
+    malicious SWF files.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7882
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-08
+  last_modified_date: 2019-08-08
+  credit:
+  - KAnev
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458765
+- id: snykio:packagist:magento/core:458769
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the admin panel. This could be exploited by an authenticated
+    user with privileges to customer configurations to inject malicious
+    javascript.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7897
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-08
+  last_modified_date: 2019-08-08
+  credit:
+  - Karim El Ouerghemmi
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-13
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458769
+- id: snykio:packagist:magento/core:458771
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the admin panel when the feature that adds a secret key to the
+    Admin URL is disabled.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7887
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-08
+  last_modified_date: 2019-08-08
+  credit:
+  - SmashITs
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458771
+- id: snykio:packagist:magento/core:458959
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the admin panel. This can be exploited by an authenticated user
+    with privileges to edit newsletter templates to inject malicious
+    javascript.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7934
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Roberto Suggi Liverani
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458959
+- id: snykio:packagist:magento/core:458964
+  title: SQL Injection
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to SQL Injection. An
+    authenticated user with marketing manipulation privileges can invoke
+    methods that alter data of the underlying model followed by
+    corresponding database modifications.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7889
+  cwe:
+  - CWE-89
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Blaklis
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-13
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458964
+- id: snykio:packagist:magento/core:458976
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the admin panel. This can be exploited by an authenticated user
+    with privileges to modify catalog price rules to inject malicious
+    javascript.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7938
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Karim El Ouerghemmi
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458976
+- id: snykio:packagist:magento/core:458978
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the admin panel. This can be exploited by an authenticated user
+    with privileges to modify content page titles to inject malicious
+    javascript.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7935
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Max Chadwick
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458978
+- id: snykio:packagist:magento/core:458981
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the admin panel. This can be exploited by an authenticated user
+    with privileges to modify store currency options to inject malicious
+    javascript.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7940
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Max Chadwick
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458981
+- id: snykio:packagist:magento/core:458986
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the admin panel. This can be exploited by an authenticated user
+    with privileges to newsletter templates.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7875
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Roberto Suggi Liverani
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458986
+- id: snykio:packagist:magento/core:458991
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS) in the product comments field. An authenticated user with
+    privileges to the Return Product comments field can inject malicious
+    javascript.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7944
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Magento
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458991
+- id: snykio:packagist:magento/core:458998
+  title: Remote Code Execution
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution. An authenticated user with admin privileges to create
+    sitemaps can execute arbitrary PHP code by creating a malicious sitemap
+    file.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-7932
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Simon Scannell
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-13
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-458998
+- id: snykio:packagist:magento/core:459003
+  title: Server-side Request Forgery (SSRF)
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Server-side Request
+    Forgery (SSRF). This can be exploited by an authenticated user with
+    access to the admin panel to manipulate system configuration and execute
+    arbitrary code.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-7911
+  cwe:
+  - CWE-918
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Max Chadwick
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-13
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-459003
+- id: snykio:packagist:magento/core:459036
+  title: Session Fixation
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Session Fixation. A
+    defense-in-depth check was added to mitigate inadequate session
+    validation handling by 3rd party checkout modules.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: low
+  package_manager: packagist
+  cve:
+  - CVE-2019-7849
+  cwe:
+  - CWE-384
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - RogerKeulen
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-33
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-459036
+- id: snykio:packagist:magento/core:459038
+  title: Information Exposure
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. Samples of disabled downloadable products are accessible due
+    to inadequate validation of user input.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.2"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-7898
+  cwe:
+  - CWE-200
+  disclosed_date: 2019-08-02
+  created_date: 2019-08-12
+  last_modified_date: 2019-08-12
+  credit:
+  - Edgar BodaMajer
+  references:
+  - https://magento.com/security/patches/magento-2.3.2-2.2.9-and-2.1.18-security-update-23
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-459038
+- id: snykio:packagist:magento/core:473050
+  title: Remote Code Execution (RCE)
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution (RCE). An authenticated user with admin privileges to import
+    features can execute arbitrary code via crafted configuration archieve
+    file upload.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  - ">=1.10.0  <1.14.4.3"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-8114
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-10-08
+  created_date: 2019-10-15
+  last_modified_date: 2019-10-15
+  credit:
+  - sambecks
+  references:
+  - https://magento.com/security/patches/magento-2.3.3-and-2.2.10-security-update
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-473050
+- id: snykio:packagist:magento/core:473112
+  title: Cross-site Scripting (XSS)
+  description: |+
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). An authenticated user with access to the wysiwyg editor can abuse
+    the blockDirective() function and inject malicious javascript in the
+    cache of the admin dashboard.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-8152
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-10-08
+  created_date: 2019-10-15
+  last_modified_date: 2019-10-15
+  credit:
+  - Simon Scannell
+  references:
+  - https://magento.com/security/patches/magento-2.3.3-and-2.2.10-security-update
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-473112
+- id: snykio:packagist:magento/core:473847
+  title: Cross Site Scripting (XSS)
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Cross Site Scripting
+    (XSS) via an authenticated user. An attacker can inject arbitrary
+    JavaScript code via import / export functionality when creating profile
+    action XML.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-8227
+  cwe:
+  - CWE-79
+  disclosed_date: 2019-10-08
+  created_date: 2019-10-18
+  last_modified_date: 2019-10-18
+  credit:
+  - Djordje Marjanovic
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-473847
+- id: snykio:packagist:magento/core:473848
+  title: Remote Code Execution (RCE)
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution (RCE) via an authenticated user with administrative privileges
+    for editing attribute sets. An attacker can execute arbitrary code
+    through custom layout modification.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-8231
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-10-08
+  created_date: 2019-10-18
+  last_modified_date: 2019-10-18
+  credit:
+  - Luke Rodgers
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-473848
+- id: snykio:packagist:magento/core:473849
+  title: Remote Code Execution (RCE)
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution (RCE) via an authenticated user. An attacker can inject
+    arbitrary JavaScript code into transactional email page when creating a
+    new email template or editing existing email template.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-8228
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-10-08
+  created_date: 2019-10-18
+  last_modified_date: 2019-10-18
+  credit:
+  - Djordje Marjanovic
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-473849
+- id: snykio:packagist:magento/core:473850
+  title: Race Condition
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Race Condition via
+    an authenticated user with admin privileges to the import feature. An
+    attacker can execute arbitrary code through a race condition that allows
+    web server configuration file modification.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: medium
+  package_manager: packagist
+  cve:
+  - CVE-2019-8232
+  cwe:
+  - CWE-362
+  disclosed_date: 2019-10-08
+  created_date: 2019-10-18
+  last_modified_date: 2019-10-18
+  credit:
+  - Robin Peraglie
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-473850
+- id: snykio:packagist:magento/core:480420
+  title: Remote Code Execution
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution. An authenticated admin user can modify configuration
+    parameters via crafted support configuration. The modification can lead
+    to remote code execution.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-8125
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-11-05
+  created_date: 2019-11-05
+  last_modified_date: 2019-11-05
+  credit:
+  - Blaklis
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-480420
+- id: snykio:packagist:magento/core:480421
+  title: Remote Code Execution
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Remote Code
+    Execution. An authenticated admin user with privileges to access product
+    attributes can leverage layout updates to trigger remote code execution.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-8091
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-11-05
+  created_date: 2019-11-05
+  last_modified_date: 2019-11-05
+  credit:
+  - Luke Rodgers
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-480421
+- id: snykio:packagist:magento/core:480422
+  title: Arbitrary Code Execution
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Execution. An authenticated user with administrative privileges to edit
+    product attributes can execute arbitrary code through crafted layout
+    updates.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-8229
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-11-06
+  created_date: 2019-11-06
+  last_modified_date: 2019-11-06
+  credit:
+  - Luke Rodgers
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-480422
+- id: snykio:packagist:magento/core:480423
+  title: Information Exposure
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. It includes a user\'s CSRF token in the URL of a GET request.
+    This can be exploited by an attacker with access to network traffic to
+    perform unauthorized actions.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-8155
+  cwe:
+  - CWE-200
+  disclosed_date: 2019-11-06
+  created_date: 2019-11-06
+  last_modified_date: 2019-11-06
+  credit:
+  - Unknown
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-480423
+- id: snykio:packagist:magento/core:480424
+  title: Arbitrary Code Execution
+  description: |
+    [magento/core][1] is a release of the Magento Community Edition.
+
+    Affected versions of this package are vulnerable to Arbitrary Code
+    Execution. An authenticated user with administrative privileges to edit
+    configuration settings can execute arbitrary code through a crafted
+    support/output path.
+
+
+
+    [1]: https://packagist.org/packages/magento/core
+  affected_package: magento/core
+  vulnerable_versions:
+  - "<1.9.4.3"
+  severity: high
+  package_manager: packagist
+  cve:
+  - CVE-2019-8230
+  cwe:
+  - CWE-94
+  disclosed_date: 2019-11-06
+  created_date: 2019-11-06
+  last_modified_date: 2019-11-06
+  credit:
+  - Blaklis
+  references:
+  - https://magento.com/security/patches/supee-11219
+  source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-480424
 - id: snykio:packagist:magento/core:72826
   title: Authentication Bypass
   description: |
@@ -103,8 +2039,6 @@
   package_manager: packagist
   cwe:
   - CWE-94
-  - CWE-94
-  - CWE-94
   disclosed_date: 2018-11-29
   created_date: 2018-12-31
   last_modified_date: 2018-12-31
@@ -179,33 +2113,77 @@
 
 
     [1]: https://packagist.org/packages/magento/core
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: magento/core
   vulnerable_versions:
@@ -224,7 +2202,7 @@
   source_url: https://snyk.io/vuln/SNYK-PHP-MAGENTOCORE-72832
 - id: snykio:packagist:magento/core:72833
   title: Cross-Site Scripting (XSS)
-  description: |-
+  description: |+
     [magento/core][1] is a release of the Magento Community Edition.
 
     Affected versions of this package are vulnerable to Cross-Site Scripting
@@ -242,7 +2220,78 @@
 
 
     [1]: https://packagist.org/packages/magento/core
-    \n
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
   affected_package: magento/core
   vulnerable_versions:
   - "<1.9.4.0"
@@ -270,33 +2319,77 @@
 
 
     [1]: https://packagist.org/packages/magento/core
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: magento/core
   vulnerable_versions:
@@ -355,33 +2448,77 @@
 
 
     [1]: https://packagist.org/packages/magento/core
-    \nCross-Site Scripting (XSS) attacks occur when an attacker tricks a
-    user’s browser to execute malicious JavaScript code in the context of a
-    victim’s domain. Such scripts can steal the user’s session cookies for
-    the domain, scrape or modify its content, and perform or modify actions
-    on the user’s behalf, actions typically blocked by the browser’s Same
-    Origin Policy.
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
 
-    These attacks are possible by escaping the context of the web
-    application and injecting malicious scripts in an otherwise trusted
-    website. These scripts can introduce additional attributes (say, a
-    \"new\" option in a dropdown list or a new link to a malicious site) and
-    can potentially execute code on the clients side, unbeknown to the
-    victim. This occurs when characters like `<` `>` `"` `'` are not escaped
-    properly.
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
 
-    There are a few types of XSS:
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
 
-    * **Persistent XSS** is an attack in which the malicious code persists
-      into the web app’s database.
-    * **Reflected XSS** is an which the website echoes back a portion of the
-      request. The attacker needs to trick the user into clicking a
-      malicious link (for instance through a phishing email or malicious JS
-      on another page), which triggers the XSS attack.
-    * **DOM-based XSS** is an that occurs purely in the browser when
-      client-side JavaScript echoes back a portion of the URL onto the page.
-      DOM-Based XSS is notoriously hard to detect, as the server never gets
-      a chance to see the attack taking place.
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
 
   affected_package: magento/core
   vulnerable_versions:

@@ -24,23 +24,59 @@
   - https://jira.spring.io/browse/DATAJPA-965
   - https://pivotal.io/security/cve-2016-6652
   source_url: https://ossindex.net/resource/package/7015205601/vulnerabilities
+- id: snykio:maven:org.springframework.data:spring-data-jpa:174140
+  title: Information Exposure
+  description: |
+    [org.springframework.data:spring-data-jpa][1] is a package that is used
+    to implement JPA based repositories.
+
+    Affected versions of this package are vulnerable to Information Exposure
+    due to the usage of certain derived queries. A maliciously crafted query
+    parameter value supplied with queries using `startingWith`,
+    `endingWith`, `containing` or LIKE expressions could return more results
+    than anticipated, resulting in information exposure.
+
+
+
+    [1]: https://spring.io/projects/spring-data-jpa
+  affected_package: org.springframework.data:spring-data-jpa
+  vulnerable_versions:
+  - "< 1.11.20.RELEASE"
+  - ">= 2.0.0.RELEASE < 2.0.14.RELEASE"
+  - ">= 2.1.0.RELEASE < 2.1.6.RELEASE"
+  severity: low
+  package_manager: maven
+  cve:
+  - CVE-2019-3797
+  cwe:
+  - CWE-200
+  disclosed_date: 2019-04-08
+  created_date: 2019-04-09
+  last_modified_date: 2019-04-09
+  credit:
+  - Maruthi Adithya G
+  references:
+  - https://bugzilla.redhat.com/show_bug.cgi?id=1697598
+  - https://pivotal.io/security/cve-2019-3797
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKDATA-174140
 - id: snykio:maven:org.springframework.data:spring-data-jpa:31335
   title: SQL Injection
   description: |
-    [`org.springframework.data:spring-data-jpa`][1] SQL injection
-    vulnerability in Pivotal Spring Data JPA before 1.9.6 (Gosling SR6) and
-    1.10.x before 1.10.4 (Hopper SR4), when used with a repository that
-    defines a String query using the @Query annotation, allows attackers to
-    execute arbitrary JPQL commands via a sort instance with a function
-    call.
+    [org.springframework.data:spring-data-jpa][1] is a package that is used
+    to implement JPA based repositories.
+
+    Affected versions of this package are vulnerable to SQL Injection.
+    Attackers to execute arbitrary JPQL commands via a sort instance with a
+    function call, when used with a repository that defines a String query
+    using the @Query annotation.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-data-jpa%22
+    [1]: https://spring.io/projects/spring-data-jpa
   affected_package: org.springframework.data:spring-data-jpa
   vulnerable_versions:
-  - "< 1.9.6"
-  - ">= 1.10 < 1.10.4"
+  - "< 1.9.6.RELEASE"
+  - ">= 1.10.0.RELEASE < 1.10.4.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -53,5 +89,41 @@
   credit:
   - Unknown
   references:
+  - https://github.com/spring-projects/spring-data-jpa/commit/b8e7fecccc7dc8edcabb4704656a7abe6352c08f
+  - https://jira.spring.io/browse/DATAJPA-965
+  - https://pivotal.io/security/cve-2016-6652
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2016-6652
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKDATA-31335
+- id: snykio:maven:org.springframework.data:spring-data-jpa:451633
+  title: Information Exposure
+  description: |
+    [org.springframework.data:spring-data-jpa][1] is a package that is used
+    to implement JPA based repositories.
+
+    Affected versions of this package are vulnerable to Information
+    Exposure. Using `ExampleMatcher.StringMatcher.STARTING`,
+    `ExampleMatcher.StringMatcher.ENDING` or
+    `ExampleMatcher.StringMatcher.CONTAINING` could return more results than
+    anticipated when a maliciously crafted example value is supplied.
+
+
+
+    [1]: https://spring.io/projects/spring-data-jpa
+  affected_package: org.springframework.data:spring-data-jpa
+  vulnerable_versions:
+  - "< 1.11.22.RELEASE"
+  - ">= 2.0.0.RELEASE < 2.1.8.RELEASE"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2019-3802
+  cwe:
+  - CWE-200
+  disclosed_date: 2019-06-03
+  created_date: 2019-07-18
+  last_modified_date: 2019-07-18
+  credit:
+  - Thaveethu Vignesh
+  references:
+  - https://pivotal.io/security/cve-2019-3802
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORKDATA-451633

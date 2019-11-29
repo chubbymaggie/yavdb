@@ -1,0 +1,50 @@
+---
+- id: snykio:maven:org.eclipse.xtext:org.eclipse.xtext.maven.parent:174786
+  title: Unsafe Dependancy Resolution
+  description: |
+    [org.eclipse.xtext:org.eclipse.xtext.maven.parent][1] is a framework for
+    development of programming languages and domain-specific languages.
+
+    Affected versions of this package are vulnerable to Unsafe Dependancy
+    Resolution due to resolving dependencies over an insecure channel
+    (http).
+
+    If the build occurred over an insecure connection, a malicious user
+    could have perform a Man-in-the-Middle attack during the build and alter
+    the build artifacts that were produced. In case that any of these
+    artifacts were compromised, any developers using these could be altered.
+
+    **Note:** In order to validate that this artifact was not compromised,
+    the maintainer would need to confirm that none of the artifacts
+    published to the registry were not altered with. Until this happens, we
+    can not guarantee that this artifact was not compromised even though the
+    probability that this happened is low.
+
+    We have chosen to alert on this issue when maintainers either decided to
+    issue CVEs themselves, or in cases when maintainers decided against
+    performing audits on there build to verify they had not been
+    compromised.
+
+
+
+    [1]: https://mvnrepository.com/artifact/org.eclipse.xtext/org.eclipse.xtext.parent
+  affected_package: org.eclipse.xtext:org.eclipse.xtext.maven.parent
+  vulnerable_versions:
+  - "< 2.18.0"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2019-10249
+  cwe:
+  - CWE-494
+  - CWE-829
+  disclosed_date: 2019-02-22
+  created_date: 2019-06-11
+  last_modified_date: 2019-06-11
+  credit:
+  - JLLeitschuh
+  references:
+  - https://github.com/eclipse/xtext-maven/commit/81080879cfda4474a2ab161599ca6cb46ebcc077
+  - https://github.com/eclipse/xtext-maven/issues/74
+  - https://medium.com/@jonathan.leitschuh/1fc329d898fb
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGECLIPSEXTEXT-174786

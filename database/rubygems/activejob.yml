@@ -28,6 +28,7 @@
   - "~> 4.2.11"
   - "~> 5.0.7.1"
   - "~> 5.1.6.1"
+  - "~> 5.1.7"
   package_manager: rubygems
   cve:
   - CVE-2018-16476
@@ -71,5 +72,5 @@
   credit:
   - Unknown
   references:
-  - https://groups.google.com/forum/#!topic/rubyonrails-security/FL4dSdzr2zw
+  - https://groups.google.com/forum/%23%21topic/rubyonrails-security/FL4dSdzr2zw
   source_url: https://snyk.io/vuln/SNYK-RUBY-ACTIVEJOB-72640

@@ -1,0 +1,47 @@
+---
+- id: npmjs:npm:css_transform_step:623
+  title: Malicious Package
+  description: 'Version 1.0.6 of `css_transform_step` contained malicious code. The
+    code when executed in the browser would enumerate password, cvc, cardnumber fields
+    from forms and send the extracted values to `https://js-metrics.com/minjs.php?pl=`
+
+'
+  affected_package: css_transform_step
+  vulnerable_versions:
+  - 1.0.6
+  severity: high
+  package_manager: npm
+  cwe: CWE-506
+  disclosed_date: 1970-01-01
+  created_date: 1970-01-01
+  last_modified_date: 1970-01-01
+  credit: npm security
+  references: https://npmjs.com/advisories/623
+  source_url: https://npmjs.com/advisories/623
+- id: snykio:npm:css_transform_step:450999
+  title: Malicious Package
+  description: |
+    [css\_transform\_step][1] is a library that contained malicious code.
+
+    This package contained malicious code that would enumerate password,
+    CVC, Card Number fields from forms and send the extracted values to a
+    remote server.
+
+
+
+    [1]: https://www.npmjs.com/package/css_transform_step
+  affected_package: css_transform_step
+  vulnerable_versions:
+  - "=1.0.6"
+  severity: high
+  package_manager: npm
+  cwe:
+  - CWE-506
+  disclosed_date: 2018-05-15
+  created_date: 2019-06-26
+  last_modified_date: 2019-06-26
+  credit:
+  - npm security
+  references:
+  - https://www.npmjs.com/advisories/623
+  source_url: https://snyk.io/vuln/SNYK-JS-CSSTRANSFORMSTEP-450999

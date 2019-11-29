@@ -139,58 +139,27 @@
   source_url: https://ossindex.net/resource/package/7015204622/vulnerabilities
 - id: snykio:maven:org.springframework:spring-web:30160
   title: XML External Entity (XXE) Injection
-  description: |+
-    [`org.springframework:spring-web`][1] The `SourceHttpMessageConverter`
-    processor does not disable external entity resolution, which allows
-    remote attackers to read arbitrary files, cause a denial of service, and
-    conduct CSRF attacks via crafted XML, aka an XML External Entity (XXE)
-    issue, and a different vulnerability than [CVE-2013-4152][2] and
-    [CVE-2013-7315][3].
+  description: |
+    [org.springframework:spring-web][1] is a provides a comprehensive
+    programming and configuration model for modern Java-based enterprise
+    applications - on any kind of deployment platform.
+
+    Affected versions of this package are vulnerable to XML External Entity
+    (XXE) Injection. The `SourceHttpMessageConverter` processor does not
+    disable external entity resolution, which allows remote attackers to
+    read arbitrary files, cause a denial of service, and conduct CSRF
+    attacks via crafted XML, aka an XML External Entity (XXE) issue, and a
+    different vulnerability than [CVE-2013-4152][2] and [CVE-2013-7315][3].
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-web%22
+    [1]: https://github.com/spring-projects/spring-framework
     [2]: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-31330
     [3]: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30162
-    \nXXE Injection is a type of attack against an application that parses XML
-    input. XML is a markup language that defines a set of rules for encoding
-    documents in a format that is both human-readable and machine-readable.
-    By default, many XML processors allow specification of an external
-    entity, a URI that is dereferenced and evaluated during XML processing.
-    When an XML document is being parsed, the parser can make a request and
-    include the content at the specified URI inside of the XML document.
-
-    Attacks can include disclosing local files, which may contain sensitive
-    data such as passwords or private user data, using file: schemes or
-    relative paths in the system identifier.
-
-    For example, below is a sample XML document, containing an XML element-
-    username.
-
-        <?xml version="1.0" encoding="ISO-8859-1"?>
-           <username>John</username>
-        </xml>
-
-    An external XML entity - `xxe`, is defined using a system identifier and
-    present within a DOCTYPE header. These entities can access local or
-    remote content. For example the below code contains an external XML
-    entity that would fetch the content of `/etc/passwd` and display it to
-    the user rendered by `username`.
-
-        <?xml version="1.0" encoding="ISO-8859-1"?>
-        <!DOCTYPE foo [
-           <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
-           <username>&xxe;</username>
-        </xml>
-
-    Other XXE Injection attacks can access local resources that may not stop
-    returning data, possibly impacting application availability and leading
-    to Denial of Service.
-
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 3 <= 3.2.4.RELEASE"
-  - ">= 4-alpha <= 4.0.0.M3"
+  - ">= 3.0.0.RELEASE < 3.2.4.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.0.1.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -205,23 +174,100 @@
   references:
   - http://www.gopivotal.com/security/cve-2013-6429
   - https://bugzilla.redhat.com/CVE-2013-6429
+  - https://github.com/spring-projects/spring-framework/commit/2ae6a6a3415eebc57babcb9d3e5505887eda6d8a
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30160
 - id: snykio:maven:org.springframework:spring-web:30161
   title: Cross-site Scripting (XSS)
-  description: |
-    [`org.springframework:spring-web`][1] The
-    `JavaScriptUtils.javaScriptEscape()` method did not escape all
-    characters that are sensitive within either a JS single quoted string,
-    JS double quoted string, or HTML script data context. In most cases this
-    will result in an unexploitable parse error but in some cases it could
-    result in an XSS vulnerability.
+  description: |+
+    [org.springframework:spring-web][1] provides a comprehensive programming
+    and configuration model for modern Java-based enterprise applications -
+    on any kind of deployment platform.
+
+    Affected versions of this package are vulnerable to Cross-site Scripting
+    (XSS). The `JavaScriptUtils.javaScriptEscape()` method did not escape
+    all characters that are sensitive within either a JS single quoted
+    string, JS double quoted string, or HTML script data context. In most
+    cases this will result in an unexploitable parse error but in some cases
+    it could result in an XSS vulnerability.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-web%22
+    [1]: https://github.com/spring-projects/spring-framework
+    \nA cross-site scripting attack occurs when the attacker tricks a
+    legitimate web-based application or site to accept a request as
+    originating from a trusted source.
+
+    This is done by escaping the context of the web application; the web
+    application then delivers that data to its users along with other
+    trusted dynamic content, without validating it. The browser unknowingly
+    executes malicious script on the client side (through client-side
+    languages; usually JavaScript or HTML) in order to perform actions that
+    are otherwise typically blocked by the browser’s Same Origin Policy.
+
+    ֿInjecting malicious code is the most prevalent manner by which XSS is
+    exploited; for this reason, escaping characters in order to prevent this
+    manipulation is the top method for securing code against this
+    vulnerability.
+
+    Escaping means that the application is coded to mark key characters, and
+    particularly key characters included in user input, to prevent those
+    characters from being interpreted in a dangerous context. For example,
+    in HTML, `<` can be coded as `&lt`; and `>` can be coded as `&gt`; in
+    order to be interpreted and displayed as themselves in text, while
+    within the code itself, they are used for HTML tags. If malicious
+    content is injected into an application that escapes special characters
+    and that malicious content uses `<` and `>` as HTML tags, those
+    characters are nonetheless not interpreted as HTML tags by the browser
+    if they’ve been correctly escaped in the application code and in this
+    way the attempted attack is diverted.
+
+    The most prominent use of XSS is to steal cookies (source: OWASP
+    HttpOnly) and hijack user sessions, but XSS exploits have been used to
+    expose sensitive information, enable access to privileged services and
+    functionality and deliver malware.
+
+    ### Types of attacks   {#types-of-attacks}
+
+    There are a few methods by which XSS can be manipulated:
+
+    | Type | Origin | Description |
+    |----------
+    | **Stored** | Server | The malicious code is inserted in the application (usually as a link) by the attacker. The code is activated every time a user clicks the link. |
+    | **Reflected** | Server | The attacker delivers a malicious link externally from the vulnerable web site application to a user. When clicked, malicious code is sent to the vulnerable web site, which reflects the attack back to the user’s browser. |
+    | **DOM-based** | Client | The attacker forces the user’s browser to render a malicious page. The data in the page itself delivers the cross-site scripting data. |
+    | **Mutated** |  | The attacker injects code that appears safe, but is then rewritten and modified by the browser, while parsing the markup. An example is rebalancing unclosed quotation marks or even adding quotation marks to unquoted parameters. |
+
+    ### Affected environments   {#affected-environments}
+
+    The following environments are susceptible to an XSS attack:
+
+    * Web servers
+    * Application servers
+    * Web application environments
+
+    ### How to prevent   {#how-to-prevent}
+
+    This section describes the top best practices designed to specifically
+    protect your code:
+
+    * Sanitize data input in an HTTP request before reflecting it back,
+      ensuring all data is validated, filtered or escaped before echoing
+      anything back to the user, such as the values of query parameters
+      during searches.
+    * Convert special characters such as `?`, `&`, `/`, `<`, `>` and spaces
+      to their respective HTML or URL encoded equivalents.
+    * Give users the option to disable client-side scripts.
+    * Redirect invalid requests.
+    * Detect simultaneous logins, including those from two separate IP
+      addresses, and invalidate those sessions.
+    * Use and enforce a Content Security Policy (source: Wikipedia) to
+      disable any features that might be manipulated for an XSS attack.
+    * Read the documentation for any of the libraries referenced in your
+      code to understand which elements allow for embedded HTML.
+
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 3.0.0 < 3.2.2"
+  - ">= 3.0.0.RELEASE < 3.2.2.RELEASE"
   severity: low
   package_manager: maven
   cve:
@@ -243,18 +289,22 @@
 - id: snykio:maven:org.springframework:spring-web:30162
   title: XML External Entity (XXE) Injection
   description: |+
-    [`org.springframework:spring-web`][1] Affected versions of this package
-    are vulnerable to XML External Entity (XXE) injection attacks due to not
-    disabling external entity resolution for the `StAX` `XMLInputFactory`.
-    This allows context-dependent attackers to read arbitrary files, cause a
-    denial of service, and conduct CSRF attacks via crafted XML with JAXB.
+    [org.springframework:spring-web][1] is a provides a comprehensive
+    programming and configuration model for modern Java-based enterprise
+    applications - on any kind of deployment platform.
+
+    Affected versions of this package are vulnerable to XML External Entity
+    (XXE) Injection. due to not disabling external entity resolution for the
+    `StAX` `XMLInputFactory`. This allows context-dependent attackers to
+    read arbitrary files, cause a denial of service, and conduct CSRF
+    attacks via crafted XML with JAXB.
 
     **NOTE:** this issue was SPLIT from [CVE-2013-4152][2] due to different
     affected versions.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-web%22
+    [1]: https://github.com/spring-projects/spring-framework
     [2]: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-31330
     \nXXE Injection is a type of attack against an application that parses XML
     input. XML is a markup language that defines a set of rules for encoding
@@ -274,6 +324,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -286,6 +337,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -293,8 +345,7 @@
 
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 3 <= 3.2.3.RELEASE"
-  - ">= 4-alpha <= 4.0.0.M3"
+  - ">= 3.0.0.RELEASE < 3.2.4.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -308,60 +359,77 @@
   - Alvaro Munoz
   references:
   - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2013-7315
+  - https://github.com/spring-projects/spring-framework/commit/434735fbf6e7f9051af2ef027657edb99120b173
+  - https://github.com/spring-projects/spring-framework/issues/15432
   - https://pivotal.io/security/cve-2013-7315
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30162
 - id: snykio:maven:org.springframework:spring-web:30163
   title: XML External Entity (XXE) Injection
-  description: |+
-    [`org.springframework:spring-web`][1]
+  description: |
+    [org.springframework:spring-web][1] is a provides a comprehensive
+    programming and configuration model for modern Java-based enterprise
+    applications - on any kind of deployment platform.
 
     Affected versions of this package are vulnerable to XML External Entity
-    (XXE) Injection attacks due to not disabling the resolution of URI
+    (XXE) Injection. This is due to not disabling the resolution of URI
     references by default in a DTD declaration. This occurs only when
     processing user provided XML documents.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-web%22
-    \nXXE Injection is a type of attack against an application that parses XML
-    input. XML is a markup language that defines a set of rules for encoding
-    documents in a format that is both human-readable and machine-readable.
-    By default, many XML processors allow specification of an external
-    entity, a URI that is dereferenced and evaluated during XML processing.
-    When an XML document is being parsed, the parser can make a request and
-    include the content at the specified URI inside of the XML document.
+    [1]: https://github.com/spring-projects/spring-framework
+    \nA Directory Traversal attack (also known as path traversal) aims to
+    access files and directories that are stored outside the intended
+    folder. By manipulating files with \"dot-dot-slash (../)\" sequences and
+    its variations, or by using absolute file paths, it may be possible to
+    access arbitrary files and directories stored on file system, including
+    application source code, configuration, and other critical system files.
 
-    Attacks can include disclosing local files, which may contain sensitive
-    data such as passwords or private user data, using file: schemes or
-    relative paths in the system identifier.
+    Directory Traversal vulnerabilities can be generally divided into two
+    types:
 
-    For example, below is a sample XML document, containing an XML element-
-    username.
+    * **Information Disclosure**\: Allows the attacker to gain information
+      about the folder structure or read the contents of sensitive files on
+      the system.
 
-        <?xml version="1.0" encoding="ISO-8859-1"?>
-           <username>John</username>
-        </xml>
+    `st` is a module for serving static files on web pages, and contains a
+    [vulnerability of this type][1]. In our example, we will serve files
+    from the `public` route.
 
-    An external XML entity - `xxe`, is defined using a system identifier and
-    present within a DOCTYPE header. These entities can access local or
-    remote content. For example the below code contains an external XML
-    entity that would fetch the content of `/etc/passwd` and display it to
-    the user rendered by `username`.
+    If an attacker requests the following URL from our server, it will in
+    turn leak the sensitive private key of the root user.
 
-        <?xml version="1.0" encoding="ISO-8859-1"?>
-        <!DOCTYPE foo [
-           <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
-           <username>&xxe;</username>
-        </xml>
+        curl http://localhost:8080/public/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/root/.ssh/id_rsa
 
-    Other XXE Injection attacks can access local resources that may not stop
-    returning data, possibly impacting application availability and leading
-    to Denial of Service.
+    **Note** `%2e` is the URL encoded version of `.` (dot).
 
+    * **Writing arbitrary files**\: Allows the attacker to create or replace
+      existing files. This type of vulnerability is also known as
+      `Zip-Slip`.
+
+    One way to achieve this is by using a malicious `zip` archive that holds
+    path traversal filenames. When each filename in the zip archive gets
+    concatenated to the target extraction folder, without validation, the
+    final path ends up outside of the target folder. If an executable or a
+    configuration file is overwritten with a file containing malicious code,
+    the problem can turn into an arbitrary code execution issue quite
+    easily.
+
+    The following is an example of a `zip` archive with one benign file and
+    one malicious file. Extracting the malicious file will result in
+    traversing out of the target folder, ending up in `/root/.ssh/`
+    overwriting the `authorized_keys` file:
+
+        2018-04-15 22:04:29 .....           19           19  good.txt
+        2018-04-15 22:04:42 .....           20           20  ../../../../../../root/.ssh/authorized_keys
+
+
+
+    [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 3 <= 3.2.8.RELEASE"
-  - ">= 4 <= 4.0.4.RELEASE"
+  - ">= 3.0.0.RELEASE < 3.2.9.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.0.5.RELEASE"
   severity: high
   package_manager: maven
   cve:
@@ -376,23 +444,25 @@
   references:
   - http://www.gopivotal.com/security/cve-2014-0225
   - https://bugzilla.redhat.com/show_bug.cgi?id=CVE-2014-0225
+  - https://github.com/spring-projects/spring-framework/commit/c6503ebbf7c9e21ff022c58706dbac5417b2b5eb
+  - https://github.com/spring-projects/spring-framework/issues/16390
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30163
 - id: snykio:maven:org.springframework:spring-web:30164
   title: Denial of Service (DoS)
   description: |+
-    [`org.springframework:spring-web`][1] provides a comprehensive
-    programming and configuration model for modern Java-based enterprise
-    applications - on any kind of deployment platform.
+    [org.springframework:spring-web][1] provides a comprehensive programming
+    and configuration model for modern Java-based enterprise applications -
+    on any kind of deployment platform.
 
-    Affected versions of this package are vulnerable to Denial of Sevice
-    attacks. It does not properly process inline DTD declarations when DTD
-    is not entirely disabled, which allows remote attackers to cause a
-    denial of service (memory consumption and out-of-memory errors) via a
-    crafted XML file.
+    Affected versions of this package are vulnerable to Denial of Service
+    (DoS). It does not properly process inline DTD declarations when DTD is
+    not entirely disabled, which allows remote attackers to cause a denial
+    of service (memory consumption and out-of-memory errors) via a crafted
+    XML file.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-web%22
+    [1]: https://github.com/spring-projects/spring-framework
     \nDenial of Service (DoS) describes a family of attacks, all aimed at
     making a system inaccessible to its intended and legitimate users.
 
@@ -421,8 +491,8 @@
 
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 3.2 <= 3.2.13.RELEASE"
-  - ">= 4 <= 4.1.6.RELEASE"
+  - ">= 3.2.0.RELEASE < 3.2.14.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.1.7.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -436,34 +506,35 @@
   - Toshiaki Maki
   references:
   - http://pivotal.io/security/cve-2015-3192
+  - https://github.com/spring-projects/spring-framework/commit/5a711c05ec750f069235597173084c2ee796242
+  - https://github.com/spring-projects/spring-framework/issues/17727
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30164
 - id: snykio:maven:org.springframework:spring-web:30165
   title: Reflected File Download
   description: |
-    [`org.springframework:spring-web`][1] provides everything you need
-    beyond the Java language to create enterprise applications in a wide
-    range of scenarios and architectures.
+    [org.springframework:spring-web][1] provides a comprehensive programming
+    and configuration model for modern Java-based enterprise applications -
+    on any kind of deployment platform.
 
     Affected versions of this package are vulnerable to Reflected File
-    Download (RFD) attacks via a crafted URL with a batch script extension,
-    resulting in the response being downloaded rather than rendered.
+    Download via a crafted URL with a batch script extension, resulting in
+    the response being downloaded rather than rendered.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-web%22
+    [1]: https://github.com/spring-projects/spring-framework
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 3.2 <= 3.2.14.RELEASE"
-  - ">= 4.0 <= 4.0.9.RELEASE"
-  - ">= 4.1 <= 4.1.7.RELEASE"
-  - ">= 4.2 <= 4.2.1.RELEASE"
+  - ">= 3.2.0.RELEASE < 3.2.15.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.1.8.RELEASE"
+  - ">= 4.2.0.RELEASE < 4.2.2.RELEASE"
   severity: high
   package_manager: maven
   cve:
   - CVE-2015-5211
   cwe:
   - CWE-494
-  disclosed_date: 2016-12-25
+  disclosed_date: 2015-10-15
   created_date: 2016-12-25
   last_modified_date: 2016-12-25
   credit:
@@ -471,30 +542,36 @@
   references:
   - http://pivotal.io/security/cve-2015-5211
   - https://access.redhat.com/security/cve/cve-2015-5211
+  - https://github.com/spring-projects/spring-framework/commit/03f547eb9868f48f44d59b56067d4ac4740672c3
+  - https://github.com/spring-projects/spring-framework/commit/2bd1daa75ee0b8ec33608ca6ab065ef3e1815543
+  - https://github.com/spring-projects/spring-framework/commit/a95c3d820dbc4c3ae752f1b3ee22ee860b162402
+  - https://github.com/spring-projects/spring-framework/issues/18124
   - https://www.trustwave.com/Resources/SpiderLabs-Blog/Reflected-File-Download---A-New-Web-Attack-Vector/
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30165
 - id: snykio:maven:org.springframework:spring-web:31329
   title: Expression Language Injection
   description: |
-    [`org.springframework:spring-web`][1] VMware SpringSource Spring
-    Framework before 2.5.6.SEC03, 2.5.7.SR023, and 3.x before 3.0.6, when a
-    container supports Expression Language (EL), evaluates EL expressions in
-    tags twice, which allows remote attackers to obtain sensitive
-    information via a (1) name attribute in a (a) spring:hasBindErrors tag;
-    (2) path attribute in a (b) spring:bind or (c) spring:nestedpath tag;
-    (3) arguments, (4) code, (5) text, (6) var, (7) scope, or (8) message
-    attribute in a (d) spring:message or (e) spring:theme tag; or (9) var,
-    (10) scope, or (11) value attribute in a (f) spring:transform tag, aka
-    \"Expression Language Injection.\"
+    [org.springframework:spring-web][1] is a provides a comprehensive
+    programming and configuration model for modern Java-based enterprise
+    applications - on any kind of deployment platform.
+
+    Affected versions of this package are vulnerable to Expression Language
+    Injection. When a container supports Expression Language (EL), evaluates
+    EL expressions in tags twice, which allows remote attackers to obtain
+    sensitive information via a (1) name attribute in a (a)
+    spring:hasBindErrors tag; (2) path attribute in a (b) spring:bind or (c)
+    spring:nestedpath tag; (3) arguments, (4) code, (5) text, (6) var, (7)
+    scope, or (8) message attribute in a (d) spring:message or (e)
+    spring:theme tag; or (9) var, (10) scope, or (11) value attribute in a
+    (f) spring:transform tag, aka \"Expression Language Injection.\"
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-web%22
+    [1]: https://github.com/spring-projects/spring-framework
   affected_package: org.springframework:spring-web
   vulnerable_versions:
   - "< 2.5.6.SEC03"
-  - ">= 2.5.7 < 2.5.7.SR023"
-  - ">= 3 < 3.0.6"
+  - ">= 3.0.0.RELEASE < 3.0.6.RELEASE"
   severity: high
   package_manager: maven
   cve:
@@ -508,25 +585,32 @@
   - Arshan Dabirsiaghi
   - Stefano Di Paola
   references:
+  - https://github.com/spring-projects/spring-framework/commit/9772eb8410e37cd0bdec0d1b133218446c778beb
+  - https://github.com/spring-projects/spring-framework/commit/c8649087792d07df209fc75e0f9e2e3284e09fe
+  - https://github.com/spring-projects/spring-framework/commit/d95cbe23ee462245c5c2482e175f7b2a921b31c
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2011-2730
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-31329
 - id: snykio:maven:org.springframework:spring-web:31330
   title: XML External Entity (XXE) Injection
   description: |+
-    [`org.springframework:spring-web`][1] Affected versions of this package
-    are vulnerable to XML External Entity (XXE) injection attacks due to not
-    disabling entity resolution when using the `JAXB` marshaller. This
-    allows context-dependent attackers to read arbitrary files, cause a
-    denial of service, and conduct CSRF attacks via an XML external entity
-    declaration in conjunction with an entity reference in a (1) DOMSource,
-    (2) StAXSource, (3) SAXSource, or (4) StreamSource.
+    [org.springframework:spring-web][1] is a provides a comprehensive
+    programming and configuration model for modern Java-based enterprise
+    applications - on any kind of deployment platform.
+
+    Affected versions of this package are vulnerable to XML External Entity
+    (XXE) Injection. due to not disabling entity resolution when using the
+    `JAXB` marshaller. This allows context-dependent attackers to read
+    arbitrary files, cause a denial of service, and conduct CSRF attacks via
+    an XML external entity declaration in conjunction with an entity
+    reference in a (1) DOMSource, (2) StAXSource, (3) SAXSource, or (4)
+    StreamSource.
 
     **NOTE:** this issue was SPLIT from [CVE-2013-7315][2] due to different
     affected versions.
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-web%22
+    [1]: https://github.com/spring-projects/spring-framework
     [2]: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30162
     \nXXE Injection is a type of attack against an application that parses XML
     input. XML is a markup language that defines a set of rules for encoding
@@ -546,6 +630,7 @@
         <?xml version="1.0" encoding="ISO-8859-1"?>
            <username>John</username>
         </xml>
+    {: .language-xml}
 
     An external XML entity - `xxe`, is defined using a system identifier and
     present within a DOCTYPE header. These entities can access local or
@@ -558,6 +643,7 @@
            <!ENTITY xxe SYSTEM "file:///etc/passwd" >]>
            <username>&xxe;</username>
         </xml>
+    {: .language-xml}
 
     Other XXE Injection attacks can access local resources that may not stop
     returning data, possibly impacting application availability and leading
@@ -579,6 +665,9 @@
   credit:
   - Unknown
   references:
+  - https://github.com/spring-projects/spring-framework/commit/7576274874deeccb6da6b09a8d5bd62e8b5538b7
+  - https://github.com/spring-projects/spring-framework/pull/317
+  - https://github.com/spring-projects/spring-framework/pull/317/commits/2843b7d2ee12e3f9c458f6f816befd21b402e3b9
   - https://pivotal.io/security/cve-2013-4152
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2013-4152
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-31330
@@ -601,8 +690,8 @@
     [4]: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-30160
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - "< 3.2.8"
-  - ">= 4 < 4.0.2"
+  - ">= 3.0.0.RELEASE < 3.2.8.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.0.2.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -613,7 +702,7 @@
   created_date: 2014-06-06
   last_modified_date: 2014-06-06
   credit:
-  - Unknown
+  - Spase Markovski
   references:
   - https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-0054
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-31331
@@ -648,7 +737,7 @@
 - id: snykio:maven:org.springframework:spring-web:31689
   title: Information Exposure
   description: |
-    [`org.springframework:spring-web`][1] provides a comprehensive
+    [org.springframework:spring-web][1] is a provides a comprehensive
     programming and configuration model for modern Java-based enterprise
     applications - on any kind of deployment platform.
 
@@ -664,11 +753,11 @@
 
 
 
-    [1]: http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22spring-webmvc%22
+    [1]: https://github.com/spring-projects/spring-framework
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 4.3 < 4.3.18"
-  - ">= 5.0 < 5.0.7"
+  - ">= 4.3.0.RELEASE < 4.3.18.RELEASE"
+  - ">= 5.0.0.RELEASE < 5.0.7.RELEASE"
   severity: medium
   package_manager: maven
   cve:
@@ -682,23 +771,62 @@
   - Mariusz Luciow
   references:
   - https://github.com/spring-projects/spring-framework/commit/b80c13b722bb207ddf43f53a007ee3ddc1dd2e26
+  - https://github.com/spring-projects/spring-framework/issues/21338
   - https://pivotal.io/security/cve-2018-11040
   source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-31689
+- id: snykio:maven:org.springframework:spring-web:451604
+  title: Cross-Site Tracing (XST)
+  description: |
+    [org.springframework:spring-web][1] is a provides a comprehensive
+    programming and configuration model for modern Java-based enterprise
+    applications - on any kind of deployment platform.
+
+    Affected versions of this package are vulnerable to Cross-Site Tracing
+    (XST). It allows web applications to change the HTTP request method to
+    any HTTP method (including TRACE) using the `HiddenHttpMethodFilter` in
+    Spring MVC. If an application has a pre-existing XSS vulnerability, a
+    malicious user (or attacker) can use this filter to escalate to an XST
+    attack.
+
+
+
+    [1]: https://github.com/spring-projects/spring-framework
+  affected_package: org.springframework:spring-web
+  vulnerable_versions:
+  - ">= 4.3.0.RELEASE < 4.3.18.RELEASE"
+  - ">= 5.0.0.RELEASE < 5.0.7.RELEASE"
+  severity: medium
+  package_manager: maven
+  cve:
+  - CVE-2018-11039
+  cwe:
+  - CWE-284
+  disclosed_date: 2018-06-08
+  created_date: 2016-12-25
+  last_modified_date: 2016-12-25
+  credit:
+  - Mariusz Luciow
+  references:
+  - https://github.com/spring-projects/spring-framework/commit/dac97f1b7dac3e70ff603fb6fc9f205b95dd6b01
+  - https://github.com/spring-projects/spring-framework/commit/f2694a8ed93f1f63f87ce45d0bb638478b426acd
+  - https://github.com/spring-projects/spring-framework/issues/21376
+  - https://pivotal.io/security/cve-2018-11039
+  source_url: https://snyk.io/vuln/SNYK-JAVA-ORGSPRINGFRAMEWORK-451604
 - id: snykio:maven:org.springframework:spring-web:72470
   title: Denial of Service (DoS)
   description: |+
-    [org.springframework:spring-web][1] provides a comprehensive programming
-    and configuration model for modern Java-based enterprise applications -
-    on any kind of deployment platform.
+    [org.springframework:spring-web][1] is a provides a comprehensive
+    programming and configuration model for modern Java-based enterprise
+    applications - on any kind of deployment platform.
 
     Affected versions of this package are vulnerable to Denial of Service
-    (DoS) attacks. A malicious user could add a range header with a high
-    number of ranges, or with wide ranges that overlap, or both, for a
-    denial of service attack.
+    (DoS). A malicious user could add a range header with a high number of
+    ranges, or with wide ranges that overlap, or both, for a denial of
+    service attack.
 
 
 
-    [1]: https://mvnrepository.com/artifact/org.springframework/spring-web
+    [1]: https://github.com/spring-projects/spring-framework
     \nDenial of Service (DoS) describes a family of attacks, all aimed at
     making a system inaccessible to its intended and legitimate users.
 
@@ -727,9 +855,9 @@
 
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 4.2.0 < 4.3.20"
-  - ">= 5.0.0 < 5.0.10"
-  - ">= 5.1.0 < 5.1.1"
+  - ">= 4.2.0.RELEASE < 4.3.20.RELEASE"
+  - ">= 5.0.0.RELEASE < 5.0.10.RELEASE"
+  - ">= 5.1.0.RELEASE < 5.1.1.RELEASE"
   severity: low
   package_manager: maven
   cve:
@@ -808,8 +936,8 @@
     [1]: https://snyk.io/vuln/npm:st:20140206
   affected_package: org.springframework:spring-web
   vulnerable_versions:
-  - ">= 3.0.0 < 3.2.9"
-  - ">= 4.0.0 < 4.0.5"
+  - ">= 3.0.0.RELEASE < 3.2.9.RELEASE"
+  - ">= 4.0.0.RELEASE < 4.0.5.RELEASE"
   severity: medium
   package_manager: maven
   cve:
