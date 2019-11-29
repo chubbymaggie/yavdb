@@ -45,15 +45,15 @@ module YAVDB
           begin
             response = Net::HTTP.get_response(url)
             case response
-              when Net::HTTPNotFound then
+              when Net::HTTPNotFound
                 raise ArgumentError, 'page not found'
-              when Net::HTTPTooManyRequests then
+              when Net::HTTPTooManyRequests
                 raise ArgumentError, 'too many requests'
               else
                 response.body.lines
             end
-          rescue StandardError => exception
-            raise exception if retries.zero?
+          rescue StandardError => e
+            raise e if retries.zero?
 
             puts "Going to retry #{url}"
             retries -= 1

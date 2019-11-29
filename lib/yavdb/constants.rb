@@ -17,7 +17,7 @@
 module YAVDB
   module Constants
 
-    DEBUG = ENV['debug'].freeze
+    DEBUG = ENV['debug']
 
     YAVDB_DB_URL    = 'https://github.com/rtfpessoa/yavdb.git'
     YAVDB_DB_BRANCH = 'database'
@@ -28,7 +28,7 @@ module YAVDB
     DEFAULT_YAVDB_DATABASE_PATH = File.expand_path(File.join(DEFAULT_YAVDB_PATH, 'database')).freeze
     DEFAULT_CACHE_PATH          = File.expand_path(File.join(ENV['HOME'], '.yavdb', 'cache')).freeze
 
-    POSSIBLE_PACKAGE_MANAGERS = ['npm', 'rubygems', 'maven', 'nuget', 'packagist', 'pypi', 'go'].freeze
+    POSSIBLE_PACKAGE_MANAGERS = ['npm', 'rubygems', 'maven', 'nuget', 'packagist', 'pypi', 'go', 'cargo'].freeze
 
     SEVERITIES = ['low', 'medium', 'high'].freeze
 
